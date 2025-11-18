@@ -43,6 +43,9 @@ def read_root():
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Vercel + FastAPI</title>
+
+        <meta name="google-site-verification" content="v61UdH2nOOABI">
+
         <link rel="icon" type="image/x-icon" href="/favicon.ico">
         <style>
             * {
