@@ -2,13 +2,9 @@ from datetime import datetime, timedelta
 from typing import Optional
 from jose import jwt
 from passlib.context import CryptContext
+from app.core.config import settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-SECRET_KEY = "SEU_SEGREDO_AQUI"           
-REFRESH_SECRET_KEY = "SEU_REFRESH_AQUI"  
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
-REFRESH_TOKEN_EXPIRE_DAYS = 30
 
 def hash_password(password: str) -> str:
     return pwd_context.hash(password)
@@ -18,13 +14,13 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 def create_access_token(data: dict, expires_delta: Optional[int] = None):
     expire = datetime.utcnow() + timedelta(
-        minutes=expires_delta or ACCESS_TOKEN_EXPIRE_MINUTES
+        minutes=expires_delta or settings.ACCESS_TOKEN_EXPIRE_MINUTES
     )
     data.update({"exp": expire})
-    return jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
+    return jwt.encode(data, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
 
 def create_refresh_token(data: dict):
-    expire = datetime.utcnow() + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
+    expire = datetime.utcnow() + timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS)
     data.update({"exp": expire})
-    return jwt.encode(data, REFRESH_SECRET_KEY, algorithm=ALGORITHM)
+    return jwt.encode(data, settings.REFRESH_SECRET_KEY, algorithm=settings.ALGORITHM)
