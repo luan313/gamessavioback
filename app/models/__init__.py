@@ -1,0 +1,7 @@
+from .user import User
+from .game import Game
+from .categoria import Categoria
+from .game_categoria import GameCategoria
+from .avaliacao import Avaliacao
+from .historico_preco import HistoricoPreco
+from .jogos_monitorados import JogosMonitorados
