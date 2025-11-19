@@ -86,11 +86,11 @@ class rawg_service:
         
         try:
             db.commit()
-            print(f"✅ Sucesso: {game.nome} salvo/atualizado!")
+            print(f"Sucesso: {game.nome} salvo/atualizado!")
             return game
         except Exception as e:
             db.rollback()
-            print(f"❌ Erro ao salvar {game_data['name']}: {e}")
+            print(f"Erro ao salvar {game_data['name']}: {e}")
             raise e
                   
         
@@ -143,7 +143,7 @@ class rawg_service:
             except Exception as e:
                 print(e)
         
-        print(f"--- ✅ Carga Finalizada! Total processado: {total_importado} jogos ---")
+        print(f"--- Carga Finalizada! Total processado: {total_importado} jogos ---")
         return {"status": "success", "total": total_importado}
 
 

@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     ANY_DEAL_API_KEY:str
     RAWG_API_KEY:str
     RAWG_BASE_URL:str
+    BACKOFFICE_TOKEN: str
     
     model_config = SettingsConfigDict(
         env_file=".env",
