@@ -5,8 +5,8 @@ from jose import jwt, JWTError
 from app.core.security import (
     hash_password, verify_password,
     create_access_token, create_refresh_token,
-    SECRET_KEY, REFRESH_SECRET_KEY, ALGORITHM
 )
+from app.core.config import settings
 from app.models.user import User
 
 
@@ -53,8 +53,8 @@ class AuthService:
         try:
             payload = jwt.decode(
                 refresh_token,
-                REFRESH_SECRET_KEY,
-                algorithms=[ALGORITHM]
+                settings.REFRESH_SECRET_KEY,
+                algorithms=[settings.ALGORITHM]
             )
             user_id = payload.get("sub")
         except JWTError:
