@@ -11,7 +11,7 @@ router = APIRouter(
 )
 
 @router.post("/sync-games")
-def sync_games(db: Session = Depends(get_db)):
-    resultado = rawg_service.seed_games_by_amount(db=db)
+async def sync_games(db: Session = Depends(get_db)):
+    resultado = await rawg_service.seed_games_by_amount(db=db)
     print(resultado)
 

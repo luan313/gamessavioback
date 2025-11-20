@@ -10,6 +10,6 @@ from app.routers import (
 )
 
 app = FastAPI(title="Letterboxd de Jogos")
-
 app.include_router(auth_router.router, tags=["Auth"])
 app.include_router(backoffice.router, tags=["backoffice"])
+app.include_router(avaliacao_router.router, tags=["avaliação"])

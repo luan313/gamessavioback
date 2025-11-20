@@ -1,5 +1,6 @@
 from fastapi import HTTPException, status
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession 
+from sqlalchemy import select                   
 from jose import jwt, JWTError
 
 from app.core.security import (
@@ -9,12 +10,13 @@ from app.core.security import (
 from app.core.config import settings
 from app.models.user import User
 
-
 class AuthService:
-
     @staticmethod
-    def register_user(data, db: Session):
-        existing = db.query(User).filter(User.email == data.email).first()
+    async def register_user(data, db: AsyncSession):
+        query = select(User).where(User.email == data.email)
+        result = await db.execute(query)
+        existing = result.scalar_one_or_none()
+
         if existing:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -26,18 +28,24 @@ class AuthService:
             email=data.email,
             password_hash=hash_password(data.password),
         )
-        db.add(new_user)
-        db.commit()
-        db.refresh(new_user)
+        
+        db.add(new_user) 
+        
+        await db.commit()
+        await db.refresh(new_user)
 
         access = create_access_token({"sub": str(new_user.id)})
         refresh = create_refresh_token({"sub": str(new_user.id)})
 
         return access, refresh
 
+
     @staticmethod
-    def login_user(data, db: Session):
-        user = db.query(User).filter(User.email == data.email).first()
+    async def login_user(data, db: AsyncSession):
+        query = select(User).where(User.email == data.email)
+        result = await db.execute(query)
+        user = result.scalar_one_or_none()
+
         if not user or not verify_password(data.password, user.password_hash):
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
@@ -47,6 +55,7 @@ class AuthService:
         access = create_access_token({"sub": str(user.id)})
         refresh = create_refresh_token({"sub": str(user.id)})
         return access, refresh
+
 
     @staticmethod
     def refresh_token(refresh_token: str):
