@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.routers import (
     auth_router,
+    backoffice,
     user_router,
     game_router,
     categoria_router,
@@ -11,3 +12,4 @@ from app.routers import (
 app = FastAPI(title="Letterboxd de Jogos")
 
 app.include_router(auth_router.router, tags=["Auth"])
+app.include_router(backoffice.router, tags=["backoffice"])
