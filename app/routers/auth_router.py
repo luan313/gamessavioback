@@ -14,18 +14,18 @@ from app.database.session import get_db
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 @router.post("/register", response_model=TokenResponse)
-def register_user(data: UserCreate, db: Session = Depends(get_db)):
-    access, refresh = AuthService.register_user(data, db)
+async def register_user(data: UserCreate, db: Session = Depends(get_db)):
+    access, refresh = await AuthService.register_user(data, db)
     return TokenResponse(access_token=access, refresh_token=refresh)
 
 
 @router.post("/login", response_model=TokenResponse)
-def login(data: UserLogin, db: Session = Depends(get_db)):
-    access, refresh = AuthService.login_user(data, db)
+async def login(data: UserLogin, db: Session = Depends(get_db)):
+    access, refresh = await AuthService.login_user(data, db)
     return TokenResponse(access_token=access, refresh_token=refresh)
 
 
 @router.post("/refresh", response_model=TokenResponse)
-def refresh_token(data: TokenRefreshRequest):
-    access, refresh = AuthService.refresh_token(data.refresh_token)
+async def refresh_token(data: TokenRefreshRequest):
+    access, refresh = await AuthService.refresh_token(data.refresh_token)
     return TokenResponse(access_token=access, refresh_token=refresh)

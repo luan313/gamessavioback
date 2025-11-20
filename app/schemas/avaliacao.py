@@ -1,23 +1,26 @@
-from pydantic import BaseModel
-from uuid import UUID
-from datetime import datetime
+from pydantic import BaseModel, Field, UUID4
 from typing import Optional
-
+from datetime import datetime
 
 class AvaliacaoBase(BaseModel):
-    nota: int
     comentario: Optional[str] = None
+    nota: int = Field(..., ge=0, le=10, description="Nota de 0 a 10")
 
 
 class AvaliacaoCreate(AvaliacaoBase):
-    game_id: UUID
+    game_id: UUID4
+
+
+class AvaliacaoUpdate(BaseModel):
+    comentario: Optional[str] = None
+    nota: Optional[int] = Field(None, ge=0, le=10)
 
 
 class AvaliacaoResponse(AvaliacaoBase):
-    id: UUID
-    user_id: UUID
-    game_id: UUID
+    id: UUID4
+    user_id: UUID4
+    game_id: UUID4
     created_at: datetime
 
     class Config:
-        from_attributes = True
+        from_attributes = True 
