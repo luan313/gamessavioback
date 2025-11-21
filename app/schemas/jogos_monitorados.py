@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from uuid import UUID
 from datetime import datetime
+from typing import Optional
 
 
 class MonitoramentoBase(BaseModel):
@@ -9,6 +10,10 @@ class MonitoramentoBase(BaseModel):
 
 class MonitoramentoCreate(MonitoramentoBase):
     game_id: UUID
+
+
+class MonitoramentoUpdate(BaseModel):
+    preco_a_pagar: Optional[float] = None
 
 
 class MonitoramentoResponse(MonitoramentoBase):
