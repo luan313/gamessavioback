@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from uuid import UUID
-from typing import List, Optional
+from typing import Optional
 
 class CategoriaResponse(BaseModel):
     id: UUID

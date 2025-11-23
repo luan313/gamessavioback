@@ -9,7 +9,17 @@ from app.services import monitoramento_service as crud_monitoramento
 
 router = APIRouter(prefix="/monitoramentos")
 
-@router.post("/", response_model=MonitoramentoResponse, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/", 
+    response_model=MonitoramentoResponse, 
+    status_code=status.HTTP_201_CREATED,
+    summary="Criar alerta de preço",
+    description="Adiciona um jogo à lista de desejos do usuário para monitorar quedas de preço.",
+    responses={
+        409: {"description": "Jogo já está sendo monitorado"},
+        404: {"description": "Jogo não encontrado"}
+    }
+)
 async def create_new_monitoramento(
     monitoramento: MonitoramentoCreate,
     db: AsyncSession = Depends(get_db),
@@ -18,7 +28,12 @@ async def create_new_monitoramento(
     return await crud_monitoramento.create_monitoramento(db=db, monitoramento=monitoramento, user_id=current_user.id)
 
 
-@router.get("/", response_model=List[MonitoramentoResponse])
+@router.get(
+    "/", 
+    response_model=List[MonitoramentoResponse], 
+    summary="Meus monitoramentos",
+    description="Lista todos os jogos que o usuário logado está monitorando.",
+)
 async def read_monitoramentos(
     skip: int = 0,
     limit: int = 100,
@@ -28,7 +43,16 @@ async def read_monitoramentos(
     return await crud_monitoramento.get_monitored_games_for_user(db, current_user.id, skip, limit)
 
 
-@router.patch("/{monitoramento_id}", response_model=MonitoramentoResponse)
+@router.patch(
+    "/{monitoramento_id}", 
+    response_model=MonitoramentoResponse,
+    summary="Editar alerta",
+    description="Atualiza as condições de alerta (ex: preço alvo) de um monitoramento.",
+    responses={
+        403: {"description": "Não autorizado (Este monitoramento pertence a outro usuário)"},
+        404: {"description": "Monitoramento não encontrado"}
+    }
+)
 async def update_existing_monitoramento(
     monitoramento_id: UUID,
     monitoramento: MonitoramentoUpdate,
@@ -48,7 +72,16 @@ async def update_existing_monitoramento(
     return updated_monitoramento
 
 
-@router.delete("/{monitoramento_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete(
+    "/{monitoramento_id}", 
+    status_code=status.HTTP_204_NO_CONTENT,
+    summary="Remover alerta",
+    description="Para de monitorar o jogo e remove da lista de desejos.",
+    responses={
+        403: {"description": "Não autorizado"},
+        404: {"description": "Monitoramento não encontrado"}
+    }
+)
 async def delete_existing_monitoramento(
     monitoramento_id: UUID,
     db: AsyncSession = Depends(get_db),

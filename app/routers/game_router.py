@@ -9,8 +9,12 @@ from fastapi_pagination import Page, Params
 
 router = APIRouter(prefix="/game")
 
-
-@router.get("/hyped-games/{qtd}", response_model=Page[TopHypedGamesResponse])
+@router.get(
+    "/hyped-games", 
+    response_model=Page[TopHypedGamesResponse],
+    summary="Listar jogos populares",
+    description="Retorna uma lista de jogos ordenados pelo 'Hype Score', com paginação.",
+)
 async def read_avaliacoes_game(
     qtd: int,
     params: Params = Depends(),
