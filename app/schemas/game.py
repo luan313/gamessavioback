@@ -28,12 +28,16 @@ class GamePlataformaAssociation(BaseModel):
     class Config:
         from_attributes = True
 
-
 class GameResponse(GameBase):
     id: UUID
     nota_media: Optional[float] = None
     last_price: Optional[float] = None
     isthereanydeal_id: Optional[str] = None
+    deal_url: Optional[str] = None      
+    store_name: Optional[str] = None    
+    imagem_capa: Optional[str] = None
+    hype: int = 0
+    
     updated_at: Optional[datetime] = None
     
     categorias: List[GameCategoriaAssociation] = []
@@ -42,3 +46,18 @@ class GameResponse(GameBase):
     class Config:
         from_attributes = True
         
+class TopHypedGamesResponse(GameBase):
+    id: UUID
+    nota_media: Optional[float] = None
+    last_price: Optional[float] = None
+    isthereanydeal_id: Optional[str] = None
+    deal_url: Optional[str] = None      
+    store_name: Optional[str] = None    
+    imagem_capa: Optional[str] = None
+    hype: int = 0
+    
+    updated_at: Optional[datetime] = None
+    
+
+    class Config:
+        from_attributes = True
