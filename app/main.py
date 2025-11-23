@@ -27,3 +27,4 @@ app.add_middleware(
 app.include_router(auth_router.router, tags=["Auth"])
 app.include_router(backoffice.router, tags=["backoffice"])
 app.include_router(avaliacao_router.router, tags=["avaliação"])
+app.include_router(monitoramento_router.router, tags=["monitoramento"])
