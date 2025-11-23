@@ -21,6 +21,9 @@ class Game(Base):
     data_lancamento = Column(Date)
     
     last_price = Column(DECIMAL(10,2), default=0.00)
+    deal_url = Column(String(500)) 
+    store_name = Column(String(100))
+    hype = Column(Integer)
     isthereanydeal_id = Column(String(200))
     rawg_id = Column(Integer, unique=True)
     
