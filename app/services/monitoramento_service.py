@@ -1,8 +1,8 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, delete
 from uuid import UUID
-from models.jogos_monitorados import JogosMonitorados
-from schemas.jogos_monitorados import MonitoramentoCreate, MonitoramentoUpdate
+from app.models.jogos_monitorados import JogosMonitorados
+from app.schemas.jogos_monitorados import MonitoramentoCreate, MonitoramentoUpdate
 
 
 async def create_monitoramento(db: AsyncSession, monitoramento: MonitoramentoCreate, user_id: UUID):
