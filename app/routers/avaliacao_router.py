@@ -15,11 +15,41 @@ router = APIRouter(prefix="/avaliacoes")
     "/", 
     response_model=AvaliacaoResponse, 
     status_code=status.HTTP_201_CREATED,
-    summary="Criar nova avaliação",
-    description="Adiciona uma avaliação (nota/texto) de um usuário para um jogo específico.",
+    summary="Criar avaliação de jogo",
+    description="Adiciona uma nova avaliação (nota e/ou comentário) de um usuário para um jogo específico. O usuário deve estar autenticado.",
     responses={
-        401: {"description": "Usuário não autenticado"},
-        404: {"description": "Jogo não encontrado"} 
+        201: {
+            "description": "Avaliação criada com sucesso",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "id": "550e8400-e29b-41d4-a716-446655440000",
+                        "game_id": "660e8400-e29b-41d4-a716-446655440001",
+                        "user_id": "770e8400-e29b-41d4-a716-446655440002",
+                        "nota": 4.5,
+                        "comentario": "Jogo incrível! Jogabilidade perfeita.",
+                        "created_at": "2024-11-24T18:07:00",
+                        "updated_at": "2024-11-24T18:07:00"
+                    }
+                }
+            }
+        },
+        401: {
+            "description": "Usuário não autenticado",
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Autenticação necessária"}
+                }
+            }
+        },
+        404: {
+            "description": "Jogo não encontrado",
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Jogo não encontrado"}
+                }
+            }
+        }
     }
 )
 async def create_new_avaliacao(
@@ -27,6 +57,23 @@ async def create_new_avaliacao(
     db: AsyncSession = Depends(get_db),
     current_user = Depends(get_current_user)
 ):
+    """
+        Cria uma nova avaliação para um jogo.
+        
+        Parâmetros:
+        - **game_id**: UUID do jogo a ser avaliado
+        - **nota**: Nota de 0 a 5 (com decimais, ex: 4.5)
+        - **comentario**: Texto da avaliação (opcional)
+        
+        Retorna:
+        - Dados da avaliação criada incluindo ID, nota, comentário e timestamps
+        
+        Regras:
+        - Cada usuário pode criar apenas uma avaliação por jogo
+        - A nota deve estar entre 0 e 5
+        
+        Requer autenticação: Sim (Bearer token)
+    """
     return await crud_avaliacao.create_avaliacao(db=db, avaliacao=avaliacao, user_id=current_user.id)
 
 
@@ -34,7 +81,40 @@ async def create_new_avaliacao(
     "/game/{game_id}", 
     response_model=Page[AvaliacaoResponse], 
     summary="Listar avaliações de um jogo",
-    description="Retorna as avaliações de um jogo específico de forma paginada.",
+    description="Retorna todas as avaliações feitas para um jogo específico, com paginação. Inclui notas, comentários e informações dos avaliadores.",
+    responses={
+        200: {
+            "description": "Lista de avaliações retornada com sucesso",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "items": [
+                            {
+                                "id": "550e8400-e29b-41d4-a716-446655440000",
+                                "game_id": "660e8400-e29b-41d4-a716-446655440001",
+                                "user_id": "770e8400-e29b-41d4-a716-446655440002",
+                                "nota": 4.5,
+                                "comentario": "Jogo incrível!",
+                                "created_at": "2024-11-24T18:07:00",
+                                "updated_at": "2024-11-24T18:07:00"
+                            }
+                        ],
+                        "total": 150,
+                        "page": 1,
+                        "size": 20
+                    }
+                }
+            }
+        },
+        404: {
+            "description": "Jogo não encontrado",
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Jogo não encontrado"}
+                }
+            }
+        }
+    }
 )
 async def read_avaliacoes_game(
     game_id: UUID,
@@ -42,17 +122,63 @@ async def read_avaliacoes_game(
     limit: int = 100,
     db: AsyncSession = Depends(get_db)
 ):
+    """
+        Retorna todas as avaliações de um jogo específico.
+        
+        Parâmetros:
+        - **game_id**: UUID do jogo
+        - **skip**: Número de registros a pular (paginação, padrão: 0)
+        - **limit**: Número máximo de registros (padrão: 100)
+        - **page**: Número da página (via query params)
+        - **size**: Tamanho da página (via query params)
+        
+            Retorna:
+            - Lista paginada de avaliações com notas, comentários e dados dos usuários
+            - Informações de paginação (total, page, size)
+            
+            Não requer autenticação: Aberto ao público
+    """
     return await crud_avaliacao.get_avaliacoes_by_game(db, game_id, skip, limit)
 
 
 @router.patch(
     "/{avaliacao_id}", 
     response_model=AvaliacaoResponse,
-    summary="Atualizar avaliação",
-    description="Permite que o autor edite sua própria avaliação.",
+    summary="Editar minha avaliação",
+    description="Atualiza uma avaliação existente (nota e/ou comentário). Apenas o autor da avaliação pode editá-la.",
     responses={
-        403: {"description": "Não autorizado (Tentativa de editar avaliação de outro usuário)"},
-        404: {"description": "Avaliação não encontrada"}
+        200: {
+            "description": "Avaliação atualizada com sucesso",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "id": "550e8400-e29b-41d4-a716-446655440000",
+                        "game_id": "660e8400-e29b-41d4-a716-446655440001",
+                        "user_id": "770e8400-e29b-41d4-a716-446655440002",
+                        "nota": 5.0,
+                        "comentario": "Avaliação atualizada após DLC",
+                        "created_at": "2024-11-24T18:07:00",
+                        "updated_at": "2024-11-24T18:10:00"
+                    }
+                }
+            }
+        },
+        403: {
+            "description": "Não autorizado - tentativa de editar avaliação de outro usuário",
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Não autorizado a editar esta avaliação"}
+                }
+            }
+        },
+        404: {
+            "description": "Avaliação não encontrada",
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Avaliação não encontrada"}
+                }
+            }
+        }
     }
 )
 async def update_existing_avaliacao(
@@ -61,6 +187,24 @@ async def update_existing_avaliacao(
     db: AsyncSession = Depends(get_db),
     current_user = Depends(get_current_user)
 ):
+    """
+        Atualiza uma avaliação existente.
+        
+        Parâmetros:
+        - **avaliacao_id**: UUID da avaliação a ser atualizada
+        - **nota**: Nova nota de 0 a 5 (opcional)
+        - **comentario**: Novo texto da avaliação (opcional)
+        
+        Retorna:
+        - Dados atualizados da avaliação com novo timestamp de updated_at
+        
+        Validações:
+        - Apenas o autor da avaliação pode editá-la
+        - Retorna 403 se tentar editar avaliação de outro usuário
+        - Retorna 404 se a avaliação não existir
+        
+        Requer autenticação: Sim (Bearer token)
+    """
     updated_avaliacao = await crud_avaliacao.update_avaliacao(
         db, avaliacao_id, avaliacao, current_user.id
     )
@@ -75,11 +219,28 @@ async def update_existing_avaliacao(
 @router.delete(
     "/{avaliacao_id}", 
     status_code=status.HTTP_204_NO_CONTENT,
-    summary="Deletar avaliação",
-    description="Remove uma avaliação. Apenas o autor pode deletar.",
+    summary="Deletar minha avaliação",
+    description="Remove permanentemente uma avaliação do sistema. Apenas o autor pode deletar sua própria avaliação.",
     responses={
-        403: {"description": "Não autorizado"},
-        404: {"description": "Avaliação não encontrada"}
+        204: {
+            "description": "Avaliação deletada com sucesso (sem conteúdo)"
+        },
+        403: {
+            "description": "Não autorizado - tentativa de deletar avaliação de outro usuário",
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Não autorizado a deletar esta avaliação"}
+                }
+            }
+        },
+        404: {
+            "description": "Avaliação não encontrada",
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Avaliação não encontrada"}
+                }
+            }
+        }
     }
 )
 async def delete_existing_avaliacao(
@@ -87,6 +248,24 @@ async def delete_existing_avaliacao(
     db: AsyncSession = Depends(get_db),
     current_user = Depends(get_current_user)
 ):
+    """
+        Remove uma avaliação permanentemente.
+        
+        Parâmetros:
+        - **avaliacao_id**: UUID da avaliação a ser removida
+        
+        Comportamento:
+        - Remove permanentemente a avaliação do banco de dados
+        - A nota do usuário deixa de contar na média do jogo
+        - Retorna status 204 (No Content) em caso de sucesso
+        
+        Validações:
+        - Apenas o autor da avaliação pode deletá-la
+        - Retorna 403 se tentar deletar avaliação de outro usuário
+        - Retorna 404 se a avaliação não existir
+        
+        Requer autenticação: Sim (Bearer token)
+    """
     result = await crud_avaliacao.delete_avaliacao(db, avaliacao_id, current_user.id)
     
     if result == "unauthorized":

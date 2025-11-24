@@ -15,3 +15,12 @@ class CategoriaResponse(CategoriaBase):
 
     class Config:
         from_attributes = True
+
+
+class CategoriaComJogos(BaseModel):
+    id: UUID
+    nome: str
+    quantidade_jogos: int
+
+    class Config:
+        from_attributes = True
