@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field, UUID4
 from typing import Optional
 from datetime import datetime
+from app.schemas.user import UserBasic
 
 class AvaliacaoBase(BaseModel):
     comentario: Optional[str] = None
@@ -21,6 +22,7 @@ class AvaliacaoResponse(AvaliacaoBase):
     user_id: UUID4
     game_id: UUID4
     created_at: datetime
-
+    user: UserBasic
+    
     class Config:
         from_attributes = True 

@@ -3,6 +3,7 @@ from sqlalchemy.future import select
 from uuid import UUID
 from app.models.avaliacao import Avaliacao 
 from app.schemas.avaliacao import AvaliacaoCreate, AvaliacaoUpdate
+from sqlalchemy.orm import selectinload
 
 async def create_avaliacao(db: AsyncSession, avaliacao: AvaliacaoCreate, user_id: UUID):
     db_avaliacao = Avaliacao(
@@ -58,3 +59,12 @@ async def delete_avaliacao(db: AsyncSession, avaliacao_id: UUID, user_id: UUID):
     await db.delete(db_avaliacao)
     await db.commit()
     return True
+
+async def get_last_five_avaliacoes(db: AsyncSession):
+    result = await db.execute(
+        select(Avaliacao)
+        .options(selectinload(Avaliacao.user))
+        .order_by(Avaliacao.created_at.desc())
+        .limit(5)
+    )
+    return result.scalars().all()

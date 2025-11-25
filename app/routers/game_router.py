@@ -6,6 +6,7 @@ from app.schemas.game import TopHypedGamesResponse
 from app.services import game_service
 from fastapi_pagination.ext.sqlalchemy import paginate as paginate_async
 from fastapi_pagination import Page, Params
+from fastapi import Query
 
 router = APIRouter(prefix="/game")
 
@@ -47,7 +48,7 @@ router = APIRouter(prefix="/game")
     }
 )
 async def read_avaliacoes_game(
-    qtd: int,
+    qtd: int = Query(qtd=20, description="Número máximo de jogos a retornar"),
     params: Params = Depends(),
     db: AsyncSession = Depends(get_db)
 ):
@@ -67,5 +68,6 @@ async def read_avaliacoes_game(
         
         Os jogos são ordenados do maior para o menor Hype Score.
     """
-    query = game_service.get_top_hyped_games(db, limit=qtd)
+    params.size = qtd
+    query = game_service.get_top_hyped_games()
     return await paginate_async(db, query, params)

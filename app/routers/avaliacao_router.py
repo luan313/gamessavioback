@@ -76,6 +76,36 @@ async def create_new_avaliacao(
     """
     return await crud_avaliacao.create_avaliacao(db=db, avaliacao=avaliacao, user_id=current_user.id)
 
+@router.get(
+    "/last-five-avaliations",
+    response_model=list[AvaliacaoResponse], 
+    summary="Listar as últimas avaliações",
+    description="Retorna as últimas avaliações feitas por usuários. Inclui notas, comentários e informações dos avaliadores.",
+    responses={
+        200: {
+            "description": "Lista de avaliações retornada com sucesso",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "items": [
+                            {
+                                "id": "550e8400-e29b-41d4-a716-446655440000",
+                                "game_id": "660e8400-e29b-41d4-a716-446655440001",
+                                "user_id": "770e8400-e29b-41d4-a716-446655440002",
+                                "nota": 4.5,
+                                "comentario": "Jogo incrível!",
+                                "created_at": "2024-11-24T18:07:00",
+                                "updated_at": "2024-11-24T18:07:00"
+                            }
+                        ],
+                    }
+                }
+            }
+        }
+    }
+)
+async def read_last_five_avaliacoes(db: AsyncSession = Depends(get_db)):
+    return await crud_avaliacao.get_last_five_avaliacoes(db)
 
 @router.get(
     "/game/{game_id}", 

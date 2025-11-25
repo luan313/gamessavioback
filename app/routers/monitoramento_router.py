@@ -72,7 +72,7 @@ async def create_new_monitoramento(
 
 @router.get(
     "/", 
-    response_model=List[MonitoramentoResponse], 
+    response_model=list[MonitoramentoResponse], 
     summary="Listar meus monitoramentos de preço",
     description="Retorna todos os jogos que o usuário autenticado está monitorando, com informações sobre preço alvo e status do alerta.",
     responses={

@@ -14,7 +14,7 @@ router = APIRouter(prefix="/categoria")
 
 @router.get(
     "/com-jogos",
-    response_model=List[CategoriaComJogos],
+    response_model=list[CategoriaComJogos],
     summary="Listar categorias com quantidade de jogos",
     description="Retorna todas as categorias com seus IDs, nomes e a quantidade de jogos em cada categoria.",
 )
@@ -43,7 +43,7 @@ async def get_categorias_com_jogos(
 
 @router.get(
     "/{categoria_id}/jogos",
-    response_model=List[TopHypedGamesResponse],
+    response_model=list[TopHypedGamesResponse],
     summary="Listar jogos de uma categoria",
     description="Retorna todos os jogos pertencentes a uma categoria específica, ordenados por nome.",
     responses={
