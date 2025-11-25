@@ -6,7 +6,7 @@ from fastapi_pagination import Page, Params
 from fastapi_pagination.ext.sqlalchemy import paginate as paginate_async
 from app.database.session import get_db
 from app.core.security import get_current_user 
-from app.schemas.avaliacao import AvaliacaoCreate, AvaliacaoUpdate, AvaliacaoResponse
+from app.schemas.avaliacao import AvaliacaoCreate, AvaliacaoUpdate, AvaliacaoResponse, AvaliacaoBasicResponse
 from app.services import avaliacao_service as crud_avaliacao
 
 router = APIRouter(prefix="/avaliacoes")
@@ -78,7 +78,7 @@ async def create_new_avaliacao(
 
 @router.get(
     "/last-five-avaliations",
-    response_model=list[AvaliacaoResponse], 
+    response_model=list[AvaliacaoBasicResponse], 
     summary="Listar as últimas avaliações",
     description="Retorna as últimas avaliações feitas por usuários. Inclui notas, comentários e informações dos avaliadores.",
     responses={

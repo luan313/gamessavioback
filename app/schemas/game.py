@@ -13,6 +13,11 @@ class GameBase(BaseModel):
     data_lancamento: Optional[date] = None
     metacritic: Optional[int] = None
 
+class GameBasic(BaseModel):
+    id: UUID
+    imagem_capa: Optional[str] = None
+    nome: str
+    
 class GameCreate(GameBase):
     rawg_id: Optional[int] = None
     categorias_ids: List[UUID] = []

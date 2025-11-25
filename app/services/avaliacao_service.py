@@ -63,7 +63,10 @@ async def delete_avaliacao(db: AsyncSession, avaliacao_id: UUID, user_id: UUID):
 async def get_last_five_avaliacoes(db: AsyncSession):
     result = await db.execute(
         select(Avaliacao)
-        .options(selectinload(Avaliacao.user))
+        .options(
+            selectinload(Avaliacao.user),
+            selectinload(Avaliacao.game)   
+        )
         .order_by(Avaliacao.created_at.desc())
         .limit(5)
     )
