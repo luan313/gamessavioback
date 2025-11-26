@@ -52,7 +52,7 @@ async def process_price_updates(game_ids: List[UUID], db: AsyncSession):
             subject = f"Price Alert: {game.nome} is now {game.last_price}!"
             content = (
                 f"Olá {user.nome},\n\n"
-                f"Boas notícias! O jogo {game.nome} baixou para {game.last_price}.\n"
+                f"Boas notícias! O jogo {game.nome} baixou para  R$ {game.last_price} \n"
                 f"Seu preço alvo era {monitoramento.preco_alvo}.\n\n"
                 f"Confira aqui: {game.deal_url or 'Link não disponível'}\n\n"
                 "Boas jogatinas!"
