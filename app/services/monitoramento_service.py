@@ -7,7 +7,7 @@ from app.schemas.jogos_monitorados import MonitoramentoCreate, MonitoramentoUpda
 
 async def create_monitoramento(db: AsyncSession, monitoramento: MonitoramentoCreate, user_id: UUID):
     db_monitoramento = JogosMonitorados(
-        preco_alvo = monitoramento.preco_a_pagar,
+        preco_alvo = monitoramento.preco_alvo,
         game_id=monitoramento.game_id, 
         user_id=user_id
     )
