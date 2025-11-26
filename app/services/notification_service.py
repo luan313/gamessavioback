@@ -7,10 +7,13 @@ from sqlalchemy import select
 from app.models.jogos_monitorados import JogosMonitorados
 from app.models.game import Game
 from app.models.user import User
+from email.utils import make_msgid
+from pathlib import Path
 from app.core.config import settings
 import logging
 
 logger = logging.getLogger(__name__)
+BASE_DIR = Path(__file__).resolve().parents[2]
 
 async def send_email(to_email: str, subject: str, content: str):
     if not settings.EMAIL_USER or not settings.EMAIL_PASSWORD:
@@ -19,10 +22,36 @@ async def send_email(to_email: str, subject: str, content: str):
         return
 
     msg = EmailMessage()
-    msg.set_content(content)
+
+    img_path = BASE_DIR / "public/background.jpg"
+    img_data = img_path.read_bytes()
+    img_cid = make_msgid()[1:-1] 
+
+    html_content = f"""
+        <html>
+            <body>
+                <div style="font-family: Arial; font-size: 14px;">
+                    <img src="cid:{img_cid}" alt="LetterBox Banner" style="width:100%; max-width:600px;" />
+                    <br><br>
+                    {content.replace('\n', '<br>')}
+                </div>
+            </body>
+        </html>
+    """
+
+    msg.set_content(content) 
+    msg.add_alternative(html_content, subtype="html")
+
     msg["Subject"] = subject
     msg["From"] = settings.EMAIL_USER
     msg["To"] = to_email
+
+    msg.get_payload()[1].add_related(
+        img_data,
+        maintype="image",
+        subtype="jpg",
+        cid=img_cid
+    )
 
     try:
         with smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT) as server:
