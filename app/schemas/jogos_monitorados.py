@@ -5,15 +5,16 @@ from typing import Optional
 
 
 class MonitoramentoBase(BaseModel):
-    preco_a_pagar: float
+    preco_alvo: float
 
 
 class MonitoramentoCreate(MonitoramentoBase):
+    preco_alvo: float
     game_id: UUID
 
 
 class MonitoramentoUpdate(BaseModel):
-    preco_a_pagar: Optional[float] = None
+    preco_alvo: Optional[float] = None
 
 
 class MonitoramentoResponse(MonitoramentoBase):
@@ -21,6 +22,17 @@ class MonitoramentoResponse(MonitoramentoBase):
     user_id: UUID
     game_id: UUID
     created_at: datetime
+    preco_alvo: float
+
+    class Config:
+        from_attributes = True
+
+class MonitoramentoBasicResponse(MonitoramentoBase):
+    id: UUID
+    user_id: UUID
+    game_id: UUID
+    created_at: datetime
+    preco_alvo: float
 
     class Config:
         from_attributes = True

@@ -4,6 +4,8 @@ from app.database.session import get_db
 from app.utils.deps import verify_admin_access
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.services.AnyDeal_service import AnyDealService
+from app.services.BackOfficeService import BackOfficeService
+from app.schemas.jogos_monitorados import MonitoramentoBasicResponse
 from fastapi import BackgroundTasks
 
 admin_responses = {
@@ -142,3 +144,19 @@ async def sync_all_prices(
     """
     result = await AnyDealService.sync_all_games_prices(db)
     return result
+
+
+
+@router.get(
+    "/games/all",
+    response_model=list[MonitoramentoBasicResponse],
+    summary="Listar todos os jogos monitorados",
+    description="Retorna uma lista de todos os jogos monitorados no sistema.",
+    responses={
+        200: {
+            "description": "Lista de jogos monitorados"
+        }
+    }
+)
+async def get_all_games(db: AsyncSession = Depends(get_db)):
+    return await BackOfficeService.get_all_games(db)
