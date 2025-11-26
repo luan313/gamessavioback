@@ -15,17 +15,12 @@ router = APIRouter(
     dependencies=[Security(verify_admin_access)],
     responses=admin_responses
 )
-logger = logging.getLogger(__name__)
 
-@router.post("/webhook/price-update", status_code=200)
-async def handle_price_update(payload: PriceUpdatePayload, db: AsyncSession = Depends(get_db)):
-    """
-        Webhook to receive game price updates.
-        Triggers notifications for users monitoring these games if the price target is met.
-    """
+@router.post("/webhook/notificar-games", status_code=200)
+async def notification(payload: PriceUpdatePayload, db: AsyncSession = Depends(get_db)):
     try:
         count = await process_price_updates(payload.game_ids, db)
-        return {"message": "Price updates processed", "notifications_sent": count}
+        return {"mensagem": "Todos os usuarios com games monitorados dentro do preço alvo foram notificados", "qtd_notificacao": count}
     except Exception as e:
-        logger.error(f"Error processing webhook: {e}")
+        print(f"Error ao rodar o envio de email: {e}")
         raise HTTPException(status_code=500, detail="Internal Server Error processing webhook")
