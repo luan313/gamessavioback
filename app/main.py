@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from app.routers import (
-    auth_router,
+    auth,
     backoffice,
-    avaliacao_router,
-    monitoramento_router,
-    game_router,
-    categoria_router,
+    avaliacao,
+    monitoramento,
+    game,
+    categoria,
     webhook
 )
 from fastapi.middleware.cors import CORSMiddleware
@@ -32,10 +32,10 @@ app.add_middleware(
 )
 
 
-app.include_router(auth_router.router, tags=["Auth"])
+app.include_router(auth.router, tags=["Auth"])
 app.include_router(backoffice.router, tags=["backoffice"])
-app.include_router(avaliacao_router.router, tags=["avaliação"])
-app.include_router(monitoramento_router.router, tags=["monitoramento"])
-app.include_router(game_router.router, tags=["game"])
-app.include_router(categoria_router.router, tags=["categoria"])
+app.include_router(avaliacao.router, tags=["avaliação"])
+app.include_router(monitoramento.router, tags=["monitoramento"])
+app.include_router(game.router, tags=["game"])
+app.include_router(categoria.router, tags=["categoria"])
 app.include_router(webhook.router, tags=["webhook"])

@@ -5,7 +5,7 @@ from uuid import UUID
 from app.database.session import get_db
 from app.core.security import get_current_user
 from app.schemas.jogos_monitorados import MonitoramentoCreate, MonitoramentoUpdate, MonitoramentoResponse 
-from app.services import monitoramento_service as crud_monitoramento
+from app.services import monitoramento as crud_monitoramento
 
 router = APIRouter(prefix="/monitoramentos")
 

@@ -7,7 +7,7 @@ from fastapi_pagination.ext.sqlalchemy import paginate as paginate_async
 from app.database.session import get_db
 from app.core.security import get_current_user 
 from app.schemas.avaliacao import AvaliacaoCreate, AvaliacaoUpdate, AvaliacaoResponse, AvaliacaoBasicResponse
-from app.services import avaliacao_service as crud_avaliacao
+from app.services import avaliacao as crud_avaliacao
 
 router = APIRouter(prefix="/avaliacoes")
 

@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from app.database.session import get_db
 from app.schemas.game import TopHypedGamesResponse
-from app.services import game_service
+from app.services import game as game_service
 from fastapi_pagination.ext.sqlalchemy import paginate as paginate_async
 from fastapi_pagination import Page, Params
 from fastapi import Query

@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Security, Depends, status
-from app.services.RAWG_service import rawg_service
+from app.services.rawg import rawg_service
 from app.database.session import get_db
 from app.utils.deps import verify_admin_access
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.services.AnyDeal_service import AnyDealService
-from app.services.BackOfficeService import BackOfficeService
+from app.services.anydeal import AnyDealService
+from app.services.backoffice import BackOfficeService
 from app.schemas.jogos_monitorados import MonitoramentoBasicResponse
 from fastapi import BackgroundTasks
 import logging

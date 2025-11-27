@@ -5,7 +5,7 @@ from uuid import UUID
 from app.database.session import get_db
 from app.schemas.categoria import CategoriaComJogos
 from app.schemas.game import TopHypedGamesResponse
-from app.services import categoria_service
+from app.services import categoria as categoria_service
 from sqlalchemy import select
 from app.models.categoria import Categoria
 

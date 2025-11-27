@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Security
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.database.session import get_db
 from app.schemas.webhook import PriceUpdatePayload
-from app.services.notification_service import process_price_updates
+from app.services.notification import process_price_updates
 from app.utils.deps import verify_admin_access
 import logging
 
