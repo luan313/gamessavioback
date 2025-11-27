@@ -18,7 +18,33 @@ router = APIRouter(
     responses=admin_responses
 )
 
-@router.post("/webhook/notificar-games", status_code=200)
+@router.post(
+    "/webhook/notificar-games", 
+    status_code=200,
+    summary="Webhook - Notificação de preços",
+    description="Endpoint chamado externamente (ex: GitHub Actions) para processar atualizações de preços e notificar usuários. Requer token de administrador.",
+    responses={
+        200: {
+            "description": "Processamento concluído com sucesso",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "mensagem": "Todos os usuarios com games monitorados dentro do preço alvo foram notificados",
+                        "qtd_notificacao": 5
+                    }
+                }
+            }
+        },
+        500: {
+            "description": "Erro interno no processamento",
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Internal Server Error processing webhook"}
+                }
+            }
+        }
+    }
+)
 async def notification(payload: PriceUpdatePayload, db: AsyncSession = Depends(get_db)) -> dict:
     try:
         count = await process_price_updates(payload.game_ids, db)

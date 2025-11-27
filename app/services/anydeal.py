@@ -1,12 +1,12 @@
 import httpx
-from sqlalchemy.ext.asyncio import AsyncSession
+import asyncio
+import logging
+from datetime import datetime 
 from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.config import settings
 from app.models.game import Game
-from datetime import datetime 
-import asyncio
 from app.database.session import AsyncSessionLocal
-import logging
 
 logger = logging.getLogger(__name__)
 

@@ -17,6 +17,27 @@ router = APIRouter(prefix="/categoria")
     response_model=list[CategoriaComJogos],
     summary="Listar categorias com quantidade de jogos",
     description="Retorna todas as categorias com seus IDs, nomes e a quantidade de jogos em cada categoria.",
+    responses={
+        200: {
+            "description": "Lista de categorias retornada com sucesso",
+            "content": {
+                "application/json": {
+                    "example": [
+                        {
+                            "id": "550e8400-e29b-41d4-a716-446655440000",
+                            "nome": "RPG",
+                            "quantidade_jogos": 15
+                        },
+                        {
+                            "id": "660e8400-e29b-41d4-a716-446655440001",
+                            "nome": "Ação",
+                            "quantidade_jogos": 23
+                        }
+                    ]
+                }
+            }
+        }
+    }
 )
 async def get_categorias_com_jogos(
     db: AsyncSession = Depends(get_db)

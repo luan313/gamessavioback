@@ -33,6 +33,7 @@ A aplicação integra-se com APIs externas renomadas (**RAWG** para metadados de
 - Integração com **IsThereAnyDeal** para histórico de preços.
 - Criação de alertas de preço personalizado.
 - Notificação quando um jogo atinge o preço alvo.
+- Integração via Webhook para processamento de alertas em lote.
 
 ### 🛠️ Backoffice
 - Rotas administrativas para sincronização manual de jogos e preços.
@@ -112,6 +113,12 @@ RAWG_BASE_URL=https://api.rawg.io/api
 ANY_DEAL_API_KEY=sua_api_key_isthereanydeal
 ANY_DEAL_BASE_URL=https://api.isthereanydeal.com
 BACKOFFICE_TOKEN=token_para_rotas_admin
+
+# Email (Notificações)
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=seu_email@gmail.com
+EMAIL_PASSWORD=sua_senha_de_app
 ```
 
 ### 5. Execute a aplicação
@@ -139,6 +146,8 @@ O FastAPI gera documentação interativa automaticamente. Após rodar o projeto,
 | `GET` | `/avaliacoes/last-five-avaliations` | Últimas avaliações da comunidade |
 | `POST` | `/monitoramentos/` | Criar alerta de preço |
 | `POST` | `/backoffice/sync-games` | Sincronizar jogos (Admin) |
+| `GET` | `/users/me` | Obter perfil do usuário logado |
+| `POST` | `/webhook/notificar-games` | Webhook para envio de notificações |
 
 ---
 
@@ -159,4 +168,4 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ---
 
-Desenvolvido com 💜 por [Luis]
+Desenvolvido por [Luis, Luan]

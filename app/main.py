@@ -6,7 +6,8 @@ from app.routers import (
     monitoramento,
     game,
     categoria,
-    webhook
+    webhook,
+    user
 )
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_pagination import add_pagination
@@ -39,3 +40,4 @@ app.include_router(monitoramento.router, tags=["monitoramento"])
 app.include_router(game.router, tags=["game"])
 app.include_router(categoria.router, tags=["categoria"])
 app.include_router(webhook.router, tags=["webhook"])
+app.include_router(user.router, tags=["user"])

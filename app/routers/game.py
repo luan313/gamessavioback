@@ -47,7 +47,7 @@ router = APIRouter(prefix="/game")
         }
     }
 )
-async def read_avaliacoes_game(
+async def get_hyped_games(
     qtd: int = Query(qtd=20, description="Número máximo de jogos a retornar"),
     params: Params = Depends(),
     db: AsyncSession = Depends(get_db)
