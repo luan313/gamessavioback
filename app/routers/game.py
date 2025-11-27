@@ -71,7 +71,7 @@ async def get_hyped_games(
     params.size = qtd
     query = game_service.get_top_hyped_games()
     return await paginate_async(
-        db = db, 
-        query = query, 
-        params = params
+        db, 
+        query, 
+        params
     )
