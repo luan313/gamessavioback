@@ -19,7 +19,7 @@ class MonitoramentoService:
         
         query = (
             select(JogosMonitorados)
-            .options(selectinload(JogosMonitorados.game))  # Carrega o Game associado
+            .options(selectinload(JogosMonitorados.game))  
             .where(JogosMonitorados.id == db_monitoramento.id)
         )
         

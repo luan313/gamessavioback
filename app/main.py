@@ -1,3 +1,5 @@
+import os
+from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI
 from app.routers import (
     auth,
@@ -59,3 +61,16 @@ app.include_router(game.router, tags=["game"])
 app.include_router(categoria.router, tags=["categoria"])
 app.include_router(webhook.router, tags=["webhook"])
 app.include_router(user.router, tags=["user"])
+
+
+
+docs_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "docs", "_build", "html")
+
+@app.get("/")
+def root():
+    return {"message": "GamesSavio API", "Swagger": "/docs", "sphinx_docs": "/documentation"}
+
+if os.path.exists(docs_path):
+    app.mount("/documentation", StaticFiles(directory=docs_path, html=True), name="docs")
+else:
+    logging.warning(f"Directory {docs_path} does not exist. Documentation will not be served.")
