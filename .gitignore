@@ -2,11 +2,8 @@
 # Python
 ##############################
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.pyd
-*.pdb
+*.py[cod]
+*$py.class
 *.so
 *.egg
 *.egg-info/
@@ -17,6 +14,7 @@ build/
 venv/
 ENV/
 env/
+.env/
 
 ##############################
 # FastAPI + Uvicorn
@@ -27,7 +25,7 @@ logs/
 *.sqlite3
 
 ##############################
-# Alembic / Migrations (opcional)
+# Alembic / Migrations
 ##############################
 alembic.ini
 alembic/versions/*.pyc
@@ -38,22 +36,38 @@ alembic/versions/*.pyc
 .env
 .env.*
 !.env.example
+*.env
 
 ##############################
 # Sphinx Documentation
 ##############################
 docs/_build/
 docs/generated/
-# Arquivos temporários
 *.doctree
 *.pickle
 
 ##############################
-# VSCode
+# Testing / Linting
+##############################
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+ruff_cache/
+.cache/
+pytest_cache/
+coverage.xml
+.coverage
+htmlcov/
+
+##############################
+# IDE / Editor
 ##############################
 .vscode/
 .settings/
 .history/
+.idea/
 
 ##############################
 # OS generated
@@ -62,92 +76,24 @@ docs/generated/
 Thumbs.db
 
 ##############################
-# MyPy / Pylint / Ruff
-##############################
-.mypy_cache/
-.dmypy.json
-dmypy.json
-.pyre/
-.pytype/
-ruff_cache/
-
-##############################
-# Cache / Temporary files
-##############################
-.cache/
-pytest_cache/
-coverage.xml
-.coverage
-htmlcov/
-
-##############################
 # Docker
 ##############################
 docker-compose.override.yml
 *.pid
 
 ##############################
-# Node (caso tenha front ou scripts)
+# Node / Next.js / Vercel
 ##############################
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-##############################
-# JetBrains IDEs
-##############################
-.idea/
-
-# --- Node.js / Next.js ---
-node_modules/
-.next/
-build/
-out/
-dist/
-.pnp
-.pnp.js
-coverage/
-
-# --- Python ---
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Virtual Environments (essencial para sua pasta 'venv')
-venv/
-.venv/
-env/
-.env/
-
-# --- Vercel ---
-.vercel/
-
-# --- Variáveis de Ambiente (SEGURANÇA CRÍTICA) ---
-# Nunca suba suas chaves de API para o GitHub
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-*.env
-
-# --- Logs e Depuração ---
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
-# --- Sistema Operacional ---
-.DS_Store
-Thumbs.db
-
-# --- Arquivos de IDE (Opcional, mas recomendado) ---
-.vscode/
-.idea/
-
-# --- Next.js Types gerados automaticamente ---
+.next/
+out/
+.pnp
+.pnp.js
+coverage/
+.vercel/
 next-env.d.ts
