@@ -3,7 +3,7 @@ from sqlalchemy import select, delete
 from uuid import UUID
 from app.models.jogos_monitorados import JogosMonitorados
 from app.schemas.jogos_monitorados import MonitoramentoCreate, MonitoramentoUpdate
-
+from sqlalchemy.orm import selectinload
 
 class MonitoramentoService:
     @staticmethod
@@ -16,14 +16,23 @@ class MonitoramentoService:
 
         db.add(db_monitoramento)
         await db.commit()
-        await db.refresh(db_monitoramento)
-        return db_monitoramento
-
+        
+        query = (
+            select(JogosMonitorados)
+            .options(selectinload(JogosMonitorados.game))  # Carrega o Game associado
+            .where(JogosMonitorados.id == db_monitoramento.id)
+        )
+        
+        result = await db.execute(query)
+        monitoramento_criado = result.scalars().first()
+        
+        return monitoramento_criado
 
     @staticmethod
     async def get_monitored_games_for_user(db: AsyncSession, user_id: UUID, skip: int = 0, limit: int = 100) -> list[JogosMonitorados]:
         result = await db.execute(
             select(JogosMonitorados)
+            .options(selectinload(JogosMonitorados.game))
             .where(JogosMonitorados.user_id == user_id)
             .offset(skip)
             .limit(limit)

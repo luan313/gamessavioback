@@ -50,6 +50,16 @@ class GameResponse(GameBase):
 
     class Config:
         from_attributes = True
+
+class GameForMonitoramento(BaseModel):
+    id: UUID
+    nome: str
+    imagem_capa: Optional[str] = None
+    deal_url: Optional[str] = None
+    last_price: Optional[float] = None
+
+    class Config:
+        from_attributes = True
         
 class TopHypedGamesResponse(GameBase):
     id: UUID
@@ -62,6 +72,20 @@ class TopHypedGamesResponse(GameBase):
     hype: int = 0
     
     updated_at: Optional[datetime] = None
+    
+
+    class Config:
+        from_attributes = True
+
+class SearchGameResponse(GameBase):
+    id: UUID
+    nota_media: Optional[float] = None
+    last_price: Optional[float] = None
+    isthereanydeal_id: Optional[str] = None
+    deal_url: Optional[str] = None      
+    store_name: Optional[str] = None    
+    imagem_capa: Optional[str] = None
+    
     
 
     class Config:

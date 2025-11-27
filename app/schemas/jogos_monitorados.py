@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from uuid import UUID
 from datetime import datetime
 from typing import Optional
-
+from app.schemas.game import GameForMonitoramento
 
 class MonitoramentoBase(BaseModel):
     preco_alvo: float
@@ -19,6 +19,7 @@ class MonitoramentoUpdate(BaseModel):
 
 class MonitoramentoResponse(MonitoramentoBase):
     id: UUID
+    game: GameForMonitoramento
     user_id: UUID
     game_id: UUID
     created_at: datetime

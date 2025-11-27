@@ -10,7 +10,7 @@ from app.services.monitoramento import MonitoramentoService
 router = APIRouter(prefix="/monitoramentos")
 
 @router.post(
-    "/", 
+    "/create", 
     response_model=MonitoramentoResponse, 
     status_code=status.HTTP_201_CREATED,
     summary="Criar alerta de preço para um jogo",
@@ -75,7 +75,7 @@ async def create_new_monitoramento(
 
 
 @router.get(
-    "/", 
+    "/get_my_monitoramentos", 
     response_model=list[MonitoramentoResponse], 
     summary="Listar meus monitoramentos de preço",
     description="Retorna todos os jogos que o usuário autenticado está monitorando, com informações sobre preço alvo e status do alerta.",
