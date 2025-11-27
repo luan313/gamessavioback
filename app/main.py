@@ -10,6 +10,9 @@ from app.routers import (
 )
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_pagination import add_pagination
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 app = FastAPI(title="Letterboxd de Jogos")
 
@@ -17,7 +20,6 @@ origins = [
     "http://localhost:3000",        
     "http://127.0.0.1:3000",
     "http://localhost:5173",        
-    "https://seu-dominio.com"      
 ]
 add_pagination(app)
 

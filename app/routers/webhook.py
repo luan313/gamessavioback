@@ -6,6 +6,8 @@ from app.services.notification_service import process_price_updates
 from app.utils.deps import verify_admin_access
 import logging
 
+logger = logging.getLogger(__name__)
+
 admin_responses = {
     401: {"description": "Não autenticado"},
     403: {"description": "Proibido: Requer privilégios de Administrador"}
@@ -22,5 +24,5 @@ async def notification(payload: PriceUpdatePayload, db: AsyncSession = Depends(g
         count = await process_price_updates(payload.game_ids, db)
         return {"mensagem": "Todos os usuarios com games monitorados dentro do preço alvo foram notificados", "qtd_notificacao": count}
     except Exception as e:
-        print(f"Error ao rodar o envio de email: {e}")
+        logger.error(f"Error ao rodar o envio de email: {e}")
         raise HTTPException(status_code=500, detail="Internal Server Error processing webhook")

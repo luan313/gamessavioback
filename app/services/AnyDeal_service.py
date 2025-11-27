@@ -6,6 +6,9 @@ from app.models.game import Game
 from datetime import datetime 
 import asyncio
 from app.database.session import AsyncSessionLocal
+import logging
+
+logger = logging.getLogger(__name__)
 
 class AnyDealService:
     @staticmethod
@@ -27,7 +30,7 @@ class AnyDealService:
                     return data[0].get("id") 
                 
             except Exception as e:
-                print(f"Erro ao buscar ID ITAD ({game_name}): {e}")
+                logger.error(f"Erro ao buscar ID ITAD ({game_name}): {e}")
                 return None
         return None
 
@@ -86,7 +89,7 @@ class AnyDealService:
                 return result_data
 
             except Exception as e:
-                print(f"Erro ao buscar preço ITAD ({itad_id}): {e}")
+                logger.error(f"Erro ao buscar preço ITAD ({itad_id}): {e}")
                 return {"price": 0.0, "url": None, "store": None}
 
 
@@ -101,7 +104,7 @@ class AnyDealService:
 
 
                     await asyncio.sleep(0.2) 
-                    print(f"[{game.nome}] Buscando ofertas...")
+                    logger.info(f"[{game.nome}] Buscando ofertas...")
                     
                     deal_data = await AnyDealService.get_current_price(game.isthereanydeal_id)
                     
@@ -114,21 +117,21 @@ class AnyDealService:
                     await session.commit()
                     
                     if deal_data["price"] > 0:
-                        print(f"[{game.nome}] R$ {deal_data['price']} na {deal_data['store']}")
+                        logger.info(f"[{game.nome}] R$ {deal_data['price']} na {deal_data['store']}")
                     else:
-                        print(f"[{game.nome}] Sem oferta ativa.")
+                        logger.info(f"[{game.nome}] Sem oferta ativa.")
                     
                 except Exception as e:
-                    print(f"Erro processando jogo {game_id}: {e}")
+                    logger.error(f"Erro processando jogo {game_id}: {e}")
 
  
     @staticmethod
     async def sync_all_games_prices(db: AsyncSession):
-        print("--- Iniciando Sync ---")
+        logger.info("--- Iniciando Sync ---")
         result = await db.execute(select(Game.id))
         game_ids = result.scalars().all()
         
-        print(f"Total na fila: {len(game_ids)}")
+        logger.info(f"Total na fila: {len(game_ids)}")
 
         semaphore = asyncio.Semaphore(4)
 
@@ -136,5 +139,5 @@ class AnyDealService:
         
         await asyncio.gather(*tasks)
         
-        print("--- Sync Finalizado ---")
+        logger.info("--- Sync Finalizado ---")
         return {"status": "finished"}

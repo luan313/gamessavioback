@@ -7,6 +7,9 @@ from app.services.AnyDeal_service import AnyDealService
 from app.services.BackOfficeService import BackOfficeService
 from app.schemas.jogos_monitorados import MonitoramentoBasicResponse
 from fastapi import BackgroundTasks
+import logging
+
+logger = logging.getLogger(__name__)
 
 admin_responses = {
     401: {"description": "Não autenticado"},
@@ -77,7 +80,7 @@ async def sync_games(db: AsyncSession = Depends(get_db)):
         Requer autenticação: Sim (Bearer token) + Privilégios de Admin
     """
     resultado = await rawg_service.seed_games_by_amount(db=db)
-    print(resultado)
+    logger.info(resultado)
     return resultado
 
 

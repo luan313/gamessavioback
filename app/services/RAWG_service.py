@@ -11,10 +11,14 @@ from app.models.game_categoria import GameCategoria
 from app.models.plataforma import Plataforma
 from app.models.game_plataforma import GamePlataforma
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 class rawg_service:        
     @staticmethod
     async def __import_game_from_response(game_data: dict, db: AsyncSession):
-        print(f"Importando: {game_data['name']}...")
+        logger.info(f"Importando: {game_data['name']}...")
         
         release_date = None
         if game_data.get("released"):
@@ -103,11 +107,11 @@ class rawg_service:
         
         try:
             await db.commit() 
-            print(f"Sucesso: {game.nome} salvo/atualizado!")
+            logger.info(f"Sucesso: {game.nome} salvo/atualizado!")
             return game
         except Exception as e:
             await db.rollback()
-            print(f"Erro ao salvar {game_data.get('name')}: {e}")
+            logger.error(f"Erro ao salvar {game_data.get('name')}: {e}")
             raise e
                   
         
@@ -116,11 +120,11 @@ class rawg_service:
         page_size = 40
         total_importado = 0
         total_pages = math.ceil(amount / page_size)
-        print(f"--- Iniciando Carga de {amount} jogos ({total_pages} requisições) ---")
+        logger.info(f"--- Iniciando Carga de {amount} jogos ({total_pages} requisições) ---")
 
         async with httpx.AsyncClient() as client:
             for page in range(1, total_pages + 1):
-                print(f"Requisitando página {page}/{total_pages}...")
+                logger.info(f"Requisitando página {page}/{total_pages}...")
                     
                 params = {
                     "key": settings.RAWG_API_KEY,
@@ -133,19 +137,19 @@ class rawg_service:
                     resp = await client.get(settings.RAWG_BASE_URL, params=params)
                         
                     if resp.status_code == 429:
-                        print("Rate Limit atingido! Esperando 10 segundos...")
+                        logger.warning("Rate Limit atingido! Esperando 10 segundos...")
                         await asyncio.sleep(10) 
                         continue 
                             
                     if resp.status_code != 200:
-                        print(f"Erro API: {resp.status_code}")
+                        logger.error(f"Erro API: {resp.status_code}")
                         break
 
                     data = resp.json()
                     results = data.get("results", [])
                         
                     if not results:
-                        print("Fim dos resultados na API.")
+                        logger.info("Fim dos resultados na API.")
                         break
 
                     for game_json in results:
@@ -154,12 +158,12 @@ class rawg_service:
                             total_importado += 1
                                 
                         except Exception as e_db:
-                            print(f"Skipping {game_json.get('name')}: {e_db}")
+                            logger.error(f"Skipping {game_json.get('name')}: {e_db}")
                                 
                         await asyncio.sleep(0.1) 
 
                 except Exception as e:
-                    print(f"Erro Geral: {e}")
+                    logger.error(f"Erro Geral: {e}")
         
-        print(f"--- Carga Finalizada! Total processado: {total_importado} jogos ---")
+        logger.info(f"--- Carga Finalizada! Total processado: {total_importado} jogos ---")
         return {"status": "success", "total": total_importado}

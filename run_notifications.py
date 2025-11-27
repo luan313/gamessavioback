@@ -7,7 +7,7 @@ sys.path.append(str(Path(__file__).resolve().parent))
 
 from sqlalchemy import select
 from app.database.session import AsyncSessionLocal, engine
-from app.models.game import Game
+from app.models.jogos_monitorados import JogosMonitorados
 from app.services.notification_service import process_price_updates 
 
 logging.basicConfig(level=logging.INFO)
@@ -20,7 +20,7 @@ async def main():
         try:
             logger.info("Buscando jogos monitorados...")
             
-            result = await db.execute(select(Game.id))
+            result = await db.execute(select(JogosMonitorados.id))
             game_ids = [row[0] for row in result.all()]
             
             if game_ids:
