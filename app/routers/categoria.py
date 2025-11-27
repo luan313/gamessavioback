@@ -8,6 +8,7 @@ from app.schemas.game import TopHypedGamesResponse
 from app.services.categoria import CategoriaService
 from sqlalchemy import select
 from app.models.categoria import Categoria
+from fastapi_cache.decorator import cache
 
 router = APIRouter(prefix="/categoria")
 
@@ -39,6 +40,7 @@ router = APIRouter(prefix="/categoria")
         }
     }
 )
+@cache(expire=3600)
 async def get_categorias_com_jogos(
     db: AsyncSession = Depends(get_db)
 ):

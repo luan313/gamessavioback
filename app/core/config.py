@@ -12,13 +12,12 @@ class Settings(BaseSettings):
     RAWG_BASE_URL:str
     BACKOFFICE_TOKEN: str
     ANY_DEAL_BASE_URL: str
-    
     EMAIL_HOST: str = "smtp.gmail.com"
     EMAIL_PORT: int = 587
     EMAIL_USER: str | None = None
     EMAIL_PASSWORD: str | None = None
-    
-    
+    REDIS_URL: str
+
     model_config = SettingsConfigDict(
         env_file=".env",
         extra="ignore",  

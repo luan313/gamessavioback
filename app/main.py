@@ -12,10 +12,28 @@ from app.routers import (
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_pagination import add_pagination
 import logging
+from redis import asyncio as aioredis
+from app.core.config import settings    
+from contextlib import asynccontextmanager
+from fastapi_cache import FastAPICache
+from fastapi_cache.backends.redis import RedisBackend
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+   redis_client = aioredis.from_url(settings.REDIS_URL, encoding="utf8", decode_responses=True)
+    
+   FastAPICache.init(RedisBackend(redis_client), prefix="fastapi-cache")
+    
+   yield
+    
+   await redis_client.close()
+
 
 logging.basicConfig(level=logging.INFO)
 
-app = FastAPI(title="Letterboxd de Jogos")
+app = FastAPI(
+    title="Letterboxd de Jogos", 
+    lifespan=lifespan)
 
 origins = [
     "http://localhost:3000",        
