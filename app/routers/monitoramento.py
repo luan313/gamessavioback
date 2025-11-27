@@ -5,7 +5,7 @@ from uuid import UUID
 from app.database.session import get_db
 from app.core.security import get_current_user
 from app.schemas.jogos_monitorados import MonitoramentoCreate, MonitoramentoUpdate, MonitoramentoResponse 
-from app.services import monitoramento as crud_monitoramento
+from app.services.monitoramento import MonitoramentoService
 
 router = APIRouter(prefix="/monitoramentos")
 
@@ -53,7 +53,7 @@ async def create_new_monitoramento(
     monitoramento: MonitoramentoCreate,
     db: AsyncSession = Depends(get_db),
     current_user = Depends(get_current_user)
-):
+) -> MonitoramentoResponse:
     """
         Cria um novo monitoramento de preço para um jogo.
         
@@ -67,7 +67,11 @@ async def create_new_monitoramento(
         
         Requer autenticação: Sim (Bearer token)
     """
-    return await crud_monitoramento.create_monitoramento(db=db, monitoramento=monitoramento, user_id=current_user.id)
+    return await MonitoramentoService.create_monitoramento(
+        db=db, 
+        monitoramento=monitoramento, 
+        user_id=current_user.id
+    )
 
 
 @router.get(
@@ -100,7 +104,7 @@ async def read_monitoramentos(
     limit: int = 100,
     db: AsyncSession = Depends(get_db),
     current_user = Depends(get_current_user)
-):
+) -> list[MonitoramentoResponse]:
     """
         Lista todos os jogos monitorados pelo usuário atual.
         
@@ -114,7 +118,12 @@ async def read_monitoramentos(
         
         Requer autenticação: Sim (Bearer token)
     """
-    return await crud_monitoramento.get_monitored_games_for_user(db, current_user.id, skip, limit)
+    return await MonitoramentoService.get_monitored_games_for_user(
+        db = db, 
+        user_id = current_user.id, 
+        skip = skip, 
+        limit = limit
+    )
 
 
 @router.patch(
@@ -161,7 +170,7 @@ async def update_existing_monitoramento(
     monitoramento: MonitoramentoUpdate,
     db: AsyncSession = Depends(get_db),
     current_user = Depends(get_current_user)
-):
+) -> MonitoramentoResponse | None:
     """
         Atualiza um monitoramento de preço existente.
         
@@ -180,8 +189,11 @@ async def update_existing_monitoramento(
         
         Requer autenticação: Sim (Bearer token)
     """
-    updated_monitoramento = await crud_monitoramento.update_monitoring(
-        db, monitoramento_id, monitoramento, current_user.id
+    updated_monitoramento = await MonitoramentoService.update_monitoring(
+        db = db, 
+        monitoramento_id = monitoramento_id, 
+        monitoramento_update = monitoramento, 
+        user_id = current_user.id
     )
 
     if updated_monitoramento == "unauthorized":
@@ -224,7 +236,7 @@ async def delete_existing_monitoramento(
     monitoramento_id: UUID,
     db: AsyncSession = Depends(get_db),
     current_user = Depends(get_current_user)
-):
+) -> None:
     """
         Remove um monitoramento de preço.
         
@@ -243,7 +255,11 @@ async def delete_existing_monitoramento(
         
         Requer autenticação: Sim (Bearer token)
     """
-    result = await crud_monitoramento.delete_monitoramento(db, monitoramento_id, current_user.id)
+    result = await MonitoramentoService.delete_monitoramento(
+        db = db, 
+        monitoramento_id = monitoramento_id, 
+        user_id = current_user.id
+    )
 
     if result == "unauthorized":
         raise HTTPException(status_code=403, detail="Não autorizado a remover este monitoramento")

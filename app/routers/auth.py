@@ -50,7 +50,7 @@ router = APIRouter(prefix="/auth", tags=["Auth"])
         }
     }
 )
-async def register_user(data: UserCreate, db: Session = Depends(get_db)):
+async def register_user(data: UserCreate, db: Session = Depends(get_db)) -> TokenResponse:
     """
         Registra um novo usuário no sistema.
         
@@ -111,7 +111,7 @@ async def register_user(data: UserCreate, db: Session = Depends(get_db)):
         }
     }
 )
-async def login(data: UserLogin, db: Session = Depends(get_db)):
+async def login(data: UserLogin, db: Session = Depends(get_db)) -> TokenResponse:
     """
         Autentica um usuário no sistema.
         
@@ -163,7 +163,7 @@ async def login(data: UserLogin, db: Session = Depends(get_db)):
         }
     }
 )
-async def refresh_token(data: TokenRefreshRequest):
+async def refresh_token(data: TokenRefreshRequest) -> TokenResponse:
     """
         Renova os tokens de autenticação usando um Refresh Token.
         

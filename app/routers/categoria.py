@@ -5,7 +5,7 @@ from uuid import UUID
 from app.database.session import get_db
 from app.schemas.categoria import CategoriaComJogos
 from app.schemas.game import TopHypedGamesResponse
-from app.services import categoria as categoria_service
+from app.services.categoria import CategoriaService
 from sqlalchemy import select
 from app.models.categoria import Categoria
 
@@ -29,7 +29,7 @@ async def get_categorias_com_jogos(
     - nome: Nome da categoria
     - quantidade_jogos: Número de jogos associados à categoria
     """
-    categorias = await categoria_service.get_categorias_com_quantidade_jogos(db)
+    categorias = await CategoriaService.get_categorias_com_quantidade_jogos(db)
     
     return [
         {
@@ -101,6 +101,6 @@ async def get_jogos_categoria(
     if not categoria:
         raise HTTPException(status_code=404, detail="Categoria não encontrada")
     
-    jogos = await categoria_service.get_jogos_por_categoria(db, categoria_id)
+    jogos = await CategoriaService.get_jogos_por_categoria(db, categoria_id)
     
     return jogos

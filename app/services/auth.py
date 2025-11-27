@@ -12,7 +12,7 @@ from app.models.user import User
 
 class AuthService:
     @staticmethod
-    async def register_user(data, db: AsyncSession):
+    async def register_user(data, db: AsyncSession) -> tuple[str, str]:
         query = select(User).where(User.email == data.email)
         result = await db.execute(query)
         existing = result.scalar_one_or_none()
@@ -41,7 +41,7 @@ class AuthService:
 
 
     @staticmethod
-    async def login_user(data, db: AsyncSession):
+    async def login_user(data, db: AsyncSession) -> tuple[str, str]:
         query = select(User).where(User.email == data.email)
         result = await db.execute(query)
         user = result.scalar_one_or_none()
@@ -58,7 +58,7 @@ class AuthService:
 
 
     @staticmethod
-    def refresh_token(refresh_token: str):
+    def refresh_token(refresh_token: str) -> tuple[str, str]:
         try:
             payload = jwt.decode(
                 refresh_token,

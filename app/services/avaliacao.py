@@ -5,7 +5,7 @@ from app.models.avaliacao import Avaliacao
 from app.schemas.avaliacao import AvaliacaoCreate, AvaliacaoUpdate
 from sqlalchemy.orm import selectinload
 
-async def create_avaliacao(db: AsyncSession, avaliacao: AvaliacaoCreate, user_id: UUID):
+async def create_avaliacao(db: AsyncSession, avaliacao: AvaliacaoCreate, user_id: UUID) -> Avaliacao:
     db_avaliacao = Avaliacao(
         **avaliacao.model_dump(), 
         user_id=user_id 
@@ -16,7 +16,7 @@ async def create_avaliacao(db: AsyncSession, avaliacao: AvaliacaoCreate, user_id
     return db_avaliacao
 
 
-async def get_avaliacoes_by_game(db: AsyncSession, game_id: UUID, skip: int = 0, limit: int = 100):
+async def get_avaliacoes_by_game(db: AsyncSession, game_id: UUID, skip: int = 0, limit: int = 100) -> list[Avaliacao]:
     result = await db.execute(
         select(Avaliacao)
         .where(Avaliacao.game_id == game_id)
@@ -26,18 +26,18 @@ async def get_avaliacoes_by_game(db: AsyncSession, game_id: UUID, skip: int = 0,
     return result.scalars().all()
 
 
-async def get_avaliacao_by_id(db: AsyncSession, avaliacao_id: UUID):
+async def get_avaliacao_by_id(db: AsyncSession, avaliacao_id: UUID) -> Avaliacao | None: 
     result = await db.execute(select(Avaliacao).where(Avaliacao.id == avaliacao_id))
     return result.scalar_one_or_none()
 
 
-async def update_avaliacao(db: AsyncSession, avaliacao_id: UUID, avaliacao_update: AvaliacaoUpdate, user_id: UUID):
+async def update_avaliacao(db: AsyncSession, avaliacao_id: UUID, avaliacao_update: AvaliacaoUpdate, user_id: UUID) -> Avaliacao | None:
     db_avaliacao = await get_avaliacao_by_id(db, avaliacao_id)
     
     if not db_avaliacao:
         return None
     if db_avaliacao.user_id != user_id:
-        return "unauthorized"
+        return None
 
     update_data = avaliacao_update.model_dump(exclude_unset=True)
     for key, value in update_data.items():
@@ -48,19 +48,19 @@ async def update_avaliacao(db: AsyncSession, avaliacao_id: UUID, avaliacao_updat
     return db_avaliacao
 
 
-async def delete_avaliacao(db: AsyncSession, avaliacao_id: UUID, user_id: UUID):
+async def delete_avaliacao(db: AsyncSession, avaliacao_id: UUID, user_id: UUID) -> bool:
     db_avaliacao = await get_avaliacao_by_id(db, avaliacao_id)
     
     if not db_avaliacao:
-        return None
+        return False
     if db_avaliacao.user_id != user_id:
-        return "unauthorized"
+        return False
 
     await db.delete(db_avaliacao)
     await db.commit()
     return True
 
-async def get_last_five_avaliacoes(db: AsyncSession):
+async def get_last_five_avaliacoes(db: AsyncSession) -> list[Avaliacao]:
     result = await db.execute(
         select(Avaliacao)
         .options(

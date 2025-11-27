@@ -15,7 +15,7 @@ import logging
 logger = logging.getLogger(__name__)
 BASE_DIR = Path(__file__).resolve().parents[2]
 
-async def send_email(to_email: str, subject: str, content: str):
+async def send_email(to_email: str, subject: str, content: str) -> None:
     if not settings.EMAIL_USER or not settings.EMAIL_PASSWORD:
         logger.warning("Email credentials not set. Skipping email sending.")
         logger.info(f"Would send email to {to_email}: {subject}")
@@ -63,7 +63,7 @@ async def send_email(to_email: str, subject: str, content: str):
         logger.error(f"Failed to send email to {to_email}: {e}")
 
 
-async def process_price_updates(game_ids: List[UUID], db: AsyncSession):
+async def process_price_updates(game_ids: List[UUID], db: AsyncSession) -> int:
     stmt = (
         select(JogosMonitorados, Game, User)
         .join(Game, JogosMonitorados.game_id == Game.id)

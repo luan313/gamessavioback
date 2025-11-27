@@ -56,7 +56,7 @@ async def create_new_avaliacao(
     avaliacao: AvaliacaoCreate,
     db: AsyncSession = Depends(get_db),
     current_user = Depends(get_current_user)
-):
+) -> AvaliacaoResponse:
     """
         Cria uma nova avaliação para um jogo.
         
@@ -74,7 +74,11 @@ async def create_new_avaliacao(
         
         Requer autenticação: Sim (Bearer token)
     """
-    return await crud_avaliacao.create_avaliacao(db=db, avaliacao=avaliacao, user_id=current_user.id)
+    return await crud_avaliacao.create_avaliacao(
+        db = db, 
+        avaliacao = avaliacao, 
+        user_id = current_user.id
+    )
 
 @router.get(
     "/last-five-avaliations",
@@ -104,7 +108,7 @@ async def create_new_avaliacao(
         }
     }
 )
-async def read_last_five_avaliacoes(db: AsyncSession = Depends(get_db)):
+async def read_last_five_avaliacoes(db: AsyncSession = Depends(get_db)) -> list[AvaliacaoBasicResponse]:
     return await crud_avaliacao.get_last_five_avaliacoes(db)
 
 @router.get(
@@ -151,7 +155,7 @@ async def read_avaliacoes_game(
     skip: int = 0,
     limit: int = 100,
     db: AsyncSession = Depends(get_db)
-):
+) -> Page[AvaliacaoResponse]:
     """
         Retorna todas as avaliações de um jogo específico.
         
@@ -168,7 +172,12 @@ async def read_avaliacoes_game(
             
             Não requer autenticação: Aberto ao público
     """
-    return await crud_avaliacao.get_avaliacoes_by_game(db, game_id, skip, limit)
+    return await crud_avaliacao.get_avaliacoes_by_game(
+        db = db, 
+        game_id = game_id, 
+        skip = skip, 
+        limit = limit
+    )
 
 
 @router.patch(
@@ -216,7 +225,7 @@ async def update_existing_avaliacao(
     avaliacao: AvaliacaoUpdate,
     db: AsyncSession = Depends(get_db),
     current_user = Depends(get_current_user)
-):
+) -> AvaliacaoResponse:
     """
         Atualiza uma avaliação existente.
         
@@ -236,7 +245,10 @@ async def update_existing_avaliacao(
         Requer autenticação: Sim (Bearer token)
     """
     updated_avaliacao = await crud_avaliacao.update_avaliacao(
-        db, avaliacao_id, avaliacao, current_user.id
+        db = db, 
+        avaliacao_id = avaliacao_id, 
+        avaliacao_update = avaliacao,
+        user_id = current_user.id
     )
     
     if updated_avaliacao == "unauthorized":
@@ -277,7 +289,7 @@ async def delete_existing_avaliacao(
     avaliacao_id: UUID,
     db: AsyncSession = Depends(get_db),
     current_user = Depends(get_current_user)
-):
+) -> None:
     """
         Remove uma avaliação permanentemente.
         
@@ -296,7 +308,11 @@ async def delete_existing_avaliacao(
         
         Requer autenticação: Sim (Bearer token)
     """
-    result = await crud_avaliacao.delete_avaliacao(db, avaliacao_id, current_user.id)
+    result = await crud_avaliacao.delete_avaliacao(
+        db = db, 
+        avaliacao_id = avaliacao_id, 
+        user_id = current_user.id
+    )
     
     if result == "unauthorized":
         raise HTTPException(status_code=403, detail="Não autorizado a deletar esta avaliação")

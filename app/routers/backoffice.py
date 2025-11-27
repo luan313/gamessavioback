@@ -145,7 +145,11 @@ async def sync_all_prices(
         
         Requer autenticação: Sim (Bearer token) + Privilégios de Admin
     """
-    result = await AnyDealService.sync_all_games_prices(db)
+    service = AnyDealService()
+    try:
+        result = await service.sync_all_games_prices(db)
+    finally:
+        await service.close()
     return result
 
 

@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 class rawg_service:        
     @staticmethod
-    async def __import_game_from_response(game_data: dict, db: AsyncSession):
+    async def __import_game_from_response(game_data: dict, db: AsyncSession) -> Game:
         logger.info(f"Importando: {game_data['name']}...")
         
         release_date = None
@@ -116,7 +116,7 @@ class rawg_service:
                   
         
     @staticmethod                 
-    async def seed_games_by_amount(db: AsyncSession, amount=80):
+    async def seed_games_by_amount(db: AsyncSession, amount=80) -> int:
         page_size = 40
         total_importado = 0
         total_pages = math.ceil(amount / page_size)

@@ -51,7 +51,7 @@ async def read_avaliacoes_game(
     qtd: int = Query(qtd=20, description="Número máximo de jogos a retornar"),
     params: Params = Depends(),
     db: AsyncSession = Depends(get_db)
-):
+) -> Page[TopHypedGamesResponse]:
     """
         Retorna os jogos mais populares ordenados por Hype Score.
         
@@ -70,4 +70,8 @@ async def read_avaliacoes_game(
     """
     params.size = qtd
     query = game_service.get_top_hyped_games()
-    return await paginate_async(db, query, params)
+    return await paginate_async(
+        db = db, 
+        query = query, 
+        params = params
+    )

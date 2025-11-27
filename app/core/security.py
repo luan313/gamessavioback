@@ -24,7 +24,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
 
-def create_access_token(data: dict, expires_delta: Optional[int] = None):
+def create_access_token(data: dict, expires_delta: Optional[int] = None) -> str:
     expire = datetime.utcnow() + timedelta(
         minutes=expires_delta or settings.ACCESS_TOKEN_EXPIRE_MINUTES
     )
@@ -32,7 +32,7 @@ def create_access_token(data: dict, expires_delta: Optional[int] = None):
     return jwt.encode(data, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
 
-def create_refresh_token(data: dict):
+def create_refresh_token(data: dict) -> str:
     expire = datetime.utcnow() + timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS)
     data.update({"exp": expire})
     return jwt.encode(data, settings.REFRESH_SECRET_KEY, algorithm=settings.ALGORITHM)

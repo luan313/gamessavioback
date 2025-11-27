@@ -19,7 +19,7 @@ router = APIRouter(
 )
 
 @router.post("/webhook/notificar-games", status_code=200)
-async def notification(payload: PriceUpdatePayload, db: AsyncSession = Depends(get_db)):
+async def notification(payload: PriceUpdatePayload, db: AsyncSession = Depends(get_db)) -> dict:
     try:
         count = await process_price_updates(payload.game_ids, db)
         return {"mensagem": "Todos os usuarios com games monitorados dentro do preço alvo foram notificados", "qtd_notificacao": count}
