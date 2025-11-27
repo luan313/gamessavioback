@@ -31,9 +31,9 @@ async def send_email(to_email: str, subject: str, content: str) -> None:
         <html>
             <body>
                 <div style="font-family: Arial; font-size: 14px;">
+                    {content.replace('\n', '<br>')}
                     <img src="cid:{img_cid}" alt="LetterBox Banner" style="width:100%; max-width:600px;" />
                     <br><br>
-                    {content.replace('\n', '<br>')}
                 </div>
             </body>
         </html>
