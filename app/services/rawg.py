@@ -16,8 +16,51 @@ import logging
 logger = logging.getLogger(__name__)
 
 class rawg_service:        
+    
     @staticmethod
-    async def __import_game_from_response(game_data: dict, db: AsyncSession) -> Game:
+    def __clean_description(text: str) -> str:
+        """
+            Remove traduções extras que vêm concatenadas na descrição do RAWG.
+            Ex: O texto vem em Inglês, seguido de 'Español' e o texto em espanhol.
+            Cortamos tudo a partir da primeira ocorrência de outro idioma.
+        """
+        if not text:
+            return ""
+        
+        markers = ["Español", "ESPAÑOL", "Français", "Deutsch", "Italiano", "Русский", "中文"]
+        
+        for marker in markers:
+            if f"\n{marker}" in text:
+                text = text.split(f"\n{marker}")[0]
+            elif f"\n\n{marker}" in text:
+                text = text.split(f"\n\n{marker}")[0]
+                
+        return text.strip()
+    @staticmethod
+    async def get_description_from_rawg(game_data: int, http_client) -> str:
+        rawg_id = game_data.get("id")
+        description = game_data.get("description_raw") or game_data.get("description")
+        
+        if not description and http_client and rawg_id:
+            try:
+                api_key = settings.RAWG_API_KEY
+                response = await http_client.get(f"https://api.rawg.io/api/games/{rawg_id}?key={api_key}")
+                
+                if response.status_code == 200:
+                    details = response.json()
+                    description = details.get("description_raw")
+            
+            except Exception as e:
+                logger.error(f"Erro ao buscar detalhes extras do jogo {rawg_id}: {e}")
+
+        if not description:
+            description = f"Released: {game_data.get('released')}"
+            
+        return rawg_service.__clean_description(description)
+
+            
+    @staticmethod
+    async def __import_game_from_response(game_data: dict, db: AsyncSession, client) -> Game:
         logger.info(f"Importando: {game_data['name']}...")
         
         release_date = None
@@ -31,7 +74,8 @@ class rawg_service:
         query = select(Game).where(Game.rawg_id == rawg_id)
         result = await db.execute(query)
         game = result.scalar_one_or_none()
-        
+        description = await rawg_service.get_description_from_rawg(game_data, client)
+
         if not game:
             game = Game(
                 nome=game_data.get("name"), 
@@ -40,7 +84,7 @@ class rawg_service:
                 metacritic=game_data.get("metacritic"),
                 imagem_capa=game_data.get("background_image"),
                 data_lancamento=release_date,
-                descricao=f"Released: {game_data.get('released')}"
+                descricao= description
             )
             db.add(game)
             await db.flush() 
@@ -116,7 +160,7 @@ class rawg_service:
                   
         
     @staticmethod                 
-    async def seed_games_by_amount(db: AsyncSession, amount=80) -> int:
+    async def seed_games_by_amount(db: AsyncSession, amount=350) -> int:
         page_size = 40
         total_importado = 0
         total_pages = math.ceil(amount / page_size)
@@ -154,7 +198,7 @@ class rawg_service:
 
                     for game_json in results:
                         try:
-                            await rawg_service.__import_game_from_response(game_json, db)
+                            await rawg_service.__import_game_from_response(game_json, db, client)
                             total_importado += 1
                                 
                         except Exception as e_db:

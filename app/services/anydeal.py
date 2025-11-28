@@ -1,7 +1,7 @@
 import httpx
 import asyncio
 import logging
-from datetime import datetime 
+from datetime import datetime
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.config import settings
@@ -12,14 +12,17 @@ logger = logging.getLogger(__name__)
 
 class AnyDealService:
     def __init__(self):
-        self.client: httpx.AsyncClient = httpx.AsyncClient(timeout=10.0)
-        self.api_key: str = settings.ANY_DEAL_API_KEY
-        self.base_url: str = settings.ANY_DEAL_BASE_URL
+        self.client = httpx.AsyncClient(timeout=10.0)
+        self.api_key = settings.ANY_DEAL_API_KEY
+        self.base_url = settings.ANY_DEAL_BASE_URL
 
-    async def close(self) -> None:
+    async def close(self):
         await self.client.aclose()
 
+
     async def get_game_id_from_itad(self, game_name: str) -> str | None:
+        await asyncio.sleep(1.2)  
+
         try:
             response = await self.client.get(
                 f"{self.base_url}/games/search/v1",
@@ -32,112 +35,122 @@ class AnyDealService:
             response.raise_for_status()
             data = response.json()
             if data and len(data) > 0:
-                return data[0].get("id") 
-            
+                return data[0].get("id")
+
         except Exception as e:
-            logger.error(f"Erro ao buscar ID ITAD ({game_name}): {e}")
-            return None
+            logger.error(f"Erro ao buscar ID ITAD para '{game_name}': {e}")
+
         return None
 
-    async def get_current_price(self, itad_id: str) -> dict:
+
+    async def get_prices_batch(self, itad_ids: list[str]) -> dict[str, dict]:
+        if not itad_ids:
+            return {}
+
         try:
-            response = await self.client.post( 
+            response = await self.client.post(
                 f"{self.base_url}/games/overview/v2",
-                params={
-                    "key": self.api_key,
-                    "country": "BR"
-                },
-                json=[itad_id]
+                params={"key": self.api_key, "country": "BR"},
+                json=itad_ids  
             )
-            
-            result_data = {
-                "price": 0.0,
-                "url": None,
-                "store": None
-            }
 
             if response.status_code != 200:
-                return result_data
-            
+                logger.error(f"Erro overview batch: {response.text}")
+                return {}
+
             data = response.json()
-            prices_list = data.get("prices", [])
-            
-            game_entry = None
-            for item in prices_list:
-                if item.get("id") == itad_id:
-                    game_entry = item
-                    break
-            
-            if not game_entry and prices_list:
-                game_entry = prices_list[0]
-            
-            if not game_entry:
-                return result_data
+            prices_raw = data.get("prices", [])
+            prices = {}
 
-            current_obj = game_entry.get("current", {})
-            
-            price_obj = current_obj.get("price")
-            if price_obj and isinstance(price_obj, dict):
-                amount = price_obj.get("amount")
-                if amount is not None:
-                    result_data["price"] = float(amount)
+            for item in prices_raw:
+                itad_id = item.get("id")
+                current = item.get("current", {})
 
-            result_data["url"] = current_obj.get("url")
+                price = current.get("price", {}).get("amount") or 0
+                url = current.get("url")
+                store = current.get("shop", {}).get("name")
 
-            shop_obj = current_obj.get("shop")
-            if shop_obj and isinstance(shop_obj, dict):
-                result_data["store"] = shop_obj.get("name")
+                prices[itad_id] = {
+                    "price": float(price),
+                    "url": url,
+                    "store": store
+                }
 
-            return result_data
+            return prices
 
         except Exception as e:
-            logger.error(f"Erro ao buscar preço ITAD ({itad_id}): {e}")
-            return {"price": 0.0, "url": None, "store": None}
+            logger.error(f"Erro no batch de preços: {e}")
+            return {}
 
 
-    async def _process_game_task(self, game_id: str, semaphore: asyncio.Semaphore) -> None:
-        async with semaphore: 
-            async with AsyncSessionLocal() as session:
-                try:
-                    result = await session.execute(select(Game).where(Game.id == game_id))
-                    game = result.scalar_one_or_none()
-                    if not game: return
-
-
-                    await asyncio.sleep(0.2) 
-                    logger.info(f"[{game.nome}] Buscando ofertas...")
-                    
-                    deal_data = await self.get_current_price(game.isthereanydeal_id)
-                    
-                    game.last_price = deal_data["price"]
-                    game.deal_url = deal_data["url"]     
-                    game.store_name = deal_data["store"] 
-                    game.updated_at = datetime.now() 
-                    
-                    session.add(game)
-                    await session.commit()
-                    
-                    if deal_data["price"] > 0:
-                        logger.info(f"[{game.nome}] R$ {deal_data['price']} na {deal_data['store']}")
-                    else:
-                        logger.info(f"[{game.nome}] Sem oferta ativa.")
-                    
-                except Exception as e:
-                    logger.error(f"Erro processando jogo {game_id}: {e}")
-
- 
     async def sync_all_games_prices(self, db: AsyncSession) -> dict:
-        logger.info("--- Iniciando Sync ---")
-        result = await db.execute(select(Game.id))
-        game_ids = result.scalars().all()
-        
-        logger.info(f"Total na fila: {len(game_ids)}")
+        logger.info("--- Iniciando Sync ITAD ---")
 
-        semaphore = asyncio.Semaphore(4)
+        result = await db.execute(select(Game))
+        games = result.scalars().all()
 
-        tasks = [self._process_game_task(str(gid), semaphore) for gid in game_ids]
-        
-        await asyncio.gather(*tasks)
-        
-        logger.info("--- Sync Finalizado ---")
+        for game in games:
+            if not game.isthereanydeal_id:
+                logger.info(f"Buscando ID ITAD para: {game.nome}")
+                itad_id = await self.get_game_id_from_itad(game.nome)
+
+                if not itad_id:
+                    logger.warning(f"Não encontrado no ITAD: {game.nome}")
+                    continue
+
+                game.isthereanydeal_id = itad_id
+                db.add(game)
+                await db.commit()
+
+        ids = [g.isthereanydeal_id for g in games if g.isthereanydeal_id]
+
+        if not ids:
+            logger.warning("Nenhum jogo com ID ITAD válido.")
+            return {"status": "no_ids"}
+
+        logger.info(f"Consultando preços de {len(ids)} jogos em lote...")
+        BATCH_LIMIT = 200
+        all_prices = {} 
+
+        for i in range(0, len(ids), BATCH_LIMIT):
+            chunk = ids[i : i + BATCH_LIMIT]
+            logger.info(f"Processando lote {i} a {i + len(chunk)}...")
+            
+            try:
+                batch_result = await self.get_prices_batch(chunk)
+                
+                if batch_result:
+                    all_prices.update(batch_result)
+                    
+            except Exception as e:
+                logger.error(f"Erro ao processar lote começando em {i}: {e}")
+
+        prices = all_prices
+
+        normalized_prices = {}
+        for original_id in ids:
+            for returned_id, info in prices.items():
+                if returned_id.startswith(original_id):
+                    normalized_prices[original_id] = info
+                    break
+
+        for game in games:
+            itad_id = game.isthereanydeal_id
+            if not itad_id:
+                continue
+
+            info = normalized_prices.get(itad_id)
+            if not info:
+                continue
+
+            game.last_price = info["price"]
+            game.deal_url = info["url"]
+            game.store_name = info["store"]
+            game.updated_at = datetime.now()
+
+            db.add(game)
+
+        await db.commit()
+
+        logger.info("--- Sync Finalizado com Sucesso ---")
         return {"status": "finished"}
