@@ -70,5 +70,12 @@ jobs:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
           EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
+
+          SECRET_KEY: "key_apenas_para_o_script_rodar"
+          REFRESH_SECRET_KEY: "refresh_key"
+          BACKOFFICE_TOKEN: "dtoken"
+          RAWG_API_KEY: "rawg"
+          RAWG_BASE_URL: "http://google.com" 
+          REDIS_URL: "redis://dummy:6379/0"
         run: |
           python -m scripts.run_notifications
