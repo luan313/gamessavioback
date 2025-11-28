@@ -12,10 +12,9 @@ from pathlib import Path
 from app.core.config import settings
 import logging
 
-logger = logging.getLogger(__name__)
 BASE_DIR = Path(__file__).resolve().parents[2]
 
-async def send_email(to_email: str, subject: str, content: str) -> None:
+async def send_email(to_email: str, subject: str, content: str, logger) -> None:
     if not settings.EMAIL_USER or not settings.EMAIL_PASSWORD:
         logger.warning("Email credentials not set. Skipping email sending.")
         logger.info(f"Would send email to {to_email}: {subject}")
@@ -66,6 +65,9 @@ async def send_email(to_email: str, subject: str, content: str) -> None:
 
 
 async def process_price_updates(game_ids: List[UUID], db: AsyncSession, logger = None) -> int:
+    if logger is None:
+        logger = logging.getLogger(__name__)
+        
     stmt = (
         select(JogosMonitorados, Game, User)
         .join(Game, JogosMonitorados.game_id == Game.id)
@@ -90,7 +92,7 @@ async def process_price_updates(game_ids: List[UUID], db: AsyncSession, logger =
                 f"Confira aqui: {game.deal_url or 'Link não disponível'}\n\n"
                 "Boas jogatinas!"
             )
-            await send_email(user.email, subject, content)
+            await send_email(user.email, subject, content, logger)
             notifications_sent += 1
             
     return notifications_sent
