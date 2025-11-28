@@ -79,7 +79,9 @@ async def process_price_updates(game_ids: List[UUID], db: AsyncSession) -> int:
     notifications_sent = 0
     
     for monitoramento, game, user in rows:
+        logger.info(f"Verificando jogo {game.nome} : {monitoramento.preco_alvo} - {game.last_price} | para o usuário {user.email}")
         if game.last_price is not None and game.last_price <= monitoramento.preco_alvo:
+            logger.info(f"mandando notificação para {user.email} game {game.nome}")
             subject = f"Price Alert: {game.nome} is now {game.last_price}!"
             content = (
                 f"Olá {user.nome},\n\n"
