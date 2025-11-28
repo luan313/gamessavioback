@@ -5,3 +5,5 @@ from .game_categoria import GameCategoria
 from .avaliacao import Avaliacao
 from .historico_preco import HistoricoPreco
 from .jogos_monitorados import JogosMonitorados
+from .game_plataforma import GamePlataforma
+from .plataforma import Plataforma
