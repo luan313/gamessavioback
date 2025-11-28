@@ -20,7 +20,7 @@ async def main():
         try:
             logger.info("Buscando jogos monitorados...")
             
-            result = await db.execute(select(JogosMonitorados.id))
+            result = await db.execute(select(JogosMonitorados.game_id).distinct())
             game_ids = [row[0] for row in result.all()]
             
             if game_ids:
