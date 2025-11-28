@@ -68,9 +68,11 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-          EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
-          EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
-
+          EMAIL_HOST: "smtp.gmail.com"
+          EMAIL_PORT: 587
+          
+          ANY_DEAL_API_KEY: "testedasilva"
+          ANY_DEAL_BASE_URL: "testedasilva"
           SECRET_KEY: "key_apenas_para_o_script_rodar"
           REFRESH_SECRET_KEY: "refresh_key"
           BACKOFFICE_TOKEN: "dtoken"
