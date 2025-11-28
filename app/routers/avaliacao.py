@@ -2,12 +2,12 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from uuid import UUID
-from fastapi_pagination import Page, Params
-from fastapi_pagination.ext.sqlalchemy import paginate as paginate_async
+from fastapi_pagination import Page
 from app.database.session import get_db
 from app.core.security import get_current_user 
 from app.schemas.avaliacao import AvaliacaoCreate, AvaliacaoUpdate, AvaliacaoResponse, AvaliacaoBasicResponse
 from app.services import avaliacao as crud_avaliacao
+from fastapi_pagination.ext.sqlalchemy import paginate
 
 router = APIRouter(prefix="/avaliacoes")
 
@@ -152,8 +152,6 @@ async def read_last_five_avaliacoes(db: AsyncSession = Depends(get_db)) -> list[
 )
 async def read_avaliacoes_game(
     game_id: UUID,
-    skip: int = 0,
-    limit: int = 100,
     db: AsyncSession = Depends(get_db)
 ) -> Page[AvaliacaoResponse]:
     """
@@ -161,8 +159,6 @@ async def read_avaliacoes_game(
         
         Parâmetros:
         - **game_id**: UUID do jogo
-        - **skip**: Número de registros a pular (paginação, padrão: 0)
-        - **limit**: Número máximo de registros (padrão: 100)
         - **page**: Número da página (via query params)
         - **size**: Tamanho da página (via query params)
         
@@ -172,12 +168,8 @@ async def read_avaliacoes_game(
             
             Não requer autenticação: Aberto ao público
     """
-    return await crud_avaliacao.get_avaliacoes_by_game(
-        db = db, 
-        game_id = game_id, 
-        skip = skip, 
-        limit = limit
-    )
+    query = crud_avaliacao.get_avaliacoes_query(game_id=game_id)
+    return await paginate(db, query)
 
 
 @router.patch(
