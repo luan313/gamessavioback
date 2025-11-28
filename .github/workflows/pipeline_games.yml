@@ -27,11 +27,17 @@ jobs:
 
       - name: Rodar Script de Preços
         env:
-          # Mapeando as Secrets para Variáveis de Ambiente
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           ANY_DEAL_BASE_URL: ${{ secrets.ANY_DEAL_BASE_URL }}
           ANY_DEAL_API_KEY: ${{ secrets.ANY_DEAL_API_KEY }}
-          # Ajuste para o Python encontrar a pasta 'app'
+          
+          # fake env
+          SECRET_KEY: "key_apenas_para_o_script_rodar"
+          REFRESH_SECRET_KEY: "refresh_key"
+          BACKOFFICE_TOKEN: "dtoken"
+          RAWG_API_KEY: "rawg"
+          RAWG_BASE_URL: "http://google.com" 
+          REDIS_URL: "redis://dummy:6379/0"
           PYTHONPATH: . 
         run: |
           python -m scripts.run_update
