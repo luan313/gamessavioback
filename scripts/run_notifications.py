@@ -25,7 +25,7 @@ async def main():
             
             if game_ids:
                 logger.info(f"Analisando {len(game_ids)} jogos...")
-                count = await process_price_updates(game_ids, db)
+                count = await process_price_updates(game_ids, db, logger)
                 
                 logger.info(f"Job finalizado. E-mails enviados: {count}")
             else:

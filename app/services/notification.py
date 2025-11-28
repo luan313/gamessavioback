@@ -65,7 +65,7 @@ async def send_email(to_email: str, subject: str, content: str) -> None:
         logger.error(f"Failed to send email to {to_email}: {e}")
 
 
-async def process_price_updates(game_ids: List[UUID], db: AsyncSession) -> int:
+async def process_price_updates(game_ids: List[UUID], db: AsyncSession, logger = None) -> int:
     stmt = (
         select(JogosMonitorados, Game, User)
         .join(Game, JogosMonitorados.game_id == Game.id)
