@@ -1,0 +1,70 @@
+name: Pipeline Games (Update & Notify)
+
+on:
+  schedule:
+    - cron: '0 6,10,14,18,22 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-prices:
+    name: 💰 Atualizar Preços
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar Dependências
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install httpx sqlalchemy asyncpg python-dotenv pydantic-settings greenlet
+
+      - name: Rodar Script de Preços
+        env:
+          # Mapeando as Secrets para Variáveis de Ambiente
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          ANY_DEAL_BASE_URL: ${{ secrets.ANY_DEAL_BASE_URL }}
+          ANY_DEAL_API_KEY: ${{ secrets.ANY_DEAL_API_KEY }}
+          # Ajuste para o Python encontrar a pasta 'app'
+          PYTHONPATH: . 
+        run: |
+          python -m scripts.price_fetcher_job
+
+  # send-notifications:
+  #   name: 📧 Enviar Notificações
+
+  #   needs: update-prices
+    
+  #   runs-on: ubuntu-latest
+    
+  #   steps:
+  #     - name: Baixar código
+  #       uses: actions/checkout@v3
+
+  #     - name: Configurar Python
+  #       uses: actions/setup-python@v4
+  #       with:
+  #         python-version: '3.10'
+
+  #     - name: Instalar Dependências
+  #       run: |
+  #         python -m pip install --upgrade pip
+  #         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+  #         pip install httpx sqlalchemy asyncpg python-dotenv pydantic-settings
+
+  #     - name: Rodar Script de Notificação
+  #       env:
+  #         DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  #         EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
+  #         EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
+  #         EMAIL_USER: ${{ secrets.EMAIL_USER }}
+  #         EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+  #         PYTHONPATH: .
+  #       run: |
+  #         python -m scripts.notification_job
