@@ -16,15 +16,8 @@ async def create_avaliacao(db: AsyncSession, avaliacao: AvaliacaoCreate, user_id
     return db_avaliacao
 
 
-async def get_avaliacoes_by_game(db: AsyncSession, game_id: UUID, skip: int = 0, limit: int = 100) -> list[Avaliacao]:
-    result = await db.execute(
-        select(Avaliacao)
-        .where(Avaliacao.game_id == game_id)
-        .offset(skip)
-        .limit(limit)
-    )
-    return result.scalars().all()
-
+def get_avaliacoes_query(game_id: UUID):
+    return select(Avaliacao).where(Avaliacao.game_id == game_id)
 
 async def get_avaliacao_by_id(db: AsyncSession, avaliacao_id: UUID) -> Avaliacao | None: 
     result = await db.execute(select(Avaliacao).where(Avaliacao.id == avaliacao_id))

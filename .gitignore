@@ -1,51 +1,99 @@
-# --- Node.js / Next.js ---
-node_modules/
-.next/
-build/
-out/
-dist/
-.pnp
-.pnp.js
-coverage/
-
-# --- Python ---
-# Byte-compiled / optimized / DLL files
+##############################
+# Python
+##############################
 __pycache__/
 *.py[cod]
 *$py.class
-
-# Virtual Environments (essencial para sua pasta 'venv')
-venv/
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
 .venv/
+venv/
+ENV/
 env/
 .env/
 
-# --- Vercel ---
-.vercel/
+##############################
+# FastAPI + Uvicorn
+##############################
+*.log
+logs/
+*.db
+*.sqlite3
 
-# --- Variáveis de Ambiente (SEGURANÇA CRÍTICA) ---
-# Nunca suba suas chaves de API para o GitHub
+##############################
+# Alembic / Migrations
+##############################
+alembic.ini
+alembic/versions/*.pyc
+
+##############################
+# Environment variables
+##############################
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+!.env.example
 *.env
 
-# --- Logs e Depuração ---
+##############################
+# Sphinx Documentation
+##############################
+docs/_build/
+docs/generated/
+*.doctree
+*.pickle
+
+##############################
+# Testing / Linting
+##############################
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+ruff_cache/
+.cache/
+pytest_cache/
+coverage.xml
+.coverage
+htmlcov/
+
+##############################
+# IDE / Editor
+##############################
+.vscode/
+.settings/
+.history/
+.idea/
+
+##############################
+# OS generated
+##############################
+.DS_Store
+Thumbs.db
+
+##############################
+# Docker
+##############################
+docker-compose.override.yml
+*.pid
+
+##############################
+# Node / Next.js / Vercel
+##############################
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
-# --- Sistema Operacional ---
-.DS_Store
-Thumbs.db
-
-# --- Arquivos de IDE (Opcional, mas recomendado) ---
-.vscode/
-.idea/
-
-# --- Next.js Types gerados automaticamente ---
+.next/
+out/
+.pnp
+.pnp.js
+coverage/
+.vercel/
 next-env.d.ts

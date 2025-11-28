@@ -19,7 +19,7 @@ class MonitoramentoService:
         
         query = (
             select(JogosMonitorados)
-            .options(selectinload(JogosMonitorados.game))  # Carrega o Game associado
+            .options(selectinload(JogosMonitorados.game))  
             .where(JogosMonitorados.id == db_monitoramento.id)
         )
         
@@ -27,6 +27,7 @@ class MonitoramentoService:
         monitoramento_criado = result.scalars().first()
         
         return monitoramento_criado
+
 
     @staticmethod
     async def get_monitored_games_for_user(db: AsyncSession, user_id: UUID, skip: int = 0, limit: int = 100) -> list[JogosMonitorados]:
@@ -42,28 +43,31 @@ class MonitoramentoService:
 
     @staticmethod
     async def get_monitoramento_by_id(db: AsyncSession, monitoramento_id: UUID) -> JogosMonitorados | None:
-        result = await db.execute(select(JogosMonitorados).where(JogosMonitorados.id == monitoramento_id))
+        result = await db.execute(
+            select(JogosMonitorados)
+            .options(selectinload(JogosMonitorados.game))
+            .where(JogosMonitorados.id == monitoramento_id))
         return result.scalar_one_or_none()
-
+    
 
     @staticmethod
-    async def update_monitoring(db: AsyncSession, monitoramento_id: UUID, monitoramento_update: MonitoramentoUpdate, user_id: UUID) -> JogosMonitorados | None:
+    async def update_monitoring(db: AsyncSession, monitoramento_id: UUID, monitoramento_update: MonitoramentoUpdate, user_id: UUID):
         db_monitoramento = await MonitoramentoService.get_monitoramento_by_id(db, monitoramento_id)
-        
+
         if not db_monitoramento:
             return None
 
         if db_monitoramento.user_id != user_id:
             return "unauthorized"
 
-        if monitoramento_update.preco_a_pagar is not None:
-            db_monitoramento.preco_alvo = monitoramento_update.preco_a_pagar
-        
+        if monitoramento_update.preco_alvo is not None:
+            db_monitoramento.preco_alvo = monitoramento_update.preco_alvo
+
         await db.commit()
         await db.refresh(db_monitoramento)
         return db_monitoramento
-
-
+    
+    
     @staticmethod
     async def delete_monitoramento(db: AsyncSession, monitoramento_id: UUID, user_id: UUID) -> bool | None:
         db_monitoramento = await MonitoramentoService.get_monitoramento_by_id(db, monitoramento_id)
