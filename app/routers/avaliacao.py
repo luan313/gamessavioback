@@ -5,7 +5,7 @@ from uuid import UUID
 from fastapi_pagination import Page
 from app.database.session import get_db
 from app.core.security import get_current_user 
-from app.schemas.avaliacao import AvaliacaoCreate, AvaliacaoUpdate, AvaliacaoResponse, AvaliacaoBasicResponse
+from app.schemas.avaliacao import AvaliacaoCreate, AvaliacaoUpdate, AvaliacaoResponse, AvaliacaoBasicResponse, AvaliacaoDetailedResponse
 from app.services import avaliacao as crud_avaliacao
 from fastapi_pagination.ext.sqlalchemy import paginate
 
@@ -113,7 +113,7 @@ async def read_last_five_avaliacoes(db: AsyncSession = Depends(get_db)) -> list[
 
 @router.get(
     "/game/{game_id}", 
-    response_model=Page[AvaliacaoResponse], 
+    response_model=Page[AvaliacaoDetailedResponse], 
     summary="Listar avaliações de um jogo",
     description="Retorna todas as avaliações feitas para um jogo específico, com paginação. Inclui notas, comentários e informações dos avaliadores.",
     responses={
@@ -168,8 +168,10 @@ async def read_avaliacoes_game(
             
             Não requer autenticação: Aberto ao público
     """
-    query = crud_avaliacao.get_avaliacoes_query(game_id=game_id)
-    return await paginate(db, query)
+    query = crud_avaliacao.get_avaliacoes_by_game_id(game_id=game_id)
+    return await paginate(db, query)  
+    
+    
 
 
 @router.patch(

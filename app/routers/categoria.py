@@ -104,6 +104,7 @@ async def get_categorias_com_jogos(
         }
     }
 )
+@cache(expire=3600)
 async def get_jogos_categoria(
     categoria_id: UUID,
     db: AsyncSession = Depends(get_db)

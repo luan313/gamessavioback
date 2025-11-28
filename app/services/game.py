@@ -1,10 +1,10 @@
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.models.game import Game
 from app.schemas.game import SearchGameResponse
 from uuid import UUID
 from sqlalchemy.orm import selectinload
+from app.models.game import Game
 from app.models.game_categoria import GameCategoria
 from app.models.game_plataforma import GamePlataforma
 
@@ -26,7 +26,7 @@ def get_game_by_id(id: UUID) -> Game:
         select(Game)
         .options(
             selectinload(Game.categorias).joinedload(GameCategoria.categoria),  
-            selectinload(Game.plataformas).joinedload(GamePlataforma.plataforma) 
+            selectinload(Game.plataformas).joinedload(GamePlataforma.plataforma),
         )
         .where(Game.id == id)
     )

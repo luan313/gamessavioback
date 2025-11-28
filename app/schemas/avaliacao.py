@@ -27,6 +27,14 @@ class AvaliacaoResponse(AvaliacaoBase):
     class Config:
         from_attributes = True 
 
+class AvaliacaoDetailedResponse(AvaliacaoBase):
+    id: UUID4
+    user: UserBasic
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
 class AvaliacaoBasicResponse(AvaliacaoBase):
     id: UUID4
     user: UserBasic

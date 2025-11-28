@@ -9,6 +9,7 @@ from app.services import game as game_service
 from fastapi_pagination.ext.sqlalchemy import paginate as paginate_async
 from fastapi_pagination import Page, Params
 from fastapi import Query
+from fastapi_cache.decorator import cache
 
 router = APIRouter(prefix="/game")
 
@@ -49,6 +50,7 @@ router = APIRouter(prefix="/game")
         }
     }
 )
+@cache(expire=3600)
 async def get_hyped_games(
     qtd: int = Query(qtd=20, description="Número máximo de jogos a retornar"),
     params: Params = Depends(),
@@ -158,6 +160,7 @@ from uuid import UUID
         }
     }
 )
+@cache(expire=3600)
 async def get_game_by_id(
     id: UUID,
     db: AsyncSession = Depends(get_db)

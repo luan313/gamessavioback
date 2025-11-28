@@ -16,8 +16,8 @@ async def create_avaliacao(db: AsyncSession, avaliacao: AvaliacaoCreate, user_id
     return db_avaliacao
 
 
-def get_avaliacoes_query(game_id: UUID):
-    return select(Avaliacao).where(Avaliacao.game_id == game_id)
+def get_avaliacoes_by_game_id(game_id: UUID):
+    return select(Avaliacao).options(selectinload(Avaliacao.user)).where(Avaliacao.game_id == game_id)
 
 async def get_avaliacao_by_id(db: AsyncSession, avaliacao_id: UUID) -> Avaliacao | None: 
     result = await db.execute(select(Avaliacao).where(Avaliacao.id == avaliacao_id))
