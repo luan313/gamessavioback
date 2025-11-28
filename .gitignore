@@ -41,8 +41,6 @@ alembic/versions/*.pyc
 ##############################
 # Sphinx Documentation
 ##############################
-docs/_build/
-docs/generated/
 *.doctree
 *.pickle
 

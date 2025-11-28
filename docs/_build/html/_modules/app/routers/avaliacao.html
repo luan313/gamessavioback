@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>app.routers.avaliacao &#8212; GamesSavio 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for app.routers.avaliacao</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">Depends</span><span class="p">,</span> <span class="n">HTTPException</span><span class="p">,</span> <span class="n">status</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.ext.asyncio</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncSession</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">uuid</span><span class="w"> </span><span class="kn">import</span> <span class="n">UUID</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi_pagination</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">Params</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi_pagination.ext.sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">paginate</span> <span class="k">as</span> <span class="n">paginate_async</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">app.database.session</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_db</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">app.core.security</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_current_user</span> 
+<span class="kn">from</span><span class="w"> </span><span class="nn">app.schemas.avaliacao</span><span class="w"> </span><span class="kn">import</span> <span class="n">AvaliacaoCreate</span><span class="p">,</span> <span class="n">AvaliacaoUpdate</span><span class="p">,</span> <span class="n">AvaliacaoResponse</span><span class="p">,</span> <span class="n">AvaliacaoBasicResponse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">app.services</span><span class="w"> </span><span class="kn">import</span> <span class="n">avaliacao</span> <span class="k">as</span> <span class="n">crud_avaliacao</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;/avaliacoes&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="create_new_avaliacao">
+<a class="viewcode-back" href="../../../app.routers.html#app.routers.avaliacao.create_new_avaliacao">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="s2">&quot;/&quot;</span><span class="p">,</span> 
+    <span class="n">response_model</span><span class="o">=</span><span class="n">AvaliacaoResponse</span><span class="p">,</span> 
+    <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">,</span>
+    <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Criar avaliação de jogo&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Adiciona uma nova avaliação (nota e/ou comentário) de um usuário para um jogo específico. O usuário deve estar autenticado.&quot;</span><span class="p">,</span>
+    <span class="n">responses</span><span class="o">=</span><span class="p">{</span>
+        <span class="mi">201</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Avaliação criada com sucesso&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;application/json&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;example&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;550e8400-e29b-41d4-a716-446655440000&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;game_id&quot;</span><span class="p">:</span> <span class="s2">&quot;660e8400-e29b-41d4-a716-446655440001&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;user_id&quot;</span><span class="p">:</span> <span class="s2">&quot;770e8400-e29b-41d4-a716-446655440002&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;nota&quot;</span><span class="p">:</span> <span class="mf">4.5</span><span class="p">,</span>
+                        <span class="s2">&quot;comentario&quot;</span><span class="p">:</span> <span class="s2">&quot;Jogo incrível! Jogabilidade perfeita.&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-11-24T18:07:00&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-11-24T18:07:00&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="mi">401</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Usuário não autenticado&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;application/json&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;example&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Autenticação necessária&quot;</span><span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="mi">404</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Jogo não encontrado&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;application/json&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;example&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Jogo não encontrado&quot;</span><span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_new_avaliacao</span><span class="p">(</span>
+    <span class="n">avaliacao</span><span class="p">:</span> <span class="n">AvaliacaoCreate</span><span class="p">,</span>
+    <span class="n">db</span><span class="p">:</span> <span class="n">AsyncSession</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">),</span>
+    <span class="n">current_user</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AvaliacaoResponse</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Cria uma nova avaliação para um jogo.</span>
+<span class="sd">        </span>
+<span class="sd">        Parâmetros:</span>
+<span class="sd">        - **game_id**: UUID do jogo a ser avaliado</span>
+<span class="sd">        - **nota**: Nota de 0 a 5 (com decimais, ex: 4.5)</span>
+<span class="sd">        - **comentario**: Texto da avaliação (opcional)</span>
+<span class="sd">        </span>
+<span class="sd">        Retorna:</span>
+<span class="sd">        - Dados da avaliação criada incluindo ID, nota, comentário e timestamps</span>
+<span class="sd">        </span>
+<span class="sd">        Regras:</span>
+<span class="sd">        - Cada usuário pode criar apenas uma avaliação por jogo</span>
+<span class="sd">        - A nota deve estar entre 0 e 5</span>
+<span class="sd">        </span>
+<span class="sd">        Requer autenticação: Sim (Bearer token)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="k">await</span> <span class="n">crud_avaliacao</span><span class="o">.</span><span class="n">create_avaliacao</span><span class="p">(</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">db</span><span class="p">,</span> 
+        <span class="n">avaliacao</span> <span class="o">=</span> <span class="n">avaliacao</span><span class="p">,</span> 
+        <span class="n">user_id</span> <span class="o">=</span> <span class="n">current_user</span><span class="o">.</span><span class="n">id</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="read_last_five_avaliacoes">
+<a class="viewcode-back" href="../../../app.routers.html#app.routers.avaliacao.read_last_five_avaliacoes">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="s2">&quot;/last-five-avaliations&quot;</span><span class="p">,</span>
+    <span class="n">response_model</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="n">AvaliacaoBasicResponse</span><span class="p">],</span> 
+    <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Listar as últimas avaliações&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Retorna as últimas avaliações feitas por usuários. Inclui notas, comentários e informações dos avaliadores.&quot;</span><span class="p">,</span>
+    <span class="n">responses</span><span class="o">=</span><span class="p">{</span>
+        <span class="mi">200</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Lista de avaliações retornada com sucesso&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;application/json&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;example&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+                            <span class="p">{</span>
+                                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;550e8400-e29b-41d4-a716-446655440000&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;game_id&quot;</span><span class="p">:</span> <span class="s2">&quot;660e8400-e29b-41d4-a716-446655440001&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;user_id&quot;</span><span class="p">:</span> <span class="s2">&quot;770e8400-e29b-41d4-a716-446655440002&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;nota&quot;</span><span class="p">:</span> <span class="mf">4.5</span><span class="p">,</span>
+                                <span class="s2">&quot;comentario&quot;</span><span class="p">:</span> <span class="s2">&quot;Jogo incrível!&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-11-24T18:07:00&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-11-24T18:07:00&quot;</span>
+                            <span class="p">}</span>
+                        <span class="p">],</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">read_last_five_avaliacoes</span><span class="p">(</span><span class="n">db</span><span class="p">:</span> <span class="n">AsyncSession</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">AvaliacaoBasicResponse</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="k">await</span> <span class="n">crud_avaliacao</span><span class="o">.</span><span class="n">get_last_five_avaliacoes</span><span class="p">(</span><span class="n">db</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="read_avaliacoes_game">
+<a class="viewcode-back" href="../../../app.routers.html#app.routers.avaliacao.read_avaliacoes_game">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="s2">&quot;/game/</span><span class="si">{game_id}</span><span class="s2">&quot;</span><span class="p">,</span> 
+    <span class="n">response_model</span><span class="o">=</span><span class="n">Page</span><span class="p">[</span><span class="n">AvaliacaoResponse</span><span class="p">],</span> 
+    <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Listar avaliações de um jogo&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Retorna todas as avaliações feitas para um jogo específico, com paginação. Inclui notas, comentários e informações dos avaliadores.&quot;</span><span class="p">,</span>
+    <span class="n">responses</span><span class="o">=</span><span class="p">{</span>
+        <span class="mi">200</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Lista de avaliações retornada com sucesso&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;application/json&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;example&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+                            <span class="p">{</span>
+                                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;550e8400-e29b-41d4-a716-446655440000&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;game_id&quot;</span><span class="p">:</span> <span class="s2">&quot;660e8400-e29b-41d4-a716-446655440001&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;user_id&quot;</span><span class="p">:</span> <span class="s2">&quot;770e8400-e29b-41d4-a716-446655440002&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;nota&quot;</span><span class="p">:</span> <span class="mf">4.5</span><span class="p">,</span>
+                                <span class="s2">&quot;comentario&quot;</span><span class="p">:</span> <span class="s2">&quot;Jogo incrível!&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-11-24T18:07:00&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-11-24T18:07:00&quot;</span>
+                            <span class="p">}</span>
+                        <span class="p">],</span>
+                        <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span>
+                        <span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">20</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="mi">404</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Jogo não encontrado&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;application/json&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;example&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Jogo não encontrado&quot;</span><span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">read_avaliacoes_game</span><span class="p">(</span>
+    <span class="n">game_id</span><span class="p">:</span> <span class="n">UUID</span><span class="p">,</span>
+    <span class="n">skip</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="n">db</span><span class="p">:</span> <span class="n">AsyncSession</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Page</span><span class="p">[</span><span class="n">AvaliacaoResponse</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna todas as avaliações de um jogo específico.</span>
+<span class="sd">        </span>
+<span class="sd">        Parâmetros:</span>
+<span class="sd">        - **game_id**: UUID do jogo</span>
+<span class="sd">        - **skip**: Número de registros a pular (paginação, padrão: 0)</span>
+<span class="sd">        - **limit**: Número máximo de registros (padrão: 100)</span>
+<span class="sd">        - **page**: Número da página (via query params)</span>
+<span class="sd">        - **size**: Tamanho da página (via query params)</span>
+<span class="sd">        </span>
+<span class="sd">            Retorna:</span>
+<span class="sd">            - Lista paginada de avaliações com notas, comentários e dados dos usuários</span>
+<span class="sd">            - Informações de paginação (total, page, size)</span>
+<span class="sd">            </span>
+<span class="sd">            Não requer autenticação: Aberto ao público</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="k">await</span> <span class="n">crud_avaliacao</span><span class="o">.</span><span class="n">get_avaliacoes_by_game</span><span class="p">(</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">db</span><span class="p">,</span> 
+        <span class="n">game_id</span> <span class="o">=</span> <span class="n">game_id</span><span class="p">,</span> 
+        <span class="n">skip</span> <span class="o">=</span> <span class="n">skip</span><span class="p">,</span> 
+        <span class="n">limit</span> <span class="o">=</span> <span class="n">limit</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="update_existing_avaliacao">
+<a class="viewcode-back" href="../../../app.routers.html#app.routers.avaliacao.update_existing_avaliacao">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="s2">&quot;/</span><span class="si">{avaliacao_id}</span><span class="s2">&quot;</span><span class="p">,</span> 
+    <span class="n">response_model</span><span class="o">=</span><span class="n">AvaliacaoResponse</span><span class="p">,</span>
+    <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Editar minha avaliação&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Atualiza uma avaliação existente (nota e/ou comentário). Apenas o autor da avaliação pode editá-la.&quot;</span><span class="p">,</span>
+    <span class="n">responses</span><span class="o">=</span><span class="p">{</span>
+        <span class="mi">200</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Avaliação atualizada com sucesso&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;application/json&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;example&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;550e8400-e29b-41d4-a716-446655440000&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;game_id&quot;</span><span class="p">:</span> <span class="s2">&quot;660e8400-e29b-41d4-a716-446655440001&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;user_id&quot;</span><span class="p">:</span> <span class="s2">&quot;770e8400-e29b-41d4-a716-446655440002&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;nota&quot;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span>
+                        <span class="s2">&quot;comentario&quot;</span><span class="p">:</span> <span class="s2">&quot;Avaliação atualizada após DLC&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-11-24T18:07:00&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-11-24T18:10:00&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="mi">403</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Não autorizado - tentativa de editar avaliação de outro usuário&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;application/json&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;example&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Não autorizado a editar esta avaliação&quot;</span><span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="mi">404</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Avaliação não encontrada&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;application/json&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;example&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Avaliação não encontrada&quot;</span><span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">update_existing_avaliacao</span><span class="p">(</span>
+    <span class="n">avaliacao_id</span><span class="p">:</span> <span class="n">UUID</span><span class="p">,</span>
+    <span class="n">avaliacao</span><span class="p">:</span> <span class="n">AvaliacaoUpdate</span><span class="p">,</span>
+    <span class="n">db</span><span class="p">:</span> <span class="n">AsyncSession</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">),</span>
+    <span class="n">current_user</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AvaliacaoResponse</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Atualiza uma avaliação existente.</span>
+<span class="sd">        </span>
+<span class="sd">        Parâmetros:</span>
+<span class="sd">        - **avaliacao_id**: UUID da avaliação a ser atualizada</span>
+<span class="sd">        - **nota**: Nova nota de 0 a 5 (opcional)</span>
+<span class="sd">        - **comentario**: Novo texto da avaliação (opcional)</span>
+<span class="sd">        </span>
+<span class="sd">        Retorna:</span>
+<span class="sd">        - Dados atualizados da avaliação com novo timestamp de updated_at</span>
+<span class="sd">        </span>
+<span class="sd">        Validações:</span>
+<span class="sd">        - Apenas o autor da avaliação pode editá-la</span>
+<span class="sd">        - Retorna 403 se tentar editar avaliação de outro usuário</span>
+<span class="sd">        - Retorna 404 se a avaliação não existir</span>
+<span class="sd">        </span>
+<span class="sd">        Requer autenticação: Sim (Bearer token)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">updated_avaliacao</span> <span class="o">=</span> <span class="k">await</span> <span class="n">crud_avaliacao</span><span class="o">.</span><span class="n">update_avaliacao</span><span class="p">(</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">db</span><span class="p">,</span> 
+        <span class="n">avaliacao_id</span> <span class="o">=</span> <span class="n">avaliacao_id</span><span class="p">,</span> 
+        <span class="n">avaliacao_update</span> <span class="o">=</span> <span class="n">avaliacao</span><span class="p">,</span>
+        <span class="n">user_id</span> <span class="o">=</span> <span class="n">current_user</span><span class="o">.</span><span class="n">id</span>
+    <span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">updated_avaliacao</span> <span class="o">==</span> <span class="s2">&quot;unauthorized&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">403</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Não autorizado a editar esta avaliação&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">updated_avaliacao</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Avaliação não encontrada&quot;</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">updated_avaliacao</span></div>
+
+
+<div class="viewcode-block" id="delete_existing_avaliacao">
+<a class="viewcode-back" href="../../../app.routers.html#app.routers.avaliacao.delete_existing_avaliacao">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span>
+    <span class="s2">&quot;/</span><span class="si">{avaliacao_id}</span><span class="s2">&quot;</span><span class="p">,</span> 
+    <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_204_NO_CONTENT</span><span class="p">,</span>
+    <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Deletar minha avaliação&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Remove permanentemente uma avaliação do sistema. Apenas o autor pode deletar sua própria avaliação.&quot;</span><span class="p">,</span>
+    <span class="n">responses</span><span class="o">=</span><span class="p">{</span>
+        <span class="mi">204</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Avaliação deletada com sucesso (sem conteúdo)&quot;</span>
+        <span class="p">},</span>
+        <span class="mi">403</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Não autorizado - tentativa de deletar avaliação de outro usuário&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;application/json&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;example&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Não autorizado a deletar esta avaliação&quot;</span><span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="mi">404</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Avaliação não encontrada&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;application/json&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;example&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Avaliação não encontrada&quot;</span><span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">delete_existing_avaliacao</span><span class="p">(</span>
+    <span class="n">avaliacao_id</span><span class="p">:</span> <span class="n">UUID</span><span class="p">,</span>
+    <span class="n">db</span><span class="p">:</span> <span class="n">AsyncSession</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">),</span>
+    <span class="n">current_user</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove uma avaliação permanentemente.</span>
+<span class="sd">        </span>
+<span class="sd">        Parâmetros:</span>
+<span class="sd">        - **avaliacao_id**: UUID da avaliação a ser removida</span>
+<span class="sd">        </span>
+<span class="sd">        Comportamento:</span>
+<span class="sd">        - Remove permanentemente a avaliação do banco de dados</span>
+<span class="sd">        - A nota do usuário deixa de contar na média do jogo</span>
+<span class="sd">        - Retorna status 204 (No Content) em caso de sucesso</span>
+<span class="sd">        </span>
+<span class="sd">        Validações:</span>
+<span class="sd">        - Apenas o autor da avaliação pode deletá-la</span>
+<span class="sd">        - Retorna 403 se tentar deletar avaliação de outro usuário</span>
+<span class="sd">        - Retorna 404 se a avaliação não existir</span>
+<span class="sd">        </span>
+<span class="sd">        Requer autenticação: Sim (Bearer token)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">crud_avaliacao</span><span class="o">.</span><span class="n">delete_avaliacao</span><span class="p">(</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">db</span><span class="p">,</span> 
+        <span class="n">avaliacao_id</span> <span class="o">=</span> <span class="n">avaliacao_id</span><span class="p">,</span> 
+        <span class="n">user_id</span> <span class="o">=</span> <span class="n">current_user</span><span class="o">.</span><span class="n">id</span>
+    <span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;unauthorized&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">403</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Não autorizado a deletar esta avaliação&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Avaliação não encontrada&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">GamesSavio</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Luis Cesar Ferreira do Carmo, Luan.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

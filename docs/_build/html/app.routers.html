@@ -1,0 +1,784 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Models" href="api/models.html"><link rel="prev" title="API Endpoints" href="api/endpoints.html">
+
+    <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
+        <title>app.routers package - GamesSavio 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  --color-brand-primary: #6C63FF;
+  --color-brand-content: #6C63FF;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #8D85FF;
+  --color-brand-content: #8D85FF;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #8D85FF;
+  --color-brand-content: #8D85FF;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">GamesSavio 0.0.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <span class="sidebar-brand-text">GamesSavio 0.0.1 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="api/endpoints.html">API Endpoints</a><input aria-label="Toggle navigation of API Endpoints" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">app.routers package</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api/models.html">Models</a><input aria-label="Toggle navigation of Models" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.models.html">app.models package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.schemas.html">app.schemas package</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="settings.html">Settings</a><input aria-label="Toggle navigation of Settings" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/app.routers.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="app-routers-package">
+<h1>app.routers package<a class="headerlink" href="#app-routers-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-app.routers.auth">
+<span id="app-routers-auth-module"></span><h2>app.routers.auth module<a class="headerlink" href="#module-app.routers.auth" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.auth.login">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.auth.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/auth.html#login"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.auth.login" title="Link to this definition">¶</a></dt>
+<dd><p>Autentica um usuário no sistema.</p>
+<p>Parâmetros:
+- <strong>email</strong>: Email cadastrado do usuário
+- <strong>password</strong>: Senha da conta</p>
+<p>Retorna:
+- <strong>access_token</strong>: Token JWT para usar em requisições autenticadas (expira em 30 minutos)
+- <strong>refresh_token</strong>: Token para renovar o access_token quando expirar (expira em 7 dias)
+- <strong>token_type</strong>: “bearer” - use como: Authorization: Bearer {access_token}</p>
+<p>Como usar o token:
+1. Faça login para receber os tokens
+2. Inclua o access_token no header: <cite>Authorization: Bearer {access_token}</cite>
+3. Quando o access_token expirar, use o refresh_token no endpoint /refresh</p>
+<p>Não requer autenticação: Endpoint público</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="app.schemas.html#app.schemas.auth.TokenResponse" title="app.schemas.auth.TokenResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TokenResponse</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.auth.refresh_token">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.auth.</span></span><span class="sig-name descname"><span class="pre">refresh_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/auth.html#refresh_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.auth.refresh_token" title="Link to this definition">¶</a></dt>
+<dd><p>Renova os tokens de autenticação usando um Refresh Token.</p>
+<p>Parâmetros:
+- <strong>refresh_token</strong>: Refresh Token válido obtido no login ou registro</p>
+<p>Retorna:
+- <strong>access_token</strong>: Novo Access Token (expira em 30 minutos)
+- <strong>refresh_token</strong>: Novo Refresh Token (expira em 7 dias)
+- <strong>token_type</strong>: “bearer”</p>
+<p>Quando usar:
+- Quando receber erro 401 (Unauthorized) em endpoints protegidos
+- Antes do Access Token expirar (recomendado renovar após 25 minutos)
+- Para manter o usuário logado sem solicitar nova senha</p>
+<p>Fluxo recomendado:
+1. Detectar expiração do Access Token
+2. Enviar Refresh Token para este endpoint
+3. Atualizar tokens armazenados com os novos valores
+4. Repetir requisição original com novo Access Token</p>
+<p>Não requer autenticação: Apenas o Refresh Token válido</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="app.schemas.html#app.schemas.auth.TokenResponse" title="app.schemas.auth.TokenResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TokenResponse</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.auth.register_user">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.auth.</span></span><span class="sig-name descname"><span class="pre">register_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/auth.html#register_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.auth.register_user" title="Link to this definition">¶</a></dt>
+<dd><p>Registra um novo usuário no sistema.</p>
+<p>Parâmetros:
+- <strong>email</strong>: Email válido (será usado para login)
+- <strong>password</strong>: Senha com no mínimo 8 caracteres
+- <strong>username</strong>: Nome de usuário (opcional)</p>
+<p>Retorna:
+- <strong>access_token</strong>: Token JWT para autenticação em endpoints protegidos (expira em 30 minutos)
+- <strong>refresh_token</strong>: Token para renovar o access_token (expira em 7 dias)
+- <strong>token_type</strong>: Tipo do token (sempre “bearer”)</p>
+<p>Regras:
+- Email deve ser único no sistema
+- Senha é criptografada antes de ser armazenada
+- Tokens são retornados automaticamente após registro</p>
+<p>Não requer autenticação: Endpoint público</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="app.schemas.html#app.schemas.auth.TokenResponse" title="app.schemas.auth.TokenResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TokenResponse</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-app.routers.avaliacao">
+<span id="app-routers-avaliacao-module"></span><h2>app.routers.avaliacao module<a class="headerlink" href="#module-app.routers.avaliacao" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.avaliacao.create_new_avaliacao">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.avaliacao.</span></span><span class="sig-name descname"><span class="pre">create_new_avaliacao</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">avaliacao</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user=Depends(dependency=&lt;function</span> <span class="pre">get_current_user&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/avaliacao.html#create_new_avaliacao"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.avaliacao.create_new_avaliacao" title="Link to this definition">¶</a></dt>
+<dd><p>Cria uma nova avaliação para um jogo.</p>
+<p>Parâmetros:
+- <strong>game_id</strong>: UUID do jogo a ser avaliado
+- <strong>nota</strong>: Nota de 0 a 5 (com decimais, ex: 4.5)
+- <strong>comentario</strong>: Texto da avaliação (opcional)</p>
+<p>Retorna:
+- Dados da avaliação criada incluindo ID, nota, comentário e timestamps</p>
+<p>Regras:
+- Cada usuário pode criar apenas uma avaliação por jogo
+- A nota deve estar entre 0 e 5</p>
+<p>Requer autenticação: Sim (Bearer token)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="app.schemas.html#app.schemas.avaliacao.AvaliacaoResponse" title="app.schemas.avaliacao.AvaliacaoResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">AvaliacaoResponse</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.avaliacao.delete_existing_avaliacao">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.avaliacao.</span></span><span class="sig-name descname"><span class="pre">delete_existing_avaliacao</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">avaliacao_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user=Depends(dependency=&lt;function</span> <span class="pre">get_current_user&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/avaliacao.html#delete_existing_avaliacao"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.avaliacao.delete_existing_avaliacao" title="Link to this definition">¶</a></dt>
+<dd><p>Remove uma avaliação permanentemente.</p>
+<p>Parâmetros:
+- <strong>avaliacao_id</strong>: UUID da avaliação a ser removida</p>
+<p>Comportamento:
+- Remove permanentemente a avaliação do banco de dados
+- A nota do usuário deixa de contar na média do jogo
+- Retorna status 204 (No Content) em caso de sucesso</p>
+<p>Validações:
+- Apenas o autor da avaliação pode deletá-la
+- Retorna 403 se tentar deletar avaliação de outro usuário
+- Retorna 404 se a avaliação não existir</p>
+<p>Requer autenticação: Sim (Bearer token)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.avaliacao.read_avaliacoes_game">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.avaliacao.</span></span><span class="sig-name descname"><span class="pre">read_avaliacoes_game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit=100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/avaliacao.html#read_avaliacoes_game"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.avaliacao.read_avaliacoes_game" title="Link to this definition">¶</a></dt>
+<dd><p>Retorna todas as avaliações de um jogo específico.</p>
+<p>Parâmetros:
+- <strong>game_id</strong>: UUID do jogo
+- <strong>skip</strong>: Número de registros a pular (paginação, padrão: 0)
+- <strong>limit</strong>: Número máximo de registros (padrão: 100)
+- <strong>page</strong>: Número da página (via query params)
+- <strong>size</strong>: Tamanho da página (via query params)</p>
+<blockquote>
+<div><p>Retorna:
+- Lista paginada de avaliações com notas, comentários e dados dos usuários
+- Informações de paginação (total, page, size)</p>
+<p>Não requer autenticação: Aberto ao público</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page[AvaliacaoResponse]</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.avaliacao.read_last_five_avaliacoes">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.avaliacao.</span></span><span class="sig-name descname"><span class="pre">read_last_five_avaliacoes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/avaliacao.html#read_last_five_avaliacoes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.avaliacao.read_last_five_avaliacoes" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference internal" href="app.schemas.html#app.schemas.avaliacao.AvaliacaoBasicResponse" title="app.schemas.avaliacao.AvaliacaoBasicResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">AvaliacaoBasicResponse</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.avaliacao.update_existing_avaliacao">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.avaliacao.</span></span><span class="sig-name descname"><span class="pre">update_existing_avaliacao</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">avaliacao_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avaliacao</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user=Depends(dependency=&lt;function</span> <span class="pre">get_current_user&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/avaliacao.html#update_existing_avaliacao"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.avaliacao.update_existing_avaliacao" title="Link to this definition">¶</a></dt>
+<dd><p>Atualiza uma avaliação existente.</p>
+<p>Parâmetros:
+- <strong>avaliacao_id</strong>: UUID da avaliação a ser atualizada
+- <strong>nota</strong>: Nova nota de 0 a 5 (opcional)
+- <strong>comentario</strong>: Novo texto da avaliação (opcional)</p>
+<p>Retorna:
+- Dados atualizados da avaliação com novo timestamp de updated_at</p>
+<p>Validações:
+- Apenas o autor da avaliação pode editá-la
+- Retorna 403 se tentar editar avaliação de outro usuário
+- Retorna 404 se a avaliação não existir</p>
+<p>Requer autenticação: Sim (Bearer token)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="app.schemas.html#app.schemas.avaliacao.AvaliacaoResponse" title="app.schemas.avaliacao.AvaliacaoResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">AvaliacaoResponse</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-app.routers.backoffice">
+<span id="app-routers-backoffice-module"></span><h2>app.routers.backoffice module<a class="headerlink" href="#module-app.routers.backoffice" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.backoffice.get_all_games">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.backoffice.</span></span><span class="sig-name descname"><span class="pre">get_all_games</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/backoffice.html#get_all_games"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.backoffice.get_all_games" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.backoffice.sync_all_prices">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.backoffice.</span></span><span class="sig-name descname"><span class="pre">sync_all_prices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">background_tasks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/backoffice.html#sync_all_prices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.backoffice.sync_all_prices" title="Link to this definition">¶</a></dt>
+<dd><p>Sincroniza preços de todos os jogos via API IsThereAnyDeal.</p>
+<p>Funcionamento:
+- Busca todos os jogos cadastrados no banco
+- Consulta preços atualizados na API IsThereAnyDeal
+- Atualiza informações de preço, loja e URL de compra
+- Cria histórico de preços para tracking
+- Executa em background para não bloquear</p>
+<p>Retorna:
+- Relatório com número de preços atualizados e eventuais falhas</p>
+<p>Uso:
+- Execute diariamente ou semanalmente para manter preços atualizados
+- Essencial para funcionalidade de alertas de preço
+- Processo pode demorar bastante tempo (roda em background)</p>
+<p>Requer autenticação: Sim (Bearer token) + Privilégios de Admin</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.backoffice.sync_games">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.backoffice.</span></span><span class="sig-name descname"><span class="pre">sync_games</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/backoffice.html#sync_games"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.backoffice.sync_games" title="Link to this definition">¶</a></dt>
+<dd><p>Sincroniza jogos da API RAWG para o banco de dados.</p>
+<p>Funcionamento:
+- Busca jogos populares da API RAWG
+- Importa informações completas (nome, descrição, metacritic, hype, etc.)
+- Associa categorias e plataformas automaticamente
+- Atualiza jogos existentes se houver mudanças</p>
+<p>Retorna:
+- Relatório da sincronização com número de jogos importados/atualizados</p>
+<p>Uso:
+- Execute periodicamente para manter catálogo atualizado
+- Processo pode demorar alguns minutos dependendo da quantidade</p>
+<p>Requer autenticação: Sim (Bearer token) + Privilégios de Admin</p>
+</dd></dl>
+
+</section>
+<section id="module-app.routers.categoria">
+<span id="app-routers-categoria-module"></span><h2>app.routers.categoria module<a class="headerlink" href="#module-app.routers.categoria" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.categoria.get_categorias_com_jogos">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.categoria.</span></span><span class="sig-name descname"><span class="pre">get_categorias_com_jogos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/categoria.html#get_categorias_com_jogos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.categoria.get_categorias_com_jogos" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint para obter todas as categorias com a quantidade de jogos.</p>
+<p>Retorna:
+- id: UUID da categoria
+- nome: Nome da categoria
+- quantidade_jogos: Número de jogos associados à categoria</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.categoria.get_jogos_categoria">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.categoria.</span></span><span class="sig-name descname"><span class="pre">get_jogos_categoria</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">categoria_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/categoria.html#get_jogos_categoria"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.categoria.get_jogos_categoria" title="Link to this definition">¶</a></dt>
+<dd><p>Retorna todos os jogos de uma categoria específica.</p>
+<p>Parâmetros:
+- <strong>categoria_id</strong>: UUID da categoria</p>
+<p>Retorna:
+- Lista de jogos com todas as informações (nome, descrição, preço, hype, etc.)
+- Jogos ordenados alfabeticamente por nome</p>
+</dd></dl>
+
+</section>
+<section id="module-app.routers.game">
+<span id="app-routers-game-module"></span><h2>app.routers.game module<a class="headerlink" href="#module-app.routers.game" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.game.get_hyped_games">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.game.</span></span><span class="sig-name descname"><span class="pre">get_hyped_games</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qtd=Query(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params=Depends(dependency=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/game.html#get_hyped_games"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.game.get_hyped_games" title="Link to this definition">¶</a></dt>
+<dd><p>Retorna os jogos mais populares ordenados por Hype Score.</p>
+<p>Parâmetros:
+- <strong>qtd</strong>: Número máximo de jogos a retornar (limite)
+- <strong>page</strong>: Número da página (via query params, padrão: 1)
+- <strong>size</strong>: Tamanho da página (via query params, padrão: 20)</p>
+<p>Retorna:
+- <strong>items</strong>: Lista de jogos com informações completas
+- <strong>total</strong>: Total de jogos disponíveis
+- <strong>page</strong>: Página atual
+- <strong>size</strong>: Tamanho da página</p>
+<p>Os jogos são ordenados do maior para o menor Hype Score.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page[TopHypedGamesResponse]</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.game.search_games_by_name">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.game.</span></span><span class="sig-name descname"><span class="pre">search_games_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/game.html#search_games_by_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.game.search_games_by_name" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference internal" href="app.schemas.html#app.schemas.game.SearchGameResponse" title="app.schemas.game.SearchGameResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">SearchGameResponse</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-app.routers.monitoramento">
+<span id="app-routers-monitoramento-module"></span><h2>app.routers.monitoramento module<a class="headerlink" href="#module-app.routers.monitoramento" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.monitoramento.create_new_monitoramento">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.monitoramento.</span></span><span class="sig-name descname"><span class="pre">create_new_monitoramento</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monitoramento</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user=Depends(dependency=&lt;function</span> <span class="pre">get_current_user&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/monitoramento.html#create_new_monitoramento"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.monitoramento.create_new_monitoramento" title="Link to this definition">¶</a></dt>
+<dd><p>Cria um novo monitoramento de preço para um jogo.</p>
+<p>Parâmetros:
+- <strong>game_id</strong>: UUID do jogo a ser monitorado
+- <strong>preco_alvo</strong>: Preço desejado para receber alerta (opcional)
+- <strong>ativo</strong>: Se o monitoramento está ativo (opcional, padrão: true)</p>
+<p>Retorna:
+- Dados do monitoramento criado incluindo ID, game_id, user_id e data de criação</p>
+<p>Requer autenticação: Sim (Bearer token)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="app.schemas.html#app.schemas.jogos_monitorados.MonitoramentoResponse" title="app.schemas.jogos_monitorados.MonitoramentoResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">MonitoramentoResponse</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.monitoramento.delete_existing_monitoramento">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.monitoramento.</span></span><span class="sig-name descname"><span class="pre">delete_existing_monitoramento</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monitoramento_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user=Depends(dependency=&lt;function</span> <span class="pre">get_current_user&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/monitoramento.html#delete_existing_monitoramento"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.monitoramento.delete_existing_monitoramento" title="Link to this definition">¶</a></dt>
+<dd><p>Remove um monitoramento de preço.</p>
+<p>Parâmetros:
+- <strong>monitoramento_id</strong>: UUID do monitoramento a ser removido</p>
+<p>Comportamento:
+- Remove permanentemente o monitoramento do banco de dados
+- O jogo deixa de ser monitorado e não haverá mais alertas
+- Retorna status 204 (No Content) em caso de sucesso</p>
+<p>Validações:
+- Apenas o usuário que criou o monitoramento pode removê-lo
+- Retorna 403 se tentar remover monitoramento de outro usuário
+- Retorna 404 se o monitoramento não existir</p>
+<p>Requer autenticação: Sim (Bearer token)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.monitoramento.read_monitoramentos">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.monitoramento.</span></span><span class="sig-name descname"><span class="pre">read_monitoramentos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">skip=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit=100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user=Depends(dependency=&lt;function</span> <span class="pre">get_current_user&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/monitoramento.html#read_monitoramentos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.monitoramento.read_monitoramentos" title="Link to this definition">¶</a></dt>
+<dd><p>Lista todos os jogos monitorados pelo usuário atual.</p>
+<p>Parâmetros:
+- <strong>skip</strong>: Número de registros a pular (paginação, padrão: 0)
+- <strong>limit</strong>: Número máximo de registros a retornar (padrão: 100)</p>
+<p>Retorna:
+- Lista de monitoramentos com game_id, preco_alvo, status ativo, etc.
+- Apenas os monitoramentos do usuário autenticado são retornados</p>
+<p>Requer autenticação: Sim (Bearer token)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference internal" href="app.schemas.html#app.schemas.jogos_monitorados.MonitoramentoResponse" title="app.schemas.jogos_monitorados.MonitoramentoResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">MonitoramentoResponse</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.monitoramento.update_existing_monitoramento">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.monitoramento.</span></span><span class="sig-name descname"><span class="pre">update_existing_monitoramento</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monitoramento_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitoramento</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user=Depends(dependency=&lt;function</span> <span class="pre">get_current_user&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/monitoramento.html#update_existing_monitoramento"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.monitoramento.update_existing_monitoramento" title="Link to this definition">¶</a></dt>
+<dd><p>Atualiza um monitoramento de preço existente.</p>
+<p>Parâmetros:
+- <strong>monitoramento_id</strong>: UUID do monitoramento a ser atualizado
+- <strong>preco_alvo</strong>: Novo preço alvo (opcional)
+- <strong>ativo</strong>: Ativar/desativar o monitoramento (opcional)</p>
+<p>Retorna:
+- Dados atualizados do monitoramento</p>
+<p>Validações:
+- Apenas o usuário que criou o monitoramento pode atualizá-lo
+- Retorna 403 se tentar editar monitoramento de outro usuário
+- Retorna 404 se o monitoramento não existir</p>
+<p>Requer autenticação: Sim (Bearer token)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="app.schemas.html#app.schemas.jogos_monitorados.MonitoramentoResponse" title="app.schemas.jogos_monitorados.MonitoramentoResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">MonitoramentoResponse</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-app.routers.user">
+<span id="app-routers-user-module"></span><h2>app.routers.user module<a class="headerlink" href="#module-app.routers.user" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.user.read_users_me">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.user.</span></span><span class="sig-name descname"><span class="pre">read_users_me</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_user=Depends(dependency=&lt;function</span> <span class="pre">get_current_user&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/user.html#read_users_me"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.user.read_users_me" title="Link to this definition">¶</a></dt>
+<dd><p>Retorna os dados do usuário logado.</p>
+<p>Retorna:
+- <strong>id</strong>: UUID do usuário
+- <strong>nome</strong>: Nome do usuário
+- <strong>email</strong>: Email do usuário
+- <strong>created_at</strong>: Data de criação da conta</p>
+<p>Requer autenticação: Sim (Bearer token)</p>
+</dd></dl>
+
+</section>
+<section id="module-app.routers.webhook">
+<span id="app-routers-webhook-module"></span><h2>app.routers.webhook module<a class="headerlink" href="#module-app.routers.webhook" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.webhook.notification">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.webhook.</span></span><span class="sig-name descname"><span class="pre">notification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/webhook.html#notification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.webhook.notification" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-app.routers">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app.routers" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="api/models.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Models</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="api/endpoints.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">API Endpoints</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Luis Cesar Ferreira do Carmo, Luan
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/luan313/gamessavioback" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">app.routers package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-app.routers.auth">app.routers.auth module</a><ul>
+<li><a class="reference internal" href="#app.routers.auth.login"><code class="docutils literal notranslate"><span class="pre">login()</span></code></a></li>
+<li><a class="reference internal" href="#app.routers.auth.refresh_token"><code class="docutils literal notranslate"><span class="pre">refresh_token()</span></code></a></li>
+<li><a class="reference internal" href="#app.routers.auth.register_user"><code class="docutils literal notranslate"><span class="pre">register_user()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.routers.avaliacao">app.routers.avaliacao module</a><ul>
+<li><a class="reference internal" href="#app.routers.avaliacao.create_new_avaliacao"><code class="docutils literal notranslate"><span class="pre">create_new_avaliacao()</span></code></a></li>
+<li><a class="reference internal" href="#app.routers.avaliacao.delete_existing_avaliacao"><code class="docutils literal notranslate"><span class="pre">delete_existing_avaliacao()</span></code></a></li>
+<li><a class="reference internal" href="#app.routers.avaliacao.read_avaliacoes_game"><code class="docutils literal notranslate"><span class="pre">read_avaliacoes_game()</span></code></a></li>
+<li><a class="reference internal" href="#app.routers.avaliacao.read_last_five_avaliacoes"><code class="docutils literal notranslate"><span class="pre">read_last_five_avaliacoes()</span></code></a></li>
+<li><a class="reference internal" href="#app.routers.avaliacao.update_existing_avaliacao"><code class="docutils literal notranslate"><span class="pre">update_existing_avaliacao()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.routers.backoffice">app.routers.backoffice module</a><ul>
+<li><a class="reference internal" href="#app.routers.backoffice.get_all_games"><code class="docutils literal notranslate"><span class="pre">get_all_games()</span></code></a></li>
+<li><a class="reference internal" href="#app.routers.backoffice.sync_all_prices"><code class="docutils literal notranslate"><span class="pre">sync_all_prices()</span></code></a></li>
+<li><a class="reference internal" href="#app.routers.backoffice.sync_games"><code class="docutils literal notranslate"><span class="pre">sync_games()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.routers.categoria">app.routers.categoria module</a><ul>
+<li><a class="reference internal" href="#app.routers.categoria.get_categorias_com_jogos"><code class="docutils literal notranslate"><span class="pre">get_categorias_com_jogos()</span></code></a></li>
+<li><a class="reference internal" href="#app.routers.categoria.get_jogos_categoria"><code class="docutils literal notranslate"><span class="pre">get_jogos_categoria()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.routers.game">app.routers.game module</a><ul>
+<li><a class="reference internal" href="#app.routers.game.get_hyped_games"><code class="docutils literal notranslate"><span class="pre">get_hyped_games()</span></code></a></li>
+<li><a class="reference internal" href="#app.routers.game.search_games_by_name"><code class="docutils literal notranslate"><span class="pre">search_games_by_name()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.routers.monitoramento">app.routers.monitoramento module</a><ul>
+<li><a class="reference internal" href="#app.routers.monitoramento.create_new_monitoramento"><code class="docutils literal notranslate"><span class="pre">create_new_monitoramento()</span></code></a></li>
+<li><a class="reference internal" href="#app.routers.monitoramento.delete_existing_monitoramento"><code class="docutils literal notranslate"><span class="pre">delete_existing_monitoramento()</span></code></a></li>
+<li><a class="reference internal" href="#app.routers.monitoramento.read_monitoramentos"><code class="docutils literal notranslate"><span class="pre">read_monitoramentos()</span></code></a></li>
+<li><a class="reference internal" href="#app.routers.monitoramento.update_existing_monitoramento"><code class="docutils literal notranslate"><span class="pre">update_existing_monitoramento()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.routers.user">app.routers.user module</a><ul>
+<li><a class="reference internal" href="#app.routers.user.read_users_me"><code class="docutils literal notranslate"><span class="pre">read_users_me()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.routers.webhook">app.routers.webhook module</a><ul>
+<li><a class="reference internal" href="#app.routers.webhook.notification"><code class="docutils literal notranslate"><span class="pre">notification()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.routers">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    </body>
+</html>

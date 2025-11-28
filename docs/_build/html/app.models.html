@@ -1,0 +1,867 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="app.schemas package" href="app.schemas.html"><link rel="prev" title="Models" href="api/models.html">
+
+    <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
+        <title>app.models package - GamesSavio 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  --color-brand-primary: #6C63FF;
+  --color-brand-content: #6C63FF;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #8D85FF;
+  --color-brand-content: #8D85FF;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #8D85FF;
+  --color-brand-content: #8D85FF;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">GamesSavio 0.0.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <span class="sidebar-brand-text">GamesSavio 0.0.1 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api/endpoints.html">API Endpoints</a><input aria-label="Toggle navigation of API Endpoints" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.routers.html">app.routers package</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="api/models.html">Models</a><input aria-label="Toggle navigation of Models" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">app.models package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.schemas.html">app.schemas package</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="settings.html">Settings</a><input aria-label="Toggle navigation of Settings" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/app.models.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="app-models-package">
+<h1>app.models package<a class="headerlink" href="#app-models-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-app.models.avaliacao">
+<span id="app-models-avaliacao-module"></span><h2>app.models.avaliacao module<a class="headerlink" href="#module-app.models.avaliacao" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.models.avaliacao.Avaliacao">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.models.avaliacao.</span></span><span class="sig-name descname"><span class="pre">Avaliacao</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/avaliacao.html#Avaliacao"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.avaliacao.Avaliacao" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="app.database.html#app.database.base.Base" title="app.database.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.avaliacao.Avaliacao.comentario">
+<span class="sig-name descname"><span class="pre">comentario</span></span><a class="headerlink" href="#app.models.avaliacao.Avaliacao.comentario" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.avaliacao.Avaliacao.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><a class="headerlink" href="#app.models.avaliacao.Avaliacao.created_at" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.avaliacao.Avaliacao.game">
+<span class="sig-name descname"><span class="pre">game</span></span><a class="headerlink" href="#app.models.avaliacao.Avaliacao.game" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.avaliacao.Avaliacao.game_id">
+<span class="sig-name descname"><span class="pre">game_id</span></span><a class="headerlink" href="#app.models.avaliacao.Avaliacao.game_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.avaliacao.Avaliacao.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#app.models.avaliacao.Avaliacao.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.avaliacao.Avaliacao.nota">
+<span class="sig-name descname"><span class="pre">nota</span></span><a class="headerlink" href="#app.models.avaliacao.Avaliacao.nota" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.avaliacao.Avaliacao.user">
+<span class="sig-name descname"><span class="pre">user</span></span><a class="headerlink" href="#app.models.avaliacao.Avaliacao.user" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.avaliacao.Avaliacao.user_id">
+<span class="sig-name descname"><span class="pre">user_id</span></span><a class="headerlink" href="#app.models.avaliacao.Avaliacao.user_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-app.models.categoria">
+<span id="app-models-categoria-module"></span><h2>app.models.categoria module<a class="headerlink" href="#module-app.models.categoria" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.models.categoria.Categoria">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.models.categoria.</span></span><span class="sig-name descname"><span class="pre">Categoria</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/categoria.html#Categoria"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.categoria.Categoria" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="app.database.html#app.database.base.Base" title="app.database.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.categoria.Categoria.games">
+<span class="sig-name descname"><span class="pre">games</span></span><a class="headerlink" href="#app.models.categoria.Categoria.games" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.categoria.Categoria.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#app.models.categoria.Categoria.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.categoria.Categoria.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><a class="headerlink" href="#app.models.categoria.Categoria.nome" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.categoria.Categoria.slug">
+<span class="sig-name descname"><span class="pre">slug</span></span><a class="headerlink" href="#app.models.categoria.Categoria.slug" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-app.models.game">
+<span id="app-models-game-module"></span><h2>app.models.game module<a class="headerlink" href="#module-app.models.game" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.models.game.Game">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.models.game.</span></span><span class="sig-name descname"><span class="pre">Game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/game.html#Game"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.game.Game" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="app.database.html#app.database.base.Base" title="app.database.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.avaliacoes">
+<span class="sig-name descname"><span class="pre">avaliacoes</span></span><a class="headerlink" href="#app.models.game.Game.avaliacoes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.categorias">
+<span class="sig-name descname"><span class="pre">categorias</span></span><a class="headerlink" href="#app.models.game.Game.categorias" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.data_lancamento">
+<span class="sig-name descname"><span class="pre">data_lancamento</span></span><a class="headerlink" href="#app.models.game.Game.data_lancamento" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.deal_url">
+<span class="sig-name descname"><span class="pre">deal_url</span></span><a class="headerlink" href="#app.models.game.Game.deal_url" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.descricao">
+<span class="sig-name descname"><span class="pre">descricao</span></span><a class="headerlink" href="#app.models.game.Game.descricao" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.historico_precos">
+<span class="sig-name descname"><span class="pre">historico_precos</span></span><a class="headerlink" href="#app.models.game.Game.historico_precos" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.hype">
+<span class="sig-name descname"><span class="pre">hype</span></span><a class="headerlink" href="#app.models.game.Game.hype" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#app.models.game.Game.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.imagem_capa">
+<span class="sig-name descname"><span class="pre">imagem_capa</span></span><a class="headerlink" href="#app.models.game.Game.imagem_capa" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.isthereanydeal_id">
+<span class="sig-name descname"><span class="pre">isthereanydeal_id</span></span><a class="headerlink" href="#app.models.game.Game.isthereanydeal_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.last_price">
+<span class="sig-name descname"><span class="pre">last_price</span></span><a class="headerlink" href="#app.models.game.Game.last_price" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.metacritic">
+<span class="sig-name descname"><span class="pre">metacritic</span></span><a class="headerlink" href="#app.models.game.Game.metacritic" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.monitorados">
+<span class="sig-name descname"><span class="pre">monitorados</span></span><a class="headerlink" href="#app.models.game.Game.monitorados" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><a class="headerlink" href="#app.models.game.Game.nome" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.nota_media">
+<span class="sig-name descname"><span class="pre">nota_media</span></span><a class="headerlink" href="#app.models.game.Game.nota_media" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.plataformas">
+<span class="sig-name descname"><span class="pre">plataformas</span></span><a class="headerlink" href="#app.models.game.Game.plataformas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.rawg_id">
+<span class="sig-name descname"><span class="pre">rawg_id</span></span><a class="headerlink" href="#app.models.game.Game.rawg_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.slug">
+<span class="sig-name descname"><span class="pre">slug</span></span><a class="headerlink" href="#app.models.game.Game.slug" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.store_name">
+<span class="sig-name descname"><span class="pre">store_name</span></span><a class="headerlink" href="#app.models.game.Game.store_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game.Game.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><a class="headerlink" href="#app.models.game.Game.updated_at" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-app.models.game_categoria">
+<span id="app-models-game-categoria-module"></span><h2>app.models.game_categoria module<a class="headerlink" href="#module-app.models.game_categoria" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.models.game_categoria.GameCategoria">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.models.game_categoria.</span></span><span class="sig-name descname"><span class="pre">GameCategoria</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/game_categoria.html#GameCategoria"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.game_categoria.GameCategoria" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="app.database.html#app.database.base.Base" title="app.database.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game_categoria.GameCategoria.categoria">
+<span class="sig-name descname"><span class="pre">categoria</span></span><a class="headerlink" href="#app.models.game_categoria.GameCategoria.categoria" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game_categoria.GameCategoria.categoria_id">
+<span class="sig-name descname"><span class="pre">categoria_id</span></span><a class="headerlink" href="#app.models.game_categoria.GameCategoria.categoria_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game_categoria.GameCategoria.game">
+<span class="sig-name descname"><span class="pre">game</span></span><a class="headerlink" href="#app.models.game_categoria.GameCategoria.game" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game_categoria.GameCategoria.game_id">
+<span class="sig-name descname"><span class="pre">game_id</span></span><a class="headerlink" href="#app.models.game_categoria.GameCategoria.game_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-app.models.game_plataforma">
+<span id="app-models-game-plataforma-module"></span><h2>app.models.game_plataforma module<a class="headerlink" href="#module-app.models.game_plataforma" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.models.game_plataforma.GamePlataforma">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.models.game_plataforma.</span></span><span class="sig-name descname"><span class="pre">GamePlataforma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/game_plataforma.html#GamePlataforma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.game_plataforma.GamePlataforma" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="app.database.html#app.database.base.Base" title="app.database.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game_plataforma.GamePlataforma.game">
+<span class="sig-name descname"><span class="pre">game</span></span><a class="headerlink" href="#app.models.game_plataforma.GamePlataforma.game" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game_plataforma.GamePlataforma.game_id">
+<span class="sig-name descname"><span class="pre">game_id</span></span><a class="headerlink" href="#app.models.game_plataforma.GamePlataforma.game_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game_plataforma.GamePlataforma.plataforma">
+<span class="sig-name descname"><span class="pre">plataforma</span></span><a class="headerlink" href="#app.models.game_plataforma.GamePlataforma.plataforma" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.game_plataforma.GamePlataforma.plataforma_id">
+<span class="sig-name descname"><span class="pre">plataforma_id</span></span><a class="headerlink" href="#app.models.game_plataforma.GamePlataforma.plataforma_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-app.models.historico_preco">
+<span id="app-models-historico-preco-module"></span><h2>app.models.historico_preco module<a class="headerlink" href="#module-app.models.historico_preco" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.models.historico_preco.HistoricoPreco">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.models.historico_preco.</span></span><span class="sig-name descname"><span class="pre">HistoricoPreco</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/historico_preco.html#HistoricoPreco"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.historico_preco.HistoricoPreco" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="app.database.html#app.database.base.Base" title="app.database.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.historico_preco.HistoricoPreco.data_coleta">
+<span class="sig-name descname"><span class="pre">data_coleta</span></span><a class="headerlink" href="#app.models.historico_preco.HistoricoPreco.data_coleta" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.historico_preco.HistoricoPreco.game">
+<span class="sig-name descname"><span class="pre">game</span></span><a class="headerlink" href="#app.models.historico_preco.HistoricoPreco.game" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.historico_preco.HistoricoPreco.game_id">
+<span class="sig-name descname"><span class="pre">game_id</span></span><a class="headerlink" href="#app.models.historico_preco.HistoricoPreco.game_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.historico_preco.HistoricoPreco.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#app.models.historico_preco.HistoricoPreco.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.historico_preco.HistoricoPreco.loja">
+<span class="sig-name descname"><span class="pre">loja</span></span><a class="headerlink" href="#app.models.historico_preco.HistoricoPreco.loja" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.historico_preco.HistoricoPreco.preco">
+<span class="sig-name descname"><span class="pre">preco</span></span><a class="headerlink" href="#app.models.historico_preco.HistoricoPreco.preco" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-app.models.jogos_monitorados">
+<span id="app-models-jogos-monitorados-module"></span><h2>app.models.jogos_monitorados module<a class="headerlink" href="#module-app.models.jogos_monitorados" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.models.jogos_monitorados.JogosMonitorados">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.models.jogos_monitorados.</span></span><span class="sig-name descname"><span class="pre">JogosMonitorados</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/jogos_monitorados.html#JogosMonitorados"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.jogos_monitorados.JogosMonitorados" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="app.database.html#app.database.base.Base" title="app.database.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.jogos_monitorados.JogosMonitorados.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><a class="headerlink" href="#app.models.jogos_monitorados.JogosMonitorados.created_at" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.jogos_monitorados.JogosMonitorados.game">
+<span class="sig-name descname"><span class="pre">game</span></span><a class="headerlink" href="#app.models.jogos_monitorados.JogosMonitorados.game" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.jogos_monitorados.JogosMonitorados.game_id">
+<span class="sig-name descname"><span class="pre">game_id</span></span><a class="headerlink" href="#app.models.jogos_monitorados.JogosMonitorados.game_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.jogos_monitorados.JogosMonitorados.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#app.models.jogos_monitorados.JogosMonitorados.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.jogos_monitorados.JogosMonitorados.preco_alvo">
+<span class="sig-name descname"><span class="pre">preco_alvo</span></span><a class="headerlink" href="#app.models.jogos_monitorados.JogosMonitorados.preco_alvo" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.jogos_monitorados.JogosMonitorados.user">
+<span class="sig-name descname"><span class="pre">user</span></span><a class="headerlink" href="#app.models.jogos_monitorados.JogosMonitorados.user" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.jogos_monitorados.JogosMonitorados.user_id">
+<span class="sig-name descname"><span class="pre">user_id</span></span><a class="headerlink" href="#app.models.jogos_monitorados.JogosMonitorados.user_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-app.models.plataforma">
+<span id="app-models-plataforma-module"></span><h2>app.models.plataforma module<a class="headerlink" href="#module-app.models.plataforma" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.models.plataforma.Plataforma">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.models.plataforma.</span></span><span class="sig-name descname"><span class="pre">Plataforma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/plataforma.html#Plataforma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.plataforma.Plataforma" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="app.database.html#app.database.base.Base" title="app.database.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.plataforma.Plataforma.games">
+<span class="sig-name descname"><span class="pre">games</span></span><a class="headerlink" href="#app.models.plataforma.Plataforma.games" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.plataforma.Plataforma.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#app.models.plataforma.Plataforma.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.plataforma.Plataforma.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><a class="headerlink" href="#app.models.plataforma.Plataforma.nome" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.plataforma.Plataforma.slug">
+<span class="sig-name descname"><span class="pre">slug</span></span><a class="headerlink" href="#app.models.plataforma.Plataforma.slug" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-app.models.user">
+<span id="app-models-user-module"></span><h2>app.models.user module<a class="headerlink" href="#module-app.models.user" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.models.user.User">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.models.user.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/user.html#User"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.user.User" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="app.database.html#app.database.base.Base" title="app.database.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.user.User.avaliacoes">
+<span class="sig-name descname"><span class="pre">avaliacoes</span></span><a class="headerlink" href="#app.models.user.User.avaliacoes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.user.User.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><a class="headerlink" href="#app.models.user.User.created_at" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.user.User.email">
+<span class="sig-name descname"><span class="pre">email</span></span><a class="headerlink" href="#app.models.user.User.email" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.user.User.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#app.models.user.User.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.user.User.monitorados">
+<span class="sig-name descname"><span class="pre">monitorados</span></span><a class="headerlink" href="#app.models.user.User.monitorados" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.user.User.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><a class="headerlink" href="#app.models.user.User.nome" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.user.User.password_hash">
+<span class="sig-name descname"><span class="pre">password_hash</span></span><a class="headerlink" href="#app.models.user.User.password_hash" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-app.models">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app.models" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="app.schemas.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">app.schemas package</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="api/models.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Models</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Luis Cesar Ferreira do Carmo, Luan
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/luan313/gamessavioback" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">app.models package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-app.models.avaliacao">app.models.avaliacao module</a><ul>
+<li><a class="reference internal" href="#app.models.avaliacao.Avaliacao"><code class="docutils literal notranslate"><span class="pre">Avaliacao</span></code></a><ul>
+<li><a class="reference internal" href="#app.models.avaliacao.Avaliacao.comentario"><code class="docutils literal notranslate"><span class="pre">Avaliacao.comentario</span></code></a></li>
+<li><a class="reference internal" href="#app.models.avaliacao.Avaliacao.created_at"><code class="docutils literal notranslate"><span class="pre">Avaliacao.created_at</span></code></a></li>
+<li><a class="reference internal" href="#app.models.avaliacao.Avaliacao.game"><code class="docutils literal notranslate"><span class="pre">Avaliacao.game</span></code></a></li>
+<li><a class="reference internal" href="#app.models.avaliacao.Avaliacao.game_id"><code class="docutils literal notranslate"><span class="pre">Avaliacao.game_id</span></code></a></li>
+<li><a class="reference internal" href="#app.models.avaliacao.Avaliacao.id"><code class="docutils literal notranslate"><span class="pre">Avaliacao.id</span></code></a></li>
+<li><a class="reference internal" href="#app.models.avaliacao.Avaliacao.nota"><code class="docutils literal notranslate"><span class="pre">Avaliacao.nota</span></code></a></li>
+<li><a class="reference internal" href="#app.models.avaliacao.Avaliacao.user"><code class="docutils literal notranslate"><span class="pre">Avaliacao.user</span></code></a></li>
+<li><a class="reference internal" href="#app.models.avaliacao.Avaliacao.user_id"><code class="docutils literal notranslate"><span class="pre">Avaliacao.user_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.models.categoria">app.models.categoria module</a><ul>
+<li><a class="reference internal" href="#app.models.categoria.Categoria"><code class="docutils literal notranslate"><span class="pre">Categoria</span></code></a><ul>
+<li><a class="reference internal" href="#app.models.categoria.Categoria.games"><code class="docutils literal notranslate"><span class="pre">Categoria.games</span></code></a></li>
+<li><a class="reference internal" href="#app.models.categoria.Categoria.id"><code class="docutils literal notranslate"><span class="pre">Categoria.id</span></code></a></li>
+<li><a class="reference internal" href="#app.models.categoria.Categoria.nome"><code class="docutils literal notranslate"><span class="pre">Categoria.nome</span></code></a></li>
+<li><a class="reference internal" href="#app.models.categoria.Categoria.slug"><code class="docutils literal notranslate"><span class="pre">Categoria.slug</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.models.game">app.models.game module</a><ul>
+<li><a class="reference internal" href="#app.models.game.Game"><code class="docutils literal notranslate"><span class="pre">Game</span></code></a><ul>
+<li><a class="reference internal" href="#app.models.game.Game.avaliacoes"><code class="docutils literal notranslate"><span class="pre">Game.avaliacoes</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.categorias"><code class="docutils literal notranslate"><span class="pre">Game.categorias</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.data_lancamento"><code class="docutils literal notranslate"><span class="pre">Game.data_lancamento</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.deal_url"><code class="docutils literal notranslate"><span class="pre">Game.deal_url</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.descricao"><code class="docutils literal notranslate"><span class="pre">Game.descricao</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.historico_precos"><code class="docutils literal notranslate"><span class="pre">Game.historico_precos</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.hype"><code class="docutils literal notranslate"><span class="pre">Game.hype</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.id"><code class="docutils literal notranslate"><span class="pre">Game.id</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.imagem_capa"><code class="docutils literal notranslate"><span class="pre">Game.imagem_capa</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.isthereanydeal_id"><code class="docutils literal notranslate"><span class="pre">Game.isthereanydeal_id</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.last_price"><code class="docutils literal notranslate"><span class="pre">Game.last_price</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.metacritic"><code class="docutils literal notranslate"><span class="pre">Game.metacritic</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.monitorados"><code class="docutils literal notranslate"><span class="pre">Game.monitorados</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.nome"><code class="docutils literal notranslate"><span class="pre">Game.nome</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.nota_media"><code class="docutils literal notranslate"><span class="pre">Game.nota_media</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.plataformas"><code class="docutils literal notranslate"><span class="pre">Game.plataformas</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.rawg_id"><code class="docutils literal notranslate"><span class="pre">Game.rawg_id</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.slug"><code class="docutils literal notranslate"><span class="pre">Game.slug</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.store_name"><code class="docutils literal notranslate"><span class="pre">Game.store_name</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game.Game.updated_at"><code class="docutils literal notranslate"><span class="pre">Game.updated_at</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.models.game_categoria">app.models.game_categoria module</a><ul>
+<li><a class="reference internal" href="#app.models.game_categoria.GameCategoria"><code class="docutils literal notranslate"><span class="pre">GameCategoria</span></code></a><ul>
+<li><a class="reference internal" href="#app.models.game_categoria.GameCategoria.categoria"><code class="docutils literal notranslate"><span class="pre">GameCategoria.categoria</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game_categoria.GameCategoria.categoria_id"><code class="docutils literal notranslate"><span class="pre">GameCategoria.categoria_id</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game_categoria.GameCategoria.game"><code class="docutils literal notranslate"><span class="pre">GameCategoria.game</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game_categoria.GameCategoria.game_id"><code class="docutils literal notranslate"><span class="pre">GameCategoria.game_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.models.game_plataforma">app.models.game_plataforma module</a><ul>
+<li><a class="reference internal" href="#app.models.game_plataforma.GamePlataforma"><code class="docutils literal notranslate"><span class="pre">GamePlataforma</span></code></a><ul>
+<li><a class="reference internal" href="#app.models.game_plataforma.GamePlataforma.game"><code class="docutils literal notranslate"><span class="pre">GamePlataforma.game</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game_plataforma.GamePlataforma.game_id"><code class="docutils literal notranslate"><span class="pre">GamePlataforma.game_id</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game_plataforma.GamePlataforma.plataforma"><code class="docutils literal notranslate"><span class="pre">GamePlataforma.plataforma</span></code></a></li>
+<li><a class="reference internal" href="#app.models.game_plataforma.GamePlataforma.plataforma_id"><code class="docutils literal notranslate"><span class="pre">GamePlataforma.plataforma_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.models.historico_preco">app.models.historico_preco module</a><ul>
+<li><a class="reference internal" href="#app.models.historico_preco.HistoricoPreco"><code class="docutils literal notranslate"><span class="pre">HistoricoPreco</span></code></a><ul>
+<li><a class="reference internal" href="#app.models.historico_preco.HistoricoPreco.data_coleta"><code class="docutils literal notranslate"><span class="pre">HistoricoPreco.data_coleta</span></code></a></li>
+<li><a class="reference internal" href="#app.models.historico_preco.HistoricoPreco.game"><code class="docutils literal notranslate"><span class="pre">HistoricoPreco.game</span></code></a></li>
+<li><a class="reference internal" href="#app.models.historico_preco.HistoricoPreco.game_id"><code class="docutils literal notranslate"><span class="pre">HistoricoPreco.game_id</span></code></a></li>
+<li><a class="reference internal" href="#app.models.historico_preco.HistoricoPreco.id"><code class="docutils literal notranslate"><span class="pre">HistoricoPreco.id</span></code></a></li>
+<li><a class="reference internal" href="#app.models.historico_preco.HistoricoPreco.loja"><code class="docutils literal notranslate"><span class="pre">HistoricoPreco.loja</span></code></a></li>
+<li><a class="reference internal" href="#app.models.historico_preco.HistoricoPreco.preco"><code class="docutils literal notranslate"><span class="pre">HistoricoPreco.preco</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.models.jogos_monitorados">app.models.jogos_monitorados module</a><ul>
+<li><a class="reference internal" href="#app.models.jogos_monitorados.JogosMonitorados"><code class="docutils literal notranslate"><span class="pre">JogosMonitorados</span></code></a><ul>
+<li><a class="reference internal" href="#app.models.jogos_monitorados.JogosMonitorados.created_at"><code class="docutils literal notranslate"><span class="pre">JogosMonitorados.created_at</span></code></a></li>
+<li><a class="reference internal" href="#app.models.jogos_monitorados.JogosMonitorados.game"><code class="docutils literal notranslate"><span class="pre">JogosMonitorados.game</span></code></a></li>
+<li><a class="reference internal" href="#app.models.jogos_monitorados.JogosMonitorados.game_id"><code class="docutils literal notranslate"><span class="pre">JogosMonitorados.game_id</span></code></a></li>
+<li><a class="reference internal" href="#app.models.jogos_monitorados.JogosMonitorados.id"><code class="docutils literal notranslate"><span class="pre">JogosMonitorados.id</span></code></a></li>
+<li><a class="reference internal" href="#app.models.jogos_monitorados.JogosMonitorados.preco_alvo"><code class="docutils literal notranslate"><span class="pre">JogosMonitorados.preco_alvo</span></code></a></li>
+<li><a class="reference internal" href="#app.models.jogos_monitorados.JogosMonitorados.user"><code class="docutils literal notranslate"><span class="pre">JogosMonitorados.user</span></code></a></li>
+<li><a class="reference internal" href="#app.models.jogos_monitorados.JogosMonitorados.user_id"><code class="docutils literal notranslate"><span class="pre">JogosMonitorados.user_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.models.plataforma">app.models.plataforma module</a><ul>
+<li><a class="reference internal" href="#app.models.plataforma.Plataforma"><code class="docutils literal notranslate"><span class="pre">Plataforma</span></code></a><ul>
+<li><a class="reference internal" href="#app.models.plataforma.Plataforma.games"><code class="docutils literal notranslate"><span class="pre">Plataforma.games</span></code></a></li>
+<li><a class="reference internal" href="#app.models.plataforma.Plataforma.id"><code class="docutils literal notranslate"><span class="pre">Plataforma.id</span></code></a></li>
+<li><a class="reference internal" href="#app.models.plataforma.Plataforma.nome"><code class="docutils literal notranslate"><span class="pre">Plataforma.nome</span></code></a></li>
+<li><a class="reference internal" href="#app.models.plataforma.Plataforma.slug"><code class="docutils literal notranslate"><span class="pre">Plataforma.slug</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.models.user">app.models.user module</a><ul>
+<li><a class="reference internal" href="#app.models.user.User"><code class="docutils literal notranslate"><span class="pre">User</span></code></a><ul>
+<li><a class="reference internal" href="#app.models.user.User.avaliacoes"><code class="docutils literal notranslate"><span class="pre">User.avaliacoes</span></code></a></li>
+<li><a class="reference internal" href="#app.models.user.User.created_at"><code class="docutils literal notranslate"><span class="pre">User.created_at</span></code></a></li>
+<li><a class="reference internal" href="#app.models.user.User.email"><code class="docutils literal notranslate"><span class="pre">User.email</span></code></a></li>
+<li><a class="reference internal" href="#app.models.user.User.id"><code class="docutils literal notranslate"><span class="pre">User.id</span></code></a></li>
+<li><a class="reference internal" href="#app.models.user.User.monitorados"><code class="docutils literal notranslate"><span class="pre">User.monitorados</span></code></a></li>
+<li><a class="reference internal" href="#app.models.user.User.nome"><code class="docutils literal notranslate"><span class="pre">User.nome</span></code></a></li>
+<li><a class="reference internal" href="#app.models.user.User.password_hash"><code class="docutils literal notranslate"><span class="pre">User.password_hash</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.models">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    </body>
+</html>
