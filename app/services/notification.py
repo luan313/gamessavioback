@@ -27,11 +27,13 @@ async def send_email(to_email: str, subject: str, content: str) -> None:
     img_data = img_path.read_bytes()
     img_cid = make_msgid()[1:-1] 
 
+    safe_content = content.replace("\n", "<br>")
+
     html_content = f"""
         <html>
             <body>
                 <div style="font-family: Arial; font-size: 14px;">
-                    {content.replace('\n', '<br>')}
+                    {safe_content}
                     <img src="cid:{img_cid}" alt="LetterBox Banner" style="width:100%; max-width:600px;" />
                     <br><br>
                 </div>
