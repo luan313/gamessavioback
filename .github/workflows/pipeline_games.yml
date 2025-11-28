@@ -22,7 +22,7 @@ jobs:
       - name: Instalar Dependências
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f requirements-jobs.txt ]; then pip install -r requirements-jobs.txt; fi
           pip install httpx sqlalchemy asyncpg python-dotenv pydantic-settings greenlet
 
       - name: Rodar Script de Preços

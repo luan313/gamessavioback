@@ -1,0 +1,7 @@
+sqlalchemy
+asyncpg
+greenlet
+httpx
+python-dotenv
+pydantic-settings
+pydantic
