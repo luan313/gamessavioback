@@ -34,7 +34,7 @@ jobs:
           # Ajuste para o Python encontrar a pasta 'app'
           PYTHONPATH: . 
         run: |
-          python -m scripts.price_fetcher_job
+          python -m scripts.run_update
 
   # send-notifications:
   #   name: 📧 Enviar Notificações
