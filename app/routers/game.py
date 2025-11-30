@@ -2,15 +2,14 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from app.database.session import get_db
-from app.schemas.game import TopHypedGamesResponse
-from app.schemas.game import SearchGameResponse
-from app.schemas.game import GameResponse
+from app.schemas.game import TopHypedGamesResponse, SearchGameResponse, GameBasic, GameResponse
 from app.services import game as game_service
 from fastapi_pagination.ext.sqlalchemy import paginate as paginate_async
 from app.core.exceptions import NotFoundException
 from fastapi_pagination import Page, Params
 from fastapi import Query
 from fastapi_cache.decorator import cache
+
 from uuid import UUID
 
 router = APIRouter(prefix="/game")
@@ -133,7 +132,7 @@ async def search_games_by_name(
 
 @router.get(
     "/all",
-    response_model=Page[GameResponse],
+    response_model=Page[GameBasic],
     summary="Listar todos os jogos",
     description="Retorna uma lista paginada de todos os jogos.",
     responses={

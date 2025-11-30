@@ -13,20 +13,30 @@ class GameBase(BaseModel):
     data_lancamento: Optional[date] = None
     metacritic: Optional[int] = None
 
+class GameCategoriaAssociation(BaseModel):
+    categoria: CategoriaResponse
+    class Config:
+        from_attributes = True
+
 class GameBasic(BaseModel):
     id: UUID
     imagem_capa: Optional[str] = None
     nome: str
-    
+    categorias: List[GameCategoriaAssociation] = []
+    updated_at: Optional[datetime] = None
+    nota_media: Optional[float] = None
+    last_price: Optional[float] = None
+    hype: int = 0
+
+    class Config:
+        from_attributes = True
+
 class GameCreate(GameBase):
     rawg_id: Optional[int] = None
     categorias_ids: List[UUID] = []
     plataformas_ids: List[UUID] = []
     
-class GameCategoriaAssociation(BaseModel):
-    categoria: CategoriaResponse
-    class Config:
-        from_attributes = True
+
 
 class GamePlataformaAssociation(BaseModel):
     plataforma: PlataformaResponse
@@ -50,6 +60,8 @@ class GameResponse(GameBase):
 
     class Config:
         from_attributes = True
+
+
 
 class GameForMonitoramento(BaseModel):
     id: UUID
