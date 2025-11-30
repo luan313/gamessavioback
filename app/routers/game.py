@@ -183,3 +183,53 @@ async def get_game_by_id(
         raise NotFoundException(f"Game with ID {id} not found")
         
     return game
+
+
+@router.get(
+    "/all",
+    response_model=Page[GameResponse],
+    summary="Listar todos os jogos",
+    description="Retorna uma lista paginada de todos os jogos.",
+    responses={
+        200: {
+            "description": "Lista de jogos retornada com sucesso",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "items": [
+                            {
+                                "id": "550e8400-e29b-41d4-a716-446655440000",
+                                "nome": "Elden Ring",
+                                "slug": "elden-ring",
+                                "descricao": "Um RPG de ação em mundo aberto...",
+                                "imagem_capa": "https://media.rawg.io/media/...",
+                                "data_lancamento": "2022-02-25",
+                                "metacritic": 96,
+                                "nota_media": 4.8,
+                                "last_price": 59.99,
+                                "deal_url": "https://isthereanydeal.com/...",
+                                "store_name": "Steam",
+                                "hype": 15000,
+                                "updated_at": "2024-11-24T18:00:00"
+                            }
+                        ],
+                        "total": 100,
+                        "page": 1,
+                        "size": 20
+                    }
+                }
+            }
+        }
+    }
+)
+@cache(expire=3600)
+async def get_all_games(
+    params: Params = Depends(),
+    db: AsyncSession = Depends(get_db)
+) -> Page[GameResponse]:
+    query = game_service.get_all_games()
+    return await paginate_async(
+        db, 
+        query, 
+        params
+    )

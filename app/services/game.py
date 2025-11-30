@@ -33,4 +33,6 @@ def get_game_by_id(id: UUID) -> Game:
         .where(Game.id == id)
     )
     return stmt
-    
+
+def get_all_games() -> list[Game]:
+    return select(Game)
