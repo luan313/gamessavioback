@@ -20,6 +20,13 @@ class GameCategoriaAssociation(BaseModel):
 
 class GameBasic(BaseModel):
     id: UUID
+    nome: str
+   
+    class Config:
+        from_attributes = True
+
+class GameExpose(BaseModel):
+    id: UUID
     imagem_capa: Optional[str] = None
     nome: str
     categorias: List[GameCategoriaAssociation] = []
