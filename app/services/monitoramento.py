@@ -4,6 +4,7 @@ from uuid import UUID
 from app.models.jogos_monitorados import JogosMonitorados
 from app.schemas.jogos_monitorados import MonitoramentoCreate, MonitoramentoUpdate
 from sqlalchemy.orm import selectinload
+from app.core.exceptions import ForbiddenException, NotFoundException
 
 class MonitoramentoService:
     @staticmethod
@@ -55,10 +56,10 @@ class MonitoramentoService:
         db_monitoramento = await MonitoramentoService.get_monitoramento_by_id(db, monitoramento_id)
 
         if not db_monitoramento:
-            return None
+            raise NotFoundException(message="Monitoramento não encontrado")
 
         if db_monitoramento.user_id != user_id:
-            return "unauthorized"
+            raise ForbiddenException(message="Não autorizado a editar este monitoramento")
 
         if monitoramento_update.preco_alvo is not None:
             db_monitoramento.preco_alvo = monitoramento_update.preco_alvo
@@ -69,14 +70,14 @@ class MonitoramentoService:
     
     
     @staticmethod
-    async def delete_monitoramento(db: AsyncSession, monitoramento_id: UUID, user_id: UUID) -> bool | None:
+    async def delete_monitoramento(db: AsyncSession, monitoramento_id: UUID, user_id: UUID) -> bool:
         db_monitoramento = await MonitoramentoService.get_monitoramento_by_id(db, monitoramento_id)
         
         if not db_monitoramento:
-            return None
+            raise NotFoundException(message="Monitoramento não encontrado")
         
         if db_monitoramento.user_id != user_id:
-            return "unauthorized"
+            raise ForbiddenException(message="Não autorizado a remover este monitoramento")
 
         await db.delete(db_monitoramento)
         await db.commit()

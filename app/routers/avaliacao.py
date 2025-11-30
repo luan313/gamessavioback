@@ -38,7 +38,7 @@ router = APIRouter(prefix="/avaliacoes")
             "description": "Usuário não autenticado",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Autenticação necessária"}
+                    "example": {"error": True, "message": "Autenticação necessária", "details": None}
                 }
             }
         },
@@ -46,7 +46,7 @@ router = APIRouter(prefix="/avaliacoes")
             "description": "Jogo não encontrado",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Jogo não encontrado"}
+                    "example": {"error": True, "message": "Jogo não encontrado", "details": None}
                 }
             }
         }
@@ -80,6 +80,7 @@ async def create_new_avaliacao(
         user_id = current_user.id
     )
 
+
 @router.get(
     "/last-five-avaliations",
     response_model=list[AvaliacaoBasicResponse], 
@@ -110,6 +111,7 @@ async def create_new_avaliacao(
 )
 async def read_last_five_avaliacoes(db: AsyncSession = Depends(get_db)) -> list[AvaliacaoBasicResponse]:
     return await crud_avaliacao.get_last_five_avaliacoes(db)
+
 
 @router.get(
     "/game/{game_id}", 
@@ -172,8 +174,6 @@ async def read_avaliacoes_game(
     return await paginate(db, query)  
     
     
-
-
 @router.patch(
     "/{avaliacao_id}", 
     response_model=AvaliacaoResponse,
@@ -200,7 +200,7 @@ async def read_avaliacoes_game(
             "description": "Não autorizado - tentativa de editar avaliação de outro usuário",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Não autorizado a editar esta avaliação"}
+                    "example": {"error": True, "message": "Não autorizado a editar esta avaliação", "details": None}
                 }
             }
         },
@@ -208,7 +208,7 @@ async def read_avaliacoes_game(
             "description": "Avaliação não encontrada",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Avaliação não encontrada"}
+                    "example": {"error": True, "message": "Avaliação não encontrada", "details": None}
                 }
             }
         }
@@ -244,13 +244,9 @@ async def update_existing_avaliacao(
         avaliacao_update = avaliacao,
         user_id = current_user.id
     )
-    
-    if updated_avaliacao == "unauthorized":
-        raise HTTPException(status_code=403, detail="Não autorizado a editar esta avaliação")
-    if not updated_avaliacao:
-        raise HTTPException(status_code=404, detail="Avaliação não encontrada")
         
     return updated_avaliacao
+
 
 @router.delete(
     "/{avaliacao_id}", 
@@ -265,7 +261,7 @@ async def update_existing_avaliacao(
             "description": "Não autorizado - tentativa de deletar avaliação de outro usuário",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Não autorizado a deletar esta avaliação"}
+                    "example": {"error": True, "message": "Não autorizado a deletar esta avaliação", "details": None}
                 }
             }
         },
@@ -273,7 +269,7 @@ async def update_existing_avaliacao(
             "description": "Avaliação não encontrada",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Avaliação não encontrada"}
+                    "example": {"error": True, "message": "Avaliação não encontrada", "details": None}
                 }
             }
         }
@@ -302,15 +298,10 @@ async def delete_existing_avaliacao(
         
         Requer autenticação: Sim (Bearer token)
     """
-    result = await crud_avaliacao.delete_avaliacao(
+    await crud_avaliacao.delete_avaliacao(
         db = db, 
         avaliacao_id = avaliacao_id, 
         user_id = current_user.id
     )
-    
-    if result == "unauthorized":
-        raise HTTPException(status_code=403, detail="Não autorizado a deletar esta avaliação")
-    if not result:
-        raise HTTPException(status_code=404, detail="Avaliação não encontrada")
     
     return None

@@ -4,6 +4,7 @@ from app.models.categoria import Categoria
 from app.models.game_categoria import GameCategoria
 from app.models.game import Game
 from uuid import UUID
+from app.core.exceptions import NotFoundException
 
 
 class CategoriaService:
@@ -38,13 +39,21 @@ class CategoriaService:
                 
             Returns:
                 Lista de jogos da categoria
+                
+            Raises:
+                NotFoundException: Se a categoria não existir
         """
-        query = (
+        # Verifica se categoria existe
+        result = await db.execute(select(Categoria).where(Categoria.id == categoria_id))
+
+        if not result.scalar_one_or_none():
+            raise NotFoundException(message="Categoria não encontrada")
+
+        return (
             select(Game)
             .join(GameCategoria, Game.id == GameCategoria.game_id)
             .where(GameCategoria.categoria_id == categoria_id)
             .order_by(Game.nome)
         )
         
-        result = await db.execute(query)
-        return result.scalars().all()
+        

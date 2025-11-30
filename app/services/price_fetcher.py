@@ -13,9 +13,11 @@ ITAD_API_KEY = os.getenv("ANY_DEAL_API_KEY")
 
 url = f"{ITAD_BASE_URL}/games/prices/v3?key={ITAD_API_KEY}&country=BR"
 
+
 def chunked_list(list, size=200):
     for i in range(0, len(list), size):
         yield list[i:i + size]
+
 
 async def update_game_price():
     print("🚀 Iniciando atualização de preços...")

@@ -16,7 +16,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 class rawg_service:        
-    
     @staticmethod
     def __clean_description(text: str) -> str:
         """
@@ -36,6 +35,8 @@ class rawg_service:
                 text = text.split(f"\n\n{marker}")[0]
                 
         return text.strip()
+
+
     @staticmethod
     async def get_description_from_rawg(game_data: int, http_client) -> str:
         rawg_id = game_data.get("id")

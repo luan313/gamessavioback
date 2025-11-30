@@ -19,6 +19,8 @@ from app.core.config import settings
 from contextlib import asynccontextmanager
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
+from app.core.exceptions import AppException
+from app.core.handlers import app_exception_handler, global_exception_handler
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -27,7 +29,6 @@ async def lifespan(app: FastAPI):
    FastAPICache.init(RedisBackend(redis_client), prefix="fastapi-cache")
     
    yield
-    
    await redis_client.close()
 
 
@@ -35,7 +36,11 @@ logging.basicConfig(level=logging.INFO)
 
 app = FastAPI(
     title="Letterboxd de Jogos", 
-    lifespan=lifespan)
+    lifespan=lifespan
+)
+
+app.add_exception_handler(AppException, app_exception_handler)
+app.add_exception_handler(Exception, global_exception_handler)
 
 origins = [
     "http://localhost:3000",        
@@ -62,7 +67,6 @@ app.include_router(game.router, tags=["game"])
 app.include_router(categoria.router, tags=["categoria"])
 app.include_router(webhook.router, tags=["webhook"])
 app.include_router(user.router, tags=["user"])
-
 
 
 docs_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "docs", "_build", "html")

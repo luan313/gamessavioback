@@ -35,7 +35,7 @@ router = APIRouter(prefix="/monitoramentos")
             "description": "Jogo já está sendo monitorado pelo usuário",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Este jogo já está na sua lista de monitoramento"}
+                    "example": {"error": True, "message": "Este jogo já está na sua lista de monitoramento", "details": None}
                 }
             }
         },
@@ -43,7 +43,7 @@ router = APIRouter(prefix="/monitoramentos")
             "description": "Jogo não encontrado",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Jogo não encontrado"}
+                    "example": {"error": True, "message": "Jogo não encontrado", "details": None}
                 }
             }
         }
@@ -151,7 +151,7 @@ async def read_monitoramentos(
             "description": "Não autorizado - este monitoramento pertence a outro usuário",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Não autorizado a editar este monitoramento"}
+                    "example": {"error": True, "message": "Não autorizado a editar este monitoramento", "details": None}
                 }
             }
         },
@@ -159,7 +159,7 @@ async def read_monitoramentos(
             "description": "Monitoramento não encontrado",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Monitoramento não encontrado"}
+                    "example": {"error": True, "message": "Monitoramento não encontrado", "details": None}
                 }
             }
         }
@@ -195,12 +195,6 @@ async def update_existing_monitoramento(
         monitoramento_update = monitoramento, 
         user_id = current_user.id
     )
-
-    if updated_monitoramento == "unauthorized":
-        raise HTTPException(status_code=403, detail="Não autorizado a editar este monitoramento")
-    
-    if not updated_monitoramento:
-        raise HTTPException(status_code=404, detail="Monitoramento não encontrado")
         
     return updated_monitoramento
 
@@ -218,7 +212,7 @@ async def update_existing_monitoramento(
             "description": "Não autorizado - este monitoramento pertence a outro usuário",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Não autorizado a remover este monitoramento"}
+                    "example": {"error": True, "message": "Não autorizado a remover este monitoramento", "details": None}
                 }
             }
         },
@@ -226,7 +220,7 @@ async def update_existing_monitoramento(
             "description": "Monitoramento não encontrado",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Monitoramento não encontrado"}
+                    "example": {"error": True, "message": "Monitoramento não encontrado", "details": None}
                 }
             }
         }
@@ -255,16 +249,10 @@ async def delete_existing_monitoramento(
         
         Requer autenticação: Sim (Bearer token)
     """
-    result = await MonitoramentoService.delete_monitoramento(
+    await MonitoramentoService.delete_monitoramento(
         db = db, 
         monitoramento_id = monitoramento_id, 
         user_id = current_user.id
     )
-
-    if result == "unauthorized":
-        raise HTTPException(status_code=403, detail="Não autorizado a remover este monitoramento")
-    
-    if not result:
-        raise HTTPException(status_code=404, detail="Monitoramento não encontrado")
     
     return None

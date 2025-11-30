@@ -28,7 +28,7 @@ router = APIRouter(prefix="/users", tags=["Users"])
             "description": "Não autenticado",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Não foi possível validar as credenciais"}
+                    "example": {"error": True, "message": "Não foi possível validar as credenciais", "details": None}
                 }
             }
         }

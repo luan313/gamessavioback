@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-
 from app.schemas.auth import (
     TokenResponse, TokenRefreshRequest
 )
@@ -12,6 +11,7 @@ from app.services.auth import AuthService
 from app.database.session import get_db
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
+
 
 @router.post(
     "/register", 
@@ -32,19 +32,11 @@ router = APIRouter(prefix="/auth", tags=["Auth"])
                 }
             }
         },
-        409: {
-            "description": "Email já cadastrado no sistema",
-            "content": {
-                "application/json": {
-                    "example": {"detail": "Este email já está em uso"}
-                }
-            }
-        },
         400: {
-            "description": "Dados inválidos ou incompletos",
+            "description": "Dados inválidos ou email já cadastrado",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Senha deve ter no mínimo 8 caracteres"}
+                    "example": {"error": True, "message": "Email já está em uso.", "details": None}
                 }
             }
         }
@@ -97,15 +89,7 @@ async def register_user(data: UserCreate, db: Session = Depends(get_db)) -> Toke
             "description": "Credenciais inválidas - email ou senha incorretos",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Email ou senha incorretos"}
-                }
-            }
-        },
-        404: {
-            "description": "Usuário não encontrado",
-            "content": {
-                "application/json": {
-                    "example": {"detail": "Usuário não cadastrado"}
+                    "example": {"error": True, "message": "Email ou senha incorretos.", "details": None}
                 }
             }
         }
@@ -157,7 +141,7 @@ async def login(data: UserLogin, db: Session = Depends(get_db)) -> TokenResponse
             "description": "Refresh Token inválido, expirado ou revogado",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Refresh token inválido ou expirado"}
+                    "example": {"error": True, "message": "Refresh token inválido.", "details": None}
                 }
             }
         }

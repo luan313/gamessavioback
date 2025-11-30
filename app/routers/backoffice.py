@@ -12,9 +12,24 @@ import logging
 logger = logging.getLogger(__name__)
 
 admin_responses = {
-    401: {"description": "Não autenticado"},
-    403: {"description": "Proibido: Requer privilégios de Administrador"}
+    401: {
+        "description": "Não autenticado",
+        "content": {
+            "application/json": {
+                "example": {"error": True, "message": "Não autenticado", "details": None}
+            }
+        }
+    },
+    403: {
+        "description": "Proibido: Requer privilégios de Administrador",
+        "content": {
+            "application/json": {
+                "example": {"error": True, "message": "Acesso negado", "details": None}
+            }
+        }
+    }
 }
+
 
 router = APIRouter(
     prefix="/backoffice", 
@@ -22,6 +37,7 @@ router = APIRouter(
     dependencies=[Security(verify_admin_access)],
     responses=admin_responses
 )
+
 
 @router.post(
     "/sync-games",
@@ -151,7 +167,6 @@ async def sync_all_prices(
     finally:
         await service.close()
     return result
-
 
 
 @router.get(

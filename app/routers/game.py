@@ -7,9 +7,11 @@ from app.schemas.game import SearchGameResponse
 from app.schemas.game import GameResponse
 from app.services import game as game_service
 from fastapi_pagination.ext.sqlalchemy import paginate as paginate_async
+from app.core.exceptions import NotFoundException
 from fastapi_pagination import Page, Params
 from fastapi import Query
 from fastapi_cache.decorator import cache
+from uuid import UUID
 
 router = APIRouter(prefix="/game")
 
@@ -80,6 +82,7 @@ async def get_hyped_games(
         params
     )
 
+
 @router.get(
     "/search",
     response_model=Page[SearchGameResponse],
@@ -128,7 +131,6 @@ async def search_games_by_name(
         Params(size=20)
     )
 
-from uuid import UUID
 
 @router.get(
     "/{id}",
@@ -157,6 +159,14 @@ from uuid import UUID
                     }
                 }
             }
+        },
+        404: {
+            "description": "Jogo não encontrado",
+            "content": {
+                "application/json": {
+                    "example": {"error": True, "message": "Game with ID ... not found", "details": None}
+                }
+            }
         }
     }
 )
@@ -167,4 +177,9 @@ async def get_game_by_id(
 ) -> GameResponse:
     query = game_service.get_game_by_id(id)
     result = await db.execute(query)
-    return result.scalar_one()
+    game = result.scalar_one_or_none()
+    
+    if not game:
+        raise NotFoundException(f"Game with ID {id} not found")
+        
+    return game

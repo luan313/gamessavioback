@@ -10,8 +10,10 @@ from pydantic import ValidationError
 from uuid import UUID
 from app.models.user import User
 from app.core.config import settings
+from app.core.exceptions import UnauthorizedException
 from app.database.session import get_db 
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 security = HTTPBearer()
@@ -41,15 +43,10 @@ async def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: AsyncSession = Depends(get_db)
 ) -> "User":
-    
-    from app.models.user import User 
-
     token = credentials.credentials
 
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Não foi possível validar as credenciais",
-        headers={"WWW-Authenticate": "Bearer"},
+    credentials_exception = UnauthorizedException(
+        message="Não foi possível validar as credenciais",
     )
 
     try:

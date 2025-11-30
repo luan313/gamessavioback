@@ -9,6 +9,8 @@ from app.services.categoria import CategoriaService
 from sqlalchemy import select
 from app.models.categoria import Categoria
 from fastapi_cache.decorator import cache
+from fastapi_pagination.ext.sqlalchemy import paginate
+from fastapi_pagination import Params, Page
 
 router = APIRouter(prefix="/categoria")
 
@@ -66,7 +68,7 @@ async def get_categorias_com_jogos(
 
 @router.get(
     "/{categoria_id}/jogos",
-    response_model=list[TopHypedGamesResponse],
+    response_model=Page[TopHypedGamesResponse],
     summary="Listar jogos de uma categoria",
     description="Retorna todos os jogos pertencentes a uma categoria específica, ordenados por nome.",
     responses={
@@ -74,23 +76,28 @@ async def get_categorias_com_jogos(
             "description": "Lista de jogos da categoria retornada com sucesso",
             "content": {
                 "application/json": {
-                    "example": [
-                        {
-                            "id": "550e8400-e29b-41d4-a716-446655440000",
-                            "nome": "The Witcher 3",
-                            "slug": "the-witcher-3",
-                            "descricao": "Um RPG de ação...",
-                            "imagem_capa": "https://...",
-                            "data_lancamento": "2015-05-19",
-                            "metacritic": 92,
-                            "nota_media": 4.5,
-                            "last_price": 29.99,
-                            "deal_url": "https://...",
-                            "store_name": "Steam",
-                            "hype": 8500,
-                            "updated_at": "2024-11-24T17:57:00"
-                        }
-                    ]
+                    "example": {
+                        "items": [
+                            {
+                                "id": "550e8400-e29b-41d4-a716-446655440000",
+                                "nome": "The Witcher 3",
+                                "slug": "the-witcher-3",
+                                "descricao": "Um RPG de ação...",
+                                "imagem_capa": "https://...",
+                                "data_lancamento": "2015-05-19",
+                                "metacritic": 92,
+                                "nota_media": 4.5,
+                                "last_price": 29.99,
+                                "deal_url": "https://...",
+                                "store_name": "Steam",
+                                "hype": 8500,
+                                "updated_at": "2024-11-24T17:57:00"
+                            }
+                        ],
+                        "total": 100,
+                        "page": 1,
+                        "size": 20
+                    }
                 }
             }
         },
@@ -98,7 +105,7 @@ async def get_categorias_com_jogos(
             "description": "Categoria não encontrada",
             "content": {
                 "application/json": {
-                    "example": {"detail": "Categoria não encontrada"}
+                    "example": {"error": True, "message": "Categoria não encontrada", "details": None}
                 }
             }
         }
@@ -107,6 +114,7 @@ async def get_categorias_com_jogos(
 @cache(expire=3600)
 async def get_jogos_categoria(
     categoria_id: UUID,
+    params: Params = Depends(),
     db: AsyncSession = Depends(get_db)
 ):
     """
@@ -119,12 +127,10 @@ async def get_jogos_categoria(
         - Lista de jogos com todas as informações (nome, descrição, preço, hype, etc.)
         - Jogos ordenados alfabeticamente por nome
     """
-    result = await db.execute(select(Categoria).where(Categoria.id == categoria_id))
-    categoria = result.scalar_one_or_none()
-    
-    if not categoria:
-        raise HTTPException(status_code=404, detail="Categoria não encontrada")
-    
-    jogos = await CategoriaService.get_jogos_por_categoria(db, categoria_id)
-    
-    return jogos
+    query = await CategoriaService.get_jogos_por_categoria(db, categoria_id)
+
+    return await paginate(
+        db, 
+        query, 
+        params
+    )
