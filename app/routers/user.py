@@ -34,15 +34,19 @@ router = APIRouter(prefix="/users", tags=["Users"])
         }
     }
 )
-async def read_users_me(current_user: User = Depends(get_current_user)):
+async def read_users_me(current_user: User = Depends(get_current_user)) -> UserResponse:
     """
-        Retorna os dados do usuário logado.
+        Retorna os dados do perfil do usuário autenticado.
         
         Retorna:
         - **id**: UUID do usuário
-        - **nome**: Nome do usuário
-        - **email**: Email do usuário
-        - **created_at**: Data de criação da conta
+        - **nome**: Nome completo
+        - **email**: Endereço de email cadastrado
+        - **created_at**: Data e hora do cadastro
+        
+        Uso:
+        - Usado para exibir informações do perfil no frontend
+        - Validar se o token atual ainda é válido
         
         Requer autenticação: Sim (Bearer token)
     """

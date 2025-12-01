@@ -15,6 +15,20 @@ import logging
 BASE_DIR = Path(__file__).resolve().parents[2]
 
 def get_html_template(user_name: str, game_name: str, current_price: float, target_price: float, deal_url: str, image_url: str | None) -> str:
+    """
+        Gera um template HTML para notificação de preço baixado.
+        
+        Args:
+            user_name (str): Nome do usuário
+            game_name (str): Nome do jogo
+            current_price (float): Preço atual do jogo
+            target_price (float): Preço alvo do jogo
+            deal_url (str): URL da oferta
+            image_url (str | None): URL da imagem do jogo
+        
+        Returns:
+            str: Template HTML
+    """
     primary_color = "#7c3aed" 
     bg_color = "#0f172a"
     card_bg = "#1e293b" 
@@ -95,6 +109,18 @@ def get_html_template(user_name: str, game_name: str, current_price: float, targ
     """
 
 async def send_email(to_email: str, subject: str, html_content: str, logger) -> None:
+    """
+        Envia um email para o usuário.
+        
+        Args:
+            to_email (str): Email do destinatário
+            subject (str): Assunto do email
+            html_content (str): Conteúdo HTML do email
+            logger: Logger para registro de eventos
+        
+        Returns:
+            None
+    """
     if not settings.EMAIL_USER or not settings.EMAIL_PASSWORD:
         logger.warning("Email credentials not set. Skipping email sending.")
         logger.info(f"Would send email to {to_email}: {subject}")
@@ -119,6 +145,17 @@ async def send_email(to_email: str, subject: str, html_content: str, logger) -> 
 
 
 async def process_price_updates(game_ids: List[UUID], db: AsyncSession, logger = None) -> int:
+    """
+        Processa atualizações de preços para jogos monitorados.
+        
+        Args:
+            game_ids (List[UUID]): Lista de IDs dos jogos a serem monitorados
+            db (AsyncSession): Sessão assíncrona do banco de dados
+            logger: Logger para registro de eventos
+        
+        Returns:
+            int: Número de notificações enviadas
+    """
     if logger is None:
         logger = logging.getLogger(__name__)
         

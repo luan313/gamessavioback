@@ -27,6 +27,16 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 
 def create_access_token(data: dict, expires_delta: Optional[int] = None) -> str:
+    """
+        Cria um token de acesso JWT.
+        
+        Args:
+            data (dict): Dados a serem codificados no token
+            expires_delta (Optional[int]): Tempo de expiração em minutos
+        
+        Returns:
+            str: Token de acesso JWT
+    """
     expire = datetime.utcnow() + timedelta(
         minutes=expires_delta or settings.ACCESS_TOKEN_EXPIRE_MINUTES
     )
@@ -43,6 +53,16 @@ async def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: AsyncSession = Depends(get_db)
 ) -> "User":
+    """
+        Obtém o usuário autenticado a partir do token de acesso.
+        
+        Args:
+            credentials (HTTPAuthorizationCredentials): Credenciais de autenticação
+            db (AsyncSession): Sessão assíncrona do banco de dados
+        
+        Returns:
+            User: Usuário autenticado
+    """
     token = credentials.credentials
 
     credentials_exception = UnauthorizedException(

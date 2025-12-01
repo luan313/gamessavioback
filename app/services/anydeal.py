@@ -11,17 +11,34 @@ from app.database.session import AsyncSessionLocal
 logger = logging.getLogger(__name__)
 
 class AnyDealService:
-    def __init__(self):
-        self.client = httpx.AsyncClient(timeout=10.0)
+    TIMEOUT = 10.0
+    BATCH_LIMIT = 200
+    COUNTRY = "BR"
+    API_SLEEP = 1.2
+
+    def __init__(self) -> None:
+        self.client = httpx.AsyncClient(timeout=self.TIMEOUT)
         self.api_key = settings.ANY_DEAL_API_KEY
         self.base_url = settings.ANY_DEAL_BASE_URL
 
-    async def close(self):
+    async def close(self) -> None:
+        """
+            Fecha a sessão HTTP.
+        """
         await self.client.aclose()
 
 
     async def get_game_id_from_itad(self, game_name: str) -> str | None:
-        await asyncio.sleep(1.2)  
+        """
+            Busca o ID ITAD de um jogo.
+            
+            Args:
+                game_name (str): Nome do jogo.
+            
+            Returns:
+                str | None: ID ITAD do jogo ou None se não encontrado.
+        """
+        await asyncio.sleep(self.API_SLEEP)  
 
         try:
             response = await self.client.get(
@@ -44,13 +61,22 @@ class AnyDealService:
 
 
     async def get_prices_batch(self, itad_ids: list[str]) -> dict[str, dict]:
+        """
+            Consulta os preços de todos os jogos no banco de dados.
+            
+            Args:
+                itad_ids (list[str]): Lista de IDs ITAD dos jogos.
+            
+            Returns:
+                dict[str, dict]: Dicionário com os preços de todos os jogos.
+        """
         if not itad_ids:
             return {}
 
         try:
             response = await self.client.post(
                 f"{self.base_url}/games/overview/v2",
-                params={"key": self.api_key, "country": "BR"},
+                params={"key": self.api_key, "country": self.COUNTRY},
                 json=itad_ids  
             )
 
@@ -82,13 +108,14 @@ class AnyDealService:
             logger.error(f"Erro no batch de preços: {e}")
             return {}
 
-
-    async def sync_all_games_prices(self, db: AsyncSession) -> dict:
-        logger.info("--- Iniciando Sync ITAD ---")
-
-        result = await db.execute(select(Game))
-        games = result.scalars().all()
-
+    async def _update_game_itad_ids(self, db: AsyncSession, games: list[Game]) -> None:
+        """
+            Atualiza os IDs ITAD dos jogos no banco de dados.
+            
+            Args:
+                db (AsyncSession): Sessão assíncrona do banco de dados.
+                games (list[Game]): Lista de jogos a serem atualizados.
+        """
         for game in games:
             if not game.isthereanydeal_id:
                 logger.info(f"Buscando ID ITAD para: {game.nome}")
@@ -102,18 +129,22 @@ class AnyDealService:
                 db.add(game)
                 await db.commit()
 
-        ids = [g.isthereanydeal_id for g in games if g.isthereanydeal_id]
 
-        if not ids:
-            logger.warning("Nenhum jogo com ID ITAD válido.")
-            return {"status": "no_ids"}
-
+    async def _fetch_all_prices(self, ids: list[str]) -> dict:
+        """
+            Consulta os preços de todos os jogos no banco de dados.
+            
+            Args:
+                ids (list[str]): Lista de IDs dos jogos.
+            
+            Returns:
+                dict: Dicionário com os preços de todos os jogos.
+        """
         logger.info(f"Consultando preços de {len(ids)} jogos em lote...")
-        BATCH_LIMIT = 200
         all_prices = {} 
 
-        for i in range(0, len(ids), BATCH_LIMIT):
-            chunk = ids[i : i + BATCH_LIMIT]
+        for i in range(0, len(ids), self.BATCH_LIMIT):
+            chunk = ids[i : i + self.BATCH_LIMIT]
             logger.info(f"Processando lote {i} a {i + len(chunk)}...")
             
             try:
@@ -124,16 +155,39 @@ class AnyDealService:
                     
             except Exception as e:
                 logger.error(f"Erro ao processar lote começando em {i}: {e}")
+        
+        return all_prices
 
-        prices = all_prices
 
+    def _normalize_prices(self, ids: list[str], prices: dict) -> dict:
+        """
+            Normaliza os preços dos jogos.
+            
+            Args:
+                ids (list[str]): Lista de IDs dos jogos.
+                prices (dict): Dicionário com os preços.
+            
+            Returns:
+                dict: Dicionário com os preços normalizados.
+        """
         normalized_prices = {}
         for original_id in ids:
             for returned_id, info in prices.items():
                 if returned_id.startswith(original_id):
                     normalized_prices[original_id] = info
                     break
+        return normalized_prices
 
+
+    async def _update_games_with_prices(self, db: AsyncSession, games: list[Game], normalized_prices: dict) -> None:
+        """
+            Atualiza os preços dos jogos no banco de dados com os preços do ITAD.
+            
+            Args:
+                db (AsyncSession): Sessão assíncrona do banco de dados.
+                games (list[Game]): Lista de jogos a serem atualizados.
+                normalized_prices (dict): Dicionário com os preços normalizados.
+        """
         for game in games:
             itad_id = game.isthereanydeal_id
             if not itad_id:
@@ -151,6 +205,35 @@ class AnyDealService:
             db.add(game)
 
         await db.commit()
+
+
+    async def sync_all_games_prices(self, db: AsyncSession) -> dict:
+        """
+            Sincroniza os preços de todos os jogos no banco de dados com os preços do ITAD.
+            
+            Args:
+                db (AsyncSession): Sessão assíncrona do banco de dados.
+            
+            Returns:
+                dict: Dicionário com o status do sync.
+        """
+        logger.info("--- Iniciando Sync ITAD ---")
+
+        result = await db.execute(select(Game))
+        games = result.scalars().all()
+
+        await self._update_game_itad_ids(db, games)
+
+        ids = [g.isthereanydeal_id for g in games if g.isthereanydeal_id]
+
+        if not ids:
+            logger.warning("Nenhum jogo com ID ITAD válido.")
+            return {"status": "no_ids"}
+
+        all_prices = await self._fetch_all_prices(ids)
+        normalized_prices = self._normalize_prices(ids, all_prices)
+        
+        await self._update_games_with_prices(db, games, normalized_prices)
 
         logger.info("--- Sync Finalizado com Sucesso ---")
         return {"status": "finished"}

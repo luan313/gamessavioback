@@ -1,18 +1,12 @@
 import asyncio
 import httpx
-import os
+import logging
 from sqlalchemy import select, update
 from app.database.session import AsyncSessionLocal
 from app.models import Game
-from dotenv import load_dotenv
+from app.core.config import settings
 
-load_dotenv()
-
-ITAD_BASE_URL = os.getenv("ANY_DEAL_BASE_URL")
-ITAD_API_KEY = os.getenv("ANY_DEAL_API_KEY")
-
-url = f"{ITAD_BASE_URL}/games/prices/v3?key={ITAD_API_KEY}&country=BR"
-
+logger = logging.getLogger(__name__)
 
 def chunked_list(list, size=200):
     for i in range(0, len(list), size):
@@ -20,7 +14,10 @@ def chunked_list(list, size=200):
 
 
 async def update_game_price():
-    print("🚀 Iniciando atualização de preços...")
+    """
+        Atualiza os preços dos jogos no banco de dados.
+    """
+    logger.info("🚀 Iniciando atualização de preços...")
 
     async with AsyncSessionLocal() as session:
         result = await session.execute(select(Game.id, Game.isthereanydeal_id))
@@ -31,7 +28,9 @@ async def update_game_price():
 
         id_itad = list(games_map.keys())
 
-        print(f"🎮 Jogos para atualizar: {len(id_itad)}")
+        logger.info(f"🎮 Jogos para atualizar: {len(id_itad)}")
+        
+        url = f"{settings.ANY_DEAL_BASE_URL}/games/prices/v3?key={settings.ANY_DEAL_API_KEY}&country=BR"
 
         async with httpx.AsyncClient() as client:
             for chunk_id_itad in chunked_list(id_itad, 200):
@@ -72,7 +71,7 @@ async def update_game_price():
                     if deals_list:
                         await session.execute(update(Game), deals_list)
                         await session.commit()
-                        print(f"Lote atualizado: {len(deals_list)} jogos.")
+                        logger.info(f"Lote atualizado: {len(deals_list)} jogos.")
 
                 except Exception as e:
-                    print(f"Erro no lote: {e}")
+                    logger.error(f"Erro no lote: {e}")

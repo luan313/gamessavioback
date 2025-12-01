@@ -5,7 +5,7 @@ from uuid import UUID
 
 class BackOfficeService:
     @staticmethod
-    async def get_all_games(db: AsyncSession) -> list[UUID]:
+    async def get_all_monitored_game_ids(db: AsyncSession) -> list[UUID]:
         result = await db.execute(select(JogosMonitorados.id))
         game_ids = result.scalars().all()
         return game_ids

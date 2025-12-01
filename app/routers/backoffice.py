@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Security, Depends, status
-from app.services.rawg import rawg_service
+from app.services.rawg import RawgService
 from app.database.session import get_db
 from app.utils.deps import verify_admin_access
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -9,26 +9,9 @@ from app.schemas.jogos_monitorados import MonitoramentoBasicResponse
 from fastapi import BackgroundTasks
 import logging
 
-logger = logging.getLogger(__name__)
+from app.core.docs import admin_responses
 
-admin_responses = {
-    401: {
-        "description": "Não autenticado",
-        "content": {
-            "application/json": {
-                "example": {"error": True, "message": "Não autenticado", "details": None}
-            }
-        }
-    },
-    403: {
-        "description": "Proibido: Requer privilégios de Administrador",
-        "content": {
-            "application/json": {
-                "example": {"error": True, "message": "Acesso negado", "details": None}
-            }
-        }
-    }
-}
+logger = logging.getLogger(__name__)
 
 
 router = APIRouter(
@@ -95,7 +78,7 @@ async def sync_games(db: AsyncSession = Depends(get_db)):
         
         Requer autenticação: Sim (Bearer token) + Privilégios de Admin
     """
-    resultado = await rawg_service.seed_games_by_amount(db=db)
+    resultado = await RawgService.seed_games_by_amount(db=db)
     logger.info(resultado)
     return resultado
 
@@ -181,4 +164,4 @@ async def sync_all_prices(
     }
 )
 async def get_all_games(db: AsyncSession = Depends(get_db)):
-    return await BackOfficeService.get_all_games(db)
+    return await BackOfficeService.get_all_monitored_game_ids(db)

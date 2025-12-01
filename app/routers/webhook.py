@@ -6,26 +6,9 @@ from app.services.notification import process_price_updates
 from app.utils.deps import verify_admin_access
 import logging
 
-logger = logging.getLogger(__name__)
+from app.core.docs import admin_responses
 
-admin_responses = {
-    401: {
-        "description": "Não autenticado",
-        "content": {
-            "application/json": {
-                "example": {"error": True, "message": "Não autenticado", "details": None}
-            }
-        }
-    },
-    403: {
-        "description": "Proibido: Requer privilégios de Administrador",
-        "content": {
-            "application/json": {
-                "example": {"error": True, "message": "Acesso negado", "details": None}
-            }
-        }
-    }
-}
+logger = logging.getLogger(__name__)
 
 
 router = APIRouter(    
@@ -62,5 +45,19 @@ router = APIRouter(
     }
 )
 async def notification(payload: PriceUpdatePayload, db: AsyncSession = Depends(get_db)) -> dict:
+    """
+        Processa notificações de preços via webhook.
+        
+        Este endpoint é acionado por um serviço externo (como um cron job ou GitHub Action)
+        para verificar se algum jogo monitorado atingiu o preço alvo e enviar emails aos usuários.
+        
+        Parâmetros:
+        - **payload**: Lista de IDs de jogos que tiveram atualização de preço
+        
+        Retorna:
+        - Resumo do processamento com quantidade de notificações enviadas
+        
+        Requer autenticação: Sim (Privilégios de Admin)
+    """
     count = await process_price_updates(payload.game_ids, db)
     return {"mensagem": "Todos os usuarios com games monitorados dentro do preço alvo foram notificados", "qtd_notificacao": count}

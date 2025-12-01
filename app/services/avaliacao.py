@@ -1,5 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from sqlalchemy.sql.expression import Select
 from uuid import UUID
 from app.models.avaliacao import Avaliacao 
 from app.schemas.avaliacao import AvaliacaoCreate, AvaliacaoUpdate
@@ -7,6 +8,17 @@ from sqlalchemy.orm import selectinload
 from app.core.exceptions import ForbiddenException, NotFoundException
 
 async def create_avaliacao(db: AsyncSession, avaliacao: AvaliacaoCreate, user_id: UUID) -> Avaliacao:
+    """
+        Cria uma nova avaliação no banco de dados.
+        
+        Args:
+            db (AsyncSession): Sessão assíncrona do banco de dados.
+            avaliacao (AvaliacaoCreate): Dados da avaliação a ser criada.
+            user_id (UUID): ID do usuário que está fazendo a avaliação.
+        
+        Returns:
+            Avaliacao: A avaliação criada.
+    """
     db_avaliacao = Avaliacao(
         **avaliacao.model_dump(), 
         user_id=user_id 
@@ -17,7 +29,11 @@ async def create_avaliacao(db: AsyncSession, avaliacao: AvaliacaoCreate, user_id
     return db_avaliacao
 
 
-def get_avaliacoes_by_game_id(game_id: UUID):
+def get_avaliacoes_by_game_id(game_id: UUID) -> Select:
+    """
+        Retorna uma query SQLAlchemy para listar avaliações de um jogo.
+        Projetado para ser usado com fastapi-pagination.
+    """
     return select(Avaliacao).options(selectinload(Avaliacao.user)).where(Avaliacao.game_id == game_id)
 
 
@@ -27,6 +43,18 @@ async def get_avaliacao_by_id(db: AsyncSession, avaliacao_id: UUID) -> Avaliacao
 
 
 async def update_avaliacao(db: AsyncSession, avaliacao_id: UUID, avaliacao_update: AvaliacaoUpdate, user_id: UUID) -> Avaliacao:
+    """
+        Atualiza uma avaliação existente no banco de dados.
+        
+        Args:
+            db (AsyncSession): Sessão assíncrona do banco de dados.
+            avaliacao_id (UUID): ID da avaliação a ser atualizada.
+            avaliacao_update (AvaliacaoUpdate): Dados da avaliação a serem atualizados.
+            user_id (UUID): ID do usuário que está fazendo a atualização.
+        
+        Returns:
+            Avaliacao: A avaliação atualizada.
+    """
     db_avaliacao = await get_avaliacao_by_id(db, avaliacao_id)
     
     if not db_avaliacao:
@@ -44,6 +72,17 @@ async def update_avaliacao(db: AsyncSession, avaliacao_id: UUID, avaliacao_updat
 
 
 async def delete_avaliacao(db: AsyncSession, avaliacao_id: UUID, user_id: UUID) -> bool:
+    """
+        Deleta uma avaliação existente no banco de dados.
+        
+        Args:
+            db (AsyncSession): Sessão assíncrona do banco de dados.
+            avaliacao_id (UUID): ID da avaliação a ser deletada.
+            user_id (UUID): ID do usuário que está fazendo a deleção.
+        
+        Returns:
+            bool: True se a avaliação foi deletada com sucesso.
+    """
     db_avaliacao = await get_avaliacao_by_id(db, avaliacao_id)
     
     if not db_avaliacao:
@@ -57,6 +96,15 @@ async def delete_avaliacao(db: AsyncSession, avaliacao_id: UUID, user_id: UUID) 
 
 
 async def get_last_five_avaliacoes(db: AsyncSession) -> list[Avaliacao]:
+    """
+        Retorna as últimas 5 avaliações do banco de dados.
+        
+        Args:
+            db (AsyncSession): Sessão assíncrona do banco de dados.
+        
+        Returns:
+            list[Avaliacao]: Lista de avaliações.
+    """
     result = await db.execute(
         select(Avaliacao)
         .options(

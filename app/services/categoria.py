@@ -11,7 +11,7 @@ class CategoriaService:
     @staticmethod
     async def get_categorias_com_quantidade_jogos(db: AsyncSession) -> list[dict]:
         """
-        Retorna todas as categorias com a quantidade de jogos em cada uma.
+            Retorna todas as categorias com a quantidade de jogos em cada uma.
         """
         query = (
             select(
@@ -41,7 +41,8 @@ class CategoriaService:
     @staticmethod
     async def get_jogos_por_categoria(db: AsyncSession, categoria_id: UUID) -> list[Game]:
         """
-            Retorna todos os jogos de uma categoria específica.
+            Retorna uma query SQLAlchemy para listar jogos de uma categoria.
+            Projetado para ser usado com fastapi-pagination.
             
             Args:
                 db: Sessão do banco de dados
