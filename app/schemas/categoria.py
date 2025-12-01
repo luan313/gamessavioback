@@ -4,6 +4,7 @@ from uuid import UUID
 
 class CategoriaBase(BaseModel):
     nome: str
+    imagem: str
 
 
 class CategoriaCreate(CategoriaBase):

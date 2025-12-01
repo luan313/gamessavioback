@@ -60,7 +60,8 @@ async def get_categorias_com_jogos(
         {
             "id": cat.id,
             "nome": cat.nome,
-            "quantidade_jogos": cat.quantidade_jogos
+            "quantidade_jogos": cat.quantidade_jogos,
+            "imagem": cat.imagem
         }
         for cat in categorias
     ]
