@@ -57,6 +57,7 @@ def get_html_template(user_name: str, game_name: str, current_price: float, targ
                     .text-mobile {{ font-size: 16px !important; }}
                     .header-mobile {{ font-size: 20px !important; }}
                     .price-mobile {{ font-size: 32px !important; }}
+                    .cta-button {{ display: block !important; width: 100% !important; box-sizing: border-box !important; text-align: center !important; }}
                 }}
             </style>
         </head>
@@ -107,7 +108,7 @@ def get_html_template(user_name: str, game_name: str, current_price: float, targ
                                         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
                                             <tr>
                                                 <td align="center">
-                                                    <a href="{deal_url}" style="display: inline-block; padding: 16px 32px; background-color: {primary_color}; color: #ffffff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; transition: background-color 0.3s; width: auto; min-width: 200px; text-align: center;">
+                                                    <a href="{deal_url}" class="cta-button" style="display: inline-block; padding: 16px 32px; background-color: {primary_color}; color: #ffffff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; transition: background-color 0.3s; width: auto; min-width: 200px; text-align: center;">
                                                         Ver Oferta Agora
                                                     </a>
                                                 </td>
