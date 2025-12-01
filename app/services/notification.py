@@ -37,73 +37,102 @@ def get_html_template(user_name: str, game_name: str, current_price: float, targ
 
     return f"""
         <!DOCTYPE html>
-        <html>
+        <html lang="pt-BR">
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Alerta de Preço - GamesSavio</title>
+            <style>
+                /* Reset styles */
+                body {{ margin: 0; padding: 0; min-width: 100%; width: 100% !important; height: 100% !important; }}
+                body, table, td, div, p, a {{ -webkit-font-smoothing: antialiased; text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; line-height: 100%; }}
+                table, td {{ mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse !important; border-spacing: 0; }}
+                img {{ border: 0; line-height: 100%; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }}
+                
+                /* Responsive styles */
+                @media screen and (max-width: 600px) {{
+                    .email-container {{ width: 100% !important; max-width: 100% !important; }}
+                    .fluid-img {{ height: auto !important; max-width: 100% !important; width: 100% !important; }}
+                    .padding-mobile {{ padding: 20px !important; }}
+                    .text-mobile {{ font-size: 16px !important; }}
+                    .header-mobile {{ font-size: 20px !important; }}
+                    .price-mobile {{ font-size: 32px !important; }}
+                }}
+            </style>
         </head>
         <body style="margin: 0; padding: 0; background-color: {bg_color}; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: {text_color};">
-            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                    <td align="center" style="padding: 40px 0;">
-                        <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="background-color: {card_bg}; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);">
-                            
-                            <tr>
-                                <td style="padding: 0; background-color: #000; text-align: center;">
-                                    {f'<img src="{image_url}" alt="{game_name}" style="width: 100%; height: auto; display: block; max-height: 300px; object-fit: cover;">' if image_url else ''}
-                                </td>
-                            </tr>
+            <div style="display: none; font-size: 1px; color: {bg_color}; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
+                O preço de {game_name} caiu! Confira agora.
+            </div>
+            
+            <center style="width: 100%; background-color: {bg_color};">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: {bg_color}; width: 100%; margin: 0 auto;">
+                    <tr>
+                        <td align="center" style="padding: 20px 10px;">
+                            <!-- Main Container -->
+                            <table role="presentation" class="email-container" width="600" cellspacing="0" cellpadding="0" border="0" style="background-color: {card_bg}; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); width: 100%; max-width: 600px; margin: 0 auto;">
+                                
+                                <!-- Image Section -->
+                                <tr>
+                                    <td style="padding: 0; background-color: #000; text-align: center;">
+                                        {f'<img src="{image_url}" alt="{game_name}" class="fluid-img" style="width: 100%; height: auto; display: block; max-height: 300px; object-fit: cover; border: 0;">' if image_url else ''}
+                                    </td>
+                                </tr>
 
-                            <tr>
-                                <td style="padding: 40px 30px;">
-                                    <h1 style="margin: 0 0 20px 0; font-size: 24px; color: {text_color};">Preço Atingido! 🎯</h1>
-                                    
-                                    <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.5; color: #cbd5e1;">
-                                        Olá <strong>{user_name}</strong>,
-                                    </p>
-                                    
-                                    <p style="margin: 0 0 30px 0; font-size: 16px; line-height: 1.5; color: #cbd5e1;">
-                                        Boas notícias! O jogo <strong>{game_name}</strong> atingiu o preço que você estava esperando.
-                                    </p>
+                                <!-- Content Section -->
+                                <tr>
+                                    <td class="padding-mobile" style="padding: 40px 30px;">
+                                        <h1 class="header-mobile" style="margin: 0 0 20px 0; font-size: 24px; color: {text_color}; text-align: center;">Preço Atingido! 🎯</h1>
+                                        
+                                        <p class="text-mobile" style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #cbd5e1;">
+                                            Olá <strong>{user_name}</strong>,
+                                        </p>
+                                        
+                                        <p class="text-mobile" style="margin: 0 0 30px 0; font-size: 16px; line-height: 1.6; color: #cbd5e1;">
+                                            Boas notícias! O jogo <strong>{game_name}</strong> atingiu o preço que você estava esperando.
+                                        </p>
 
-                                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 30px;">
-                                        <tr>
-                                            <td style="padding: 20px; text-align: center;">
-                                                <p style="margin: 0 0 5px 0; font-size: 14px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Preço Atual</p>
-                                                <p style="margin: 0; font-size: 36px; font-weight: bold; color: {accent_color};">R$ {current_price:.2f}</p>
-                                                <p style="margin: 10px 0 0 0; font-size: 14px; color: #94a3b8;">Seu alvo: R$ {target_price:.2f}</p>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                        <!-- Price Box -->
+                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 30px;">
+                                            <tr>
+                                                <td style="padding: 20px; text-align: center;">
+                                                    <p style="margin: 0 0 5px 0; font-size: 14px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Preço Atual</p>
+                                                    <p class="price-mobile" style="margin: 0; font-size: 36px; font-weight: bold; color: {accent_color};">R$ {current_price:.2f}</p>
+                                                    <p style="margin: 10px 0 0 0; font-size: 14px; color: #94a3b8;">Seu alvo: R$ {target_price:.2f}</p>
+                                                </td>
+                                            </tr>
+                                        </table>
 
-                                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
-                                        <tr>
-                                            <td align="center">
-                                                <a href="{deal_url}" style="display: inline-block; padding: 16px 32px; background-color: {primary_color}; color: #ffffff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; transition: background-color 0.3s;">
-                                                    Ver Oferta Agora
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    
-                                    <p style="margin: 30px 0 0 0; font-size: 14px; color: #64748b; text-align: center;">
-                                        *Os preços podem variar rapidamente. Verifique a loja para confirmar.
-                                    </p>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td style="padding: 20px; background-color: #0f172a; text-align: center; border-top: 1px solid #334155;">
-                                    <p style="margin: 0; font-size: 12px; color: #64748b;">
-                                        &copy; 2024 GamesSavio. Todos os direitos reservados.
-                                    </p>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
+                                        <!-- CTA Button -->
+                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                                            <tr>
+                                                <td align="center">
+                                                    <a href="{deal_url}" style="display: inline-block; padding: 16px 32px; background-color: {primary_color}; color: #ffffff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; transition: background-color 0.3s; width: auto; min-width: 200px; text-align: center;">
+                                                        Ver Oferta Agora
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <p style="margin: 30px 0 0 0; font-size: 13px; color: #64748b; text-align: center; line-height: 1.4;">
+                                            *Os preços podem variar rapidamente. Verifique a loja para confirmar.
+                                        </p>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Footer -->
+                                <tr>
+                                    <td style="padding: 20px; background-color: #0f172a; text-align: center; border-top: 1px solid #334155;">
+                                        <p style="margin: 0; font-size: 12px; color: #64748b;">
+                                            &copy; 2024 GamesSavio. Todos os direitos reservados.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </center>
         </body>
         </html>
     """
