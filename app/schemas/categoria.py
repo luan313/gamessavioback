@@ -4,7 +4,6 @@ from uuid import UUID
 
 class CategoriaBase(BaseModel):
     nome: str
-    imagem: str
 
 
 class CategoriaCreate(CategoriaBase):
@@ -22,6 +21,7 @@ class CategoriaComJogos(BaseModel):
     id: UUID
     nome: str
     quantidade_jogos: int
+    imagem: str
 
     class Config:
         from_attributes = True

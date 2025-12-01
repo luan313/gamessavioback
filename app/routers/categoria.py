@@ -55,16 +55,7 @@ async def get_categorias_com_jogos(
     - quantidade_jogos: Número de jogos associados à categoria
     """
     categorias = await CategoriaService.get_categorias_com_quantidade_jogos(db)
-    
-    return [
-        {
-            "id": cat.id,
-            "nome": cat.nome,
-            "quantidade_jogos": cat.quantidade_jogos,
-            "imagem": cat.imagem
-        }
-        for cat in categorias
-    ]
+    return categorias
 
 
 @router.get(

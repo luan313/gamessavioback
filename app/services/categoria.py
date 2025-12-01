@@ -17,6 +17,7 @@ class CategoriaService:
             select(
                 Categoria.id,
                 Categoria.nome,
+                Categoria.imagem,
                 func.count(GameCategoria.game_id).label("quantidade_jogos")
             )
             .outerjoin(GameCategoria, Categoria.id == GameCategoria.categoria_id)
