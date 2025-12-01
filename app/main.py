@@ -21,15 +21,18 @@ from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from app.core.exceptions import AppException
 from app.core.handlers import app_exception_handler, global_exception_handler
+from fastapi_limiter import FastAPILimiter
+from fastapi_limiter.depends import RateLimiter
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-   redis_client = aioredis.from_url(settings.REDIS_URL, encoding="utf8", decode_responses=True)
+    redis_client = aioredis.from_url(settings.REDIS_URL, encoding="utf8", decode_responses=True)
     
-   FastAPICache.init(RedisBackend(redis_client), prefix="fastapi-cache")
+    FastAPICache.init(RedisBackend(redis_client), prefix="fastapi-cache")
+    await FastAPILimiter.init(redis_client)
     
-   yield
-   await redis_client.close()
+    yield
+    await redis_client.close()
 
 
 logging.basicConfig(level=logging.INFO)

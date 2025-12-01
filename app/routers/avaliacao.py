@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi_limiter.depends import RateLimiter
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from uuid import UUID
@@ -55,7 +56,8 @@ router = APIRouter(prefix="/avaliacoes")
 async def create_new_avaliacao(
     avaliacao: AvaliacaoCreate,
     db: AsyncSession = Depends(get_db),
-    current_user = Depends(get_current_user)
+    current_user = Depends(get_current_user),
+    _ = Depends(RateLimiter(times=10, seconds=60))
 ) -> AvaliacaoResponse:
     """
         Cria uma nova avaliação para um jogo.
@@ -109,7 +111,7 @@ async def create_new_avaliacao(
         }
     }
 )
-async def read_last_five_avaliacoes(db: AsyncSession = Depends(get_db)) -> list[AvaliacaoBasicResponse]:
+async def read_last_five_avaliacoes(db: AsyncSession = Depends(get_db), _ = Depends(RateLimiter(times=60, seconds=60))) -> list[AvaliacaoBasicResponse]:
     return await crud_avaliacao.get_last_five_avaliacoes(db)
 
 
@@ -154,7 +156,8 @@ async def read_last_five_avaliacoes(db: AsyncSession = Depends(get_db)) -> list[
 )
 async def read_avaliacoes_game(
     game_id: UUID,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    _ = Depends(RateLimiter(times=60, seconds=60))
 ) -> Page[AvaliacaoResponse]:
     """
         Retorna todas as avaliações de um jogo específico.
@@ -218,7 +221,8 @@ async def update_existing_avaliacao(
     avaliacao_id: UUID,
     avaliacao: AvaliacaoUpdate,
     db: AsyncSession = Depends(get_db),
-    current_user = Depends(get_current_user)
+    current_user = Depends(get_current_user),
+    _ = Depends(RateLimiter(times=10, seconds=60))
 ) -> AvaliacaoResponse:
     """
         Atualiza uma avaliação existente.
@@ -278,7 +282,8 @@ async def update_existing_avaliacao(
 async def delete_existing_avaliacao(
     avaliacao_id: UUID,
     db: AsyncSession = Depends(get_db),
-    current_user = Depends(get_current_user)
+    current_user = Depends(get_current_user),
+    _ = Depends(RateLimiter(times=10, seconds=60))
 ) -> None:
     """
         Remove uma avaliação permanentemente.

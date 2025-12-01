@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi_limiter.depends import RateLimiter
 from sqlalchemy.orm import Session
 from app.schemas.auth import (
     TokenResponse, TokenRefreshRequest
@@ -42,7 +43,7 @@ router = APIRouter(prefix="/auth", tags=["Auth"])
         }
     }
 )
-async def register_user(data: UserCreate, db: Session = Depends(get_db)) -> TokenResponse:
+async def register_user(data: UserCreate, db: Session = Depends(get_db), _ = Depends(RateLimiter(times=5, seconds=60))) -> TokenResponse:
     """
         Registra um novo usuário no sistema.
         
@@ -95,7 +96,7 @@ async def register_user(data: UserCreate, db: Session = Depends(get_db)) -> Toke
         }
     }
 )
-async def login(data: UserLogin, db: Session = Depends(get_db)) -> TokenResponse:
+async def login(data: UserLogin, db: Session = Depends(get_db), _ = Depends(RateLimiter(times=5, seconds=60))) -> TokenResponse:
     """
         Autentica um usuário no sistema.
         
@@ -147,7 +148,7 @@ async def login(data: UserLogin, db: Session = Depends(get_db)) -> TokenResponse
         }
     }
 )
-async def refresh_token(data: TokenRefreshRequest) -> TokenResponse:
+async def refresh_token(data: TokenRefreshRequest, _ = Depends(RateLimiter(times=10, seconds=60))) -> TokenResponse:
     """
         Renova os tokens de autenticação usando um Refresh Token.
         

@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Security, Depends, status
+from fastapi_limiter.depends import RateLimiter
 from app.services.rawg import RawgService
 from app.database.session import get_db
 from app.utils.deps import verify_admin_access
@@ -59,7 +60,7 @@ router = APIRouter(
         }
     }
 )
-async def sync_games(db: AsyncSession = Depends(get_db)):
+async def sync_games(db: AsyncSession = Depends(get_db), _ = Depends(RateLimiter(times=5, seconds=60))):
     """
         Sincroniza jogos da API RAWG para o banco de dados.
         
@@ -122,7 +123,8 @@ async def sync_games(db: AsyncSession = Depends(get_db)):
 )
 async def sync_all_prices(
     background_tasks: BackgroundTasks, 
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    _ = Depends(RateLimiter(times=5, seconds=60))
 ):
     """
         Sincroniza preços de todos os jogos via API IsThereAnyDeal.
@@ -163,5 +165,5 @@ async def sync_all_prices(
         }
     }
 )
-async def get_all_games(db: AsyncSession = Depends(get_db)):
+async def get_all_games(db: AsyncSession = Depends(get_db), _ = Depends(RateLimiter(times=60, seconds=60))):
     return await BackOfficeService.get_all_monitored_game_ids(db)

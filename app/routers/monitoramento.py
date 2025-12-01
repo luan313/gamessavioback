@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi_limiter.depends import RateLimiter
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from uuid import UUID
@@ -52,7 +53,8 @@ router = APIRouter(prefix="/monitoramentos")
 async def create_new_monitoramento(
     monitoramento: MonitoramentoCreate,
     db: AsyncSession = Depends(get_db),
-    current_user = Depends(get_current_user)
+    current_user = Depends(get_current_user),
+    _ = Depends(RateLimiter(times=20, seconds=60))
 ) -> MonitoramentoResponse:
     """
         Cria um novo monitoramento de preço para um jogo.
@@ -103,7 +105,8 @@ async def read_monitoramentos(
     skip: int = 0,
     limit: int = 100,
     db: AsyncSession = Depends(get_db),
-    current_user = Depends(get_current_user)
+    current_user = Depends(get_current_user),
+    _ = Depends(RateLimiter(times=60, seconds=60))
 ) -> list[MonitoramentoResponse]:
     """
         Lista todos os jogos monitorados pelo usuário atual.
@@ -169,7 +172,8 @@ async def update_existing_monitoramento(
     monitoramento_id: UUID,
     monitoramento: MonitoramentoUpdate,
     db: AsyncSession = Depends(get_db),
-    current_user = Depends(get_current_user)
+    current_user = Depends(get_current_user),
+    _ = Depends(RateLimiter(times=20, seconds=60))
 ) -> MonitoramentoResponse | None:
     """
         Atualiza um monitoramento de preço existente.
@@ -229,7 +233,8 @@ async def update_existing_monitoramento(
 async def delete_existing_monitoramento(
     monitoramento_id: UUID,
     db: AsyncSession = Depends(get_db),
-    current_user = Depends(get_current_user)
+    current_user = Depends(get_current_user),
+    _ = Depends(RateLimiter(times=20, seconds=60))
 ) -> None:
     """
         Remove um monitoramento de preço.

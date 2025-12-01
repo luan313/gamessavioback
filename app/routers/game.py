@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from fastapi_limiter.depends import RateLimiter
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from app.database.session import get_db
@@ -55,7 +56,8 @@ router = APIRouter(prefix="/game")
 async def get_hyped_games(
     qtd: int = Query(qtd=20, description="Número máximo de jogos a retornar"),
     params: Params = Depends(),
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    _ = Depends(RateLimiter(times=60, seconds=60))
 ) -> Page[TopHypedGamesResponse]:
     """
         Retorna os jogos mais populares ordenados por Hype Score.
@@ -121,7 +123,8 @@ async def get_hyped_games(
 )
 async def search_games_by_name(
     name: str,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    _ = Depends(RateLimiter(times=30, seconds=60))
 ) -> list[SearchGameResponse]:
     query = game_service.search_games_by_name(name)
     return await paginate_async(
@@ -170,7 +173,8 @@ async def search_games_by_name(
 @cache(expire=3600)
 async def get_all_games(
     params: Params = Depends(),
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    _ = Depends(RateLimiter(times=60, seconds=60))
 ) -> Page[GameResponse]:
     query = game_service.get_all_games()
     return await paginate_async(
@@ -220,7 +224,8 @@ async def get_all_games(
 @cache(expire=3600)
 async def get_game_by_id(
     id: UUID,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    _ = Depends(RateLimiter(times=60, seconds=60))
 ) -> GameResponse:
     query = game_service.get_game_by_id(id)
     result = await db.execute(query)

@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Security
+from fastapi_limiter.depends import RateLimiter
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.database.session import get_db
 from app.schemas.webhook import PriceUpdatePayload
@@ -44,7 +45,7 @@ router = APIRouter(
         }
     }
 )
-async def notification(payload: PriceUpdatePayload, db: AsyncSession = Depends(get_db)) -> dict:
+async def notification(payload: PriceUpdatePayload, db: AsyncSession = Depends(get_db), _ = Depends(RateLimiter(times=60, seconds=60))) -> dict:
     """
         Processa notificações de preços via webhook.
         

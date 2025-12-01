@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi_limiter.depends import RateLimiter
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from uuid import UUID
@@ -44,7 +45,8 @@ router = APIRouter(prefix="/categoria")
 )
 @cache(expire=3600)
 async def get_categorias_com_jogos(
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    _ = Depends(RateLimiter(times=60, seconds=60))
 ):
     """
     Endpoint para obter todas as categorias com a quantidade de jogos.
@@ -107,7 +109,8 @@ async def get_categorias_com_jogos(
 async def get_jogos_categoria(
     categoria_id: UUID,
     params: Params = Depends(),
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    _ = Depends(RateLimiter(times=60, seconds=60))
 ):
     """
         Retorna todos os jogos de uma categoria específica.

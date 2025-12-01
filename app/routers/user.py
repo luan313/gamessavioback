@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from fastapi_limiter.depends import RateLimiter
 from app.schemas.user import UserResponse
 from app.core.security import get_current_user
 from app.models.user import User
@@ -34,7 +35,7 @@ router = APIRouter(prefix="/users", tags=["Users"])
         }
     }
 )
-async def read_users_me(current_user: User = Depends(get_current_user)) -> UserResponse:
+async def read_users_me(current_user: User = Depends(get_current_user), _ = Depends(RateLimiter(times=10, seconds=60))) -> UserResponse:
     """
         Retorna os dados do perfil do usuário autenticado.
         
