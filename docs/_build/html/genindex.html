@@ -208,10 +208,18 @@
 <li class="toctree-l2"><a class="reference internal" href="app.schemas.html">app.schemas package</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="settings.html">Settings</a><input aria-label="Toggle navigation of Settings" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="app.html">app package</a><input aria-label="Toggle navigation of app package" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.core.html">app.core package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.database.html">app.database package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.models.html">app.models package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.routers.html">app.routers package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.schemas.html">app.schemas package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.services.html">app.services package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.utils.html">app.utils package</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 </ul>
 
 </div>
@@ -265,6 +273,8 @@
 </li>
         <li><a href="app.services.html#app.services.anydeal.AnyDealService">AnyDealService (class in app.services.anydeal)</a>
 </li>
+        <li><a href="app.services.html#app.services.anydeal.AnyDealService.API_SLEEP">API_SLEEP (app.services.anydeal.AnyDealService attribute)</a>
+</li>
         <li>
     app
 
@@ -277,13 +287,6 @@
 
         <ul>
           <li><a href="app.core.html#module-app.core">module</a>
-</li>
-        </ul></li>
-        <li>
-    app.core.auth
-
-        <ul>
-          <li><a href="app.core.html#module-app.core.auth">module</a>
 </li>
         </ul></li>
         <li>
@@ -454,6 +457,8 @@
           <li><a href="app.routers.html#module-app.routers.monitoramento">module</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     app.routers.user
 
@@ -461,8 +466,6 @@
           <li><a href="app.routers.html#module-app.routers.user">module</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     app.routers.webhook
 
@@ -597,31 +600,10 @@
 </li>
         </ul></li>
         <li>
-    app.services.notification
-
-        <ul>
-          <li><a href="app.services.html#module-app.services.notification">module</a>
-</li>
-        </ul></li>
-        <li>
-    app.services.preco
-
-        <ul>
-          <li><a href="app.services.html#module-app.services.preco">module</a>
-</li>
-        </ul></li>
-        <li>
     app.services.rawg
 
         <ul>
           <li><a href="app.services.html#module-app.services.rawg">module</a>
-</li>
-        </ul></li>
-        <li>
-    app.services.user
-
-        <ul>
-          <li><a href="app.services.html#module-app.services.user">module</a>
 </li>
         </ul></li>
         <li>
@@ -638,13 +620,6 @@
           <li><a href="app.utils.html#module-app.utils.deps">module</a>
 </li>
         </ul></li>
-        <li>
-    app.utils.price_fetcher
-
-        <ul>
-          <li><a href="app.utils.html#module-app.utils.price_fetcher">module</a>
-</li>
-        </ul></li>
         <li><a href="app.services.html#app.services.auth.AuthService">AuthService (class in app.services.auth)</a>
 </li>
         <li><a href="app.models.html#app.models.avaliacao.Avaliacao">Avaliacao (class in app.models.avaliacao)</a>
@@ -656,6 +631,10 @@
         <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoBasicResponse.Config">AvaliacaoBasicResponse.Config (class in app.schemas.avaliacao)</a>
 </li>
         <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoCreate">AvaliacaoCreate (class in app.schemas.avaliacao)</a>
+</li>
+        <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoDetailedResponse">AvaliacaoDetailedResponse (class in app.schemas.avaliacao)</a>
+</li>
+        <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoDetailedResponse.Config">AvaliacaoDetailedResponse.Config (class in app.schemas.avaliacao)</a>
 </li>
         <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoResponse">AvaliacaoResponse (class in app.schemas.avaliacao)</a>
 </li>
@@ -679,11 +658,13 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="app.core.html#app.core.config.Settings.BACKOFFICE_TOKEN">BACKOFFICE_TOKEN (app.core.config.Settings attribute)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="app.services.html#app.services.backoffice.BackOfficeService">BackOfficeService (class in app.services.backoffice)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="app.database.html#app.database.base.Base">Base (class in app.database.base)</a>
+</li>
+        <li><a href="app.services.html#app.services.anydeal.AnyDealService.BATCH_LIMIT">BATCH_LIMIT (app.services.anydeal.AnyDealService attribute)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -726,6 +707,8 @@
         <li><a href="app.models.html#app.models.game.Game.categorias">categorias (app.models.game.Game attribute)</a>
 
         <ul>
+          <li><a href="app.schemas.html#app.schemas.game.GameExpose.categorias">(app.schemas.game.GameExpose attribute)</a>
+</li>
           <li><a href="app.schemas.html#app.schemas.game.GameResponse.categorias">(app.schemas.game.GameResponse attribute)</a>
 </li>
         </ul></li>
@@ -745,6 +728,8 @@
           <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoUpdate.comentario">(app.schemas.avaliacao.AvaliacaoUpdate attribute)</a>
 </li>
         </ul></li>
+        <li><a href="app.services.html#app.services.anydeal.AnyDealService.COUNTRY">COUNTRY (app.services.anydeal.AnyDealService attribute)</a>
+</li>
         <li><a href="app.core.html#app.core.security.create_access_token">create_access_token() (in module app.core.security)</a>
 </li>
         <li><a href="app.services.html#app.services.avaliacao.create_avaliacao">create_avaliacao() (in module app.services.avaliacao)</a>
@@ -765,6 +750,8 @@
           <li><a href="app.models.html#app.models.user.User.created_at">(app.models.user.User attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoBasicResponse.created_at">(app.schemas.avaliacao.AvaliacaoBasicResponse attribute)</a>
+</li>
+          <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoDetailedResponse.created_at">(app.schemas.avaliacao.AvaliacaoDetailedResponse attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoResponse.created_at">(app.schemas.avaliacao.AvaliacaoResponse attribute)</a>
 </li>
@@ -862,13 +849,19 @@
         <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoBasicResponse.Config.from_attributes">from_attributes (app.schemas.avaliacao.AvaliacaoBasicResponse.Config attribute)</a>
 
         <ul>
+          <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoDetailedResponse.Config.from_attributes">(app.schemas.avaliacao.AvaliacaoDetailedResponse.Config attribute)</a>
+</li>
           <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoResponse.Config.from_attributes">(app.schemas.avaliacao.AvaliacaoResponse.Config attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.categoria.CategoriaComJogos.Config.from_attributes">(app.schemas.categoria.CategoriaComJogos.Config attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.categoria.CategoriaResponse.Config.from_attributes">(app.schemas.categoria.CategoriaResponse.Config attribute)</a>
 </li>
+          <li><a href="app.schemas.html#app.schemas.game.GameBasic.Config.from_attributes">(app.schemas.game.GameBasic.Config attribute)</a>
+</li>
           <li><a href="app.schemas.html#app.schemas.game.GameCategoriaAssociation.Config.from_attributes">(app.schemas.game.GameCategoriaAssociation.Config attribute)</a>
+</li>
+          <li><a href="app.schemas.html#app.schemas.game.GameExpose.Config.from_attributes">(app.schemas.game.GameExpose.Config attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.game.GameForMonitoramento.Config.from_attributes">(app.schemas.game.GameForMonitoramento.Config attribute)</a>
 </li>
@@ -951,16 +944,22 @@
 </li>
         <li><a href="app.schemas.html#app.schemas.game.GameBasic">GameBasic (class in app.schemas.game)</a>
 </li>
+        <li><a href="app.schemas.html#app.schemas.game.GameBasic.Config">GameBasic.Config (class in app.schemas.game)</a>
+</li>
         <li><a href="app.models.html#app.models.game_categoria.GameCategoria">GameCategoria (class in app.models.game_categoria)</a>
 </li>
         <li><a href="app.schemas.html#app.schemas.game.GameCategoriaAssociation">GameCategoriaAssociation (class in app.schemas.game)</a>
 </li>
         <li><a href="app.schemas.html#app.schemas.game.GameCategoriaAssociation.Config">GameCategoriaAssociation.Config (class in app.schemas.game)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="app.schemas.html#app.schemas.game.GameCreate">GameCreate (class in app.schemas.game)</a>
 </li>
+        <li><a href="app.schemas.html#app.schemas.game.GameExpose">GameExpose (class in app.schemas.game)</a>
+</li>
+        <li><a href="app.schemas.html#app.schemas.game.GameExpose.Config">GameExpose.Config (class in app.schemas.game)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="app.schemas.html#app.schemas.game.GameForMonitoramento">GameForMonitoramento (class in app.schemas.game)</a>
 </li>
         <li><a href="app.schemas.html#app.schemas.game.GameForMonitoramento.Config">GameForMonitoramento.Config (class in app.schemas.game)</a>
@@ -981,26 +980,36 @@
           <li><a href="app.models.html#app.models.plataforma.Plataforma.games">(app.models.plataforma.Plataforma attribute)</a>
 </li>
         </ul></li>
-        <li><a href="app.services.html#app.services.backoffice.BackOfficeService.get_all_games">get_all_games() (app.services.backoffice.BackOfficeService static method)</a>
+        <li><a href="app.routers.html#app.routers.backoffice.get_all_games">get_all_games() (in module app.routers.backoffice)</a>
 
         <ul>
-          <li><a href="app.routers.html#app.routers.backoffice.get_all_games">(in module app.routers.backoffice)</a>
+          <li><a href="app.routers.html#app.routers.game.get_all_games">(in module app.routers.game)</a>
+</li>
+          <li><a href="app.services.html#app.services.game.get_all_games">(in module app.services.game)</a>
 </li>
         </ul></li>
+        <li><a href="app.services.html#app.services.backoffice.BackOfficeService.get_all_monitored_game_ids">get_all_monitored_game_ids() (app.services.backoffice.BackOfficeService static method)</a>
+</li>
         <li><a href="app.services.html#app.services.avaliacao.get_avaliacao_by_id">get_avaliacao_by_id() (in module app.services.avaliacao)</a>
 </li>
-        <li><a href="app.services.html#app.services.avaliacao.get_avaliacoes_by_game">get_avaliacoes_by_game() (in module app.services.avaliacao)</a>
+        <li><a href="app.services.html#app.services.avaliacao.get_avaliacoes_by_game_id">get_avaliacoes_by_game_id() (in module app.services.avaliacao)</a>
 </li>
         <li><a href="app.routers.html#app.routers.categoria.get_categorias_com_jogos">get_categorias_com_jogos() (in module app.routers.categoria)</a>
 </li>
         <li><a href="app.services.html#app.services.categoria.CategoriaService.get_categorias_com_quantidade_jogos">get_categorias_com_quantidade_jogos() (app.services.categoria.CategoriaService static method)</a>
 </li>
-        <li><a href="app.services.html#app.services.anydeal.AnyDealService.get_current_price">get_current_price() (app.services.anydeal.AnyDealService method)</a>
-</li>
         <li><a href="app.core.html#app.core.security.get_current_user">get_current_user() (in module app.core.security)</a>
 </li>
         <li><a href="app.database.html#app.database.session.get_db">get_db() (in module app.database.session)</a>
 </li>
+        <li><a href="app.services.html#app.services.rawg.RawgService.get_description_from_rawg">get_description_from_rawg() (app.services.rawg.RawgService static method)</a>
+</li>
+        <li><a href="app.routers.html#app.routers.game.get_game_by_id">get_game_by_id() (in module app.routers.game)</a>
+
+        <ul>
+          <li><a href="app.services.html#app.services.game.get_game_by_id">(in module app.services.game)</a>
+</li>
+        </ul></li>
         <li><a href="app.services.html#app.services.anydeal.AnyDealService.get_game_id_from_itad">get_game_id_from_itad() (app.services.anydeal.AnyDealService method)</a>
 </li>
         <li><a href="app.routers.html#app.routers.game.get_hyped_games">get_hyped_games() (in module app.routers.game)</a>
@@ -1014,6 +1023,8 @@
         <li><a href="app.services.html#app.services.monitoramento.MonitoramentoService.get_monitoramento_by_id">get_monitoramento_by_id() (app.services.monitoramento.MonitoramentoService static method)</a>
 </li>
         <li><a href="app.services.html#app.services.monitoramento.MonitoramentoService.get_monitored_games_for_user">get_monitored_games_for_user() (app.services.monitoramento.MonitoramentoService static method)</a>
+</li>
+        <li><a href="app.services.html#app.services.anydeal.AnyDealService.get_prices_batch">get_prices_batch() (app.services.anydeal.AnyDealService method)</a>
 </li>
         <li><a href="app.services.html#app.services.game.get_top_hyped_games">get_top_hyped_games() (in module app.services.game)</a>
 </li>
@@ -1044,6 +1055,8 @@
         <li><a href="app.models.html#app.models.game.Game.hype">hype (app.models.game.Game attribute)</a>
 
         <ul>
+          <li><a href="app.schemas.html#app.schemas.game.GameExpose.hype">(app.schemas.game.GameExpose attribute)</a>
+</li>
           <li><a href="app.schemas.html#app.schemas.game.GameResponse.hype">(app.schemas.game.GameResponse attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.game.TopHypedGamesResponse.hype">(app.schemas.game.TopHypedGamesResponse attribute)</a>
@@ -1074,6 +1087,8 @@
 </li>
           <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoBasicResponse.id">(app.schemas.avaliacao.AvaliacaoBasicResponse attribute)</a>
 </li>
+          <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoDetailedResponse.id">(app.schemas.avaliacao.AvaliacaoDetailedResponse attribute)</a>
+</li>
           <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoResponse.id">(app.schemas.avaliacao.AvaliacaoResponse attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.categoria.CategoriaComJogos.id">(app.schemas.categoria.CategoriaComJogos attribute)</a>
@@ -1081,6 +1096,8 @@
           <li><a href="app.schemas.html#app.schemas.categoria.CategoriaResponse.id">(app.schemas.categoria.CategoriaResponse attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.game.GameBasic.id">(app.schemas.game.GameBasic attribute)</a>
+</li>
+          <li><a href="app.schemas.html#app.schemas.game.GameExpose.id">(app.schemas.game.GameExpose attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.game.GameForMonitoramento.id">(app.schemas.game.GameForMonitoramento attribute)</a>
 </li>
@@ -1105,12 +1122,18 @@
         </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="app.models.html#app.models.categoria.Categoria.imagem">imagem (app.models.categoria.Categoria attribute)</a>
+
+        <ul>
+          <li><a href="app.schemas.html#app.schemas.categoria.CategoriaComJogos.imagem">(app.schemas.categoria.CategoriaComJogos attribute)</a>
+</li>
+        </ul></li>
         <li><a href="app.models.html#app.models.game.Game.imagem_capa">imagem_capa (app.models.game.Game attribute)</a>
 
         <ul>
           <li><a href="app.schemas.html#app.schemas.game.GameBase.imagem_capa">(app.schemas.game.GameBase attribute)</a>
 </li>
-          <li><a href="app.schemas.html#app.schemas.game.GameBasic.imagem_capa">(app.schemas.game.GameBasic attribute)</a>
+          <li><a href="app.schemas.html#app.schemas.game.GameExpose.imagem_capa">(app.schemas.game.GameExpose attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.game.GameForMonitoramento.imagem_capa">(app.schemas.game.GameForMonitoramento attribute)</a>
 </li>
@@ -1152,6 +1175,8 @@
         <li><a href="app.models.html#app.models.game.Game.last_price">last_price (app.models.game.Game attribute)</a>
 
         <ul>
+          <li><a href="app.schemas.html#app.schemas.game.GameExpose.last_price">(app.schemas.game.GameExpose attribute)</a>
+</li>
           <li><a href="app.schemas.html#app.schemas.game.GameForMonitoramento.last_price">(app.schemas.game.GameForMonitoramento attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.game.GameResponse.last_price">(app.schemas.game.GameResponse attribute)</a>
@@ -1183,6 +1208,8 @@
   <h2>M</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="app.services.html#app.services.rawg.RawgService.MARKERS">MARKERS (app.services.rawg.RawgService attribute)</a>
+</li>
         <li><a href="app.models.html#app.models.game.Game.metacritic">metacritic (app.models.game.Game attribute)</a>
 
         <ul>
@@ -1204,6 +1231,8 @@
 </li>
           <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoCreate.model_config">(app.schemas.avaliacao.AvaliacaoCreate attribute)</a>
 </li>
+          <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoDetailedResponse.model_config">(app.schemas.avaliacao.AvaliacaoDetailedResponse attribute)</a>
+</li>
           <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoResponse.model_config">(app.schemas.avaliacao.AvaliacaoResponse attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoUpdate.model_config">(app.schemas.avaliacao.AvaliacaoUpdate attribute)</a>
@@ -1223,6 +1252,8 @@
           <li><a href="app.schemas.html#app.schemas.game.GameCategoriaAssociation.model_config">(app.schemas.game.GameCategoriaAssociation attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.game.GameCreate.model_config">(app.schemas.game.GameCreate attribute)</a>
+</li>
+          <li><a href="app.schemas.html#app.schemas.game.GameExpose.model_config">(app.schemas.game.GameExpose attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.game.GameForMonitoramento.model_config">(app.schemas.game.GameForMonitoramento attribute)</a>
 </li>
@@ -1274,8 +1305,6 @@
           <li><a href="app.html#module-app">app</a>
 </li>
           <li><a href="app.core.html#module-app.core">app.core</a>
-</li>
-          <li><a href="app.core.html#module-app.core.auth">app.core.auth</a>
 </li>
           <li><a href="app.core.html#module-app.core.config">app.core.config</a>
 </li>
@@ -1365,19 +1394,11 @@
 </li>
           <li><a href="app.services.html#module-app.services.monitoramento">app.services.monitoramento</a>
 </li>
-          <li><a href="app.services.html#module-app.services.notification">app.services.notification</a>
-</li>
-          <li><a href="app.services.html#module-app.services.preco">app.services.preco</a>
-</li>
           <li><a href="app.services.html#module-app.services.rawg">app.services.rawg</a>
-</li>
-          <li><a href="app.services.html#module-app.services.user">app.services.user</a>
 </li>
           <li><a href="app.utils.html#module-app.utils">app.utils</a>
 </li>
           <li><a href="app.utils.html#module-app.utils.deps">app.utils.deps</a>
-</li>
-          <li><a href="app.utils.html#module-app.utils.price_fetcher">app.utils.price_fetcher</a>
 </li>
         </ul></li>
     </ul></td>
@@ -1429,6 +1450,8 @@
 </li>
           <li><a href="app.schemas.html#app.schemas.game.GameBasic.nome">(app.schemas.game.GameBasic attribute)</a>
 </li>
+          <li><a href="app.schemas.html#app.schemas.game.GameExpose.nome">(app.schemas.game.GameExpose attribute)</a>
+</li>
           <li><a href="app.schemas.html#app.schemas.game.GameForMonitoramento.nome">(app.schemas.game.GameForMonitoramento attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.plataforma.CategoriaResponse.nome">(app.schemas.plataforma.CategoriaResponse attribute)</a>
@@ -1453,6 +1476,8 @@
         <li><a href="app.models.html#app.models.game.Game.nota_media">nota_media (app.models.game.Game attribute)</a>
 
         <ul>
+          <li><a href="app.schemas.html#app.schemas.game.GameExpose.nota_media">(app.schemas.game.GameExpose attribute)</a>
+</li>
           <li><a href="app.schemas.html#app.schemas.game.GameResponse.nota_media">(app.schemas.game.GameResponse attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.game.SearchGameResponse.nota_media">(app.schemas.game.SearchGameResponse attribute)</a>
@@ -1470,6 +1495,8 @@
   <h2>P</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="app.services.html#app.services.rawg.RawgService.PAGE_SIZE">PAGE_SIZE (app.services.rawg.RawgService attribute)</a>
+</li>
         <li><a href="app.schemas.html#app.schemas.user.UserCreate.password">password (app.schemas.user.UserCreate attribute)</a>
 
         <ul>
@@ -1524,8 +1551,6 @@
         </ul></li>
         <li><a href="app.schemas.html#app.schemas.webhook.PriceUpdatePayload">PriceUpdatePayload (class in app.schemas.webhook)</a>
 </li>
-        <li><a href="app.services.html#app.services.notification.process_price_updates">process_price_updates() (in module app.services.notification)</a>
-</li>
     </ul></td>
   </tr></table>
 </section>
@@ -1544,6 +1569,8 @@
   <h2>R</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="app.services.html#app.services.rawg.RawgService.RATE_LIMIT_WAIT">RATE_LIMIT_WAIT (app.services.rawg.RawgService attribute)</a>
+</li>
         <li><a href="app.core.html#app.core.config.Settings.RAWG_API_KEY">RAWG_API_KEY (app.core.config.Settings attribute)</a>
 </li>
         <li><a href="app.core.html#app.core.config.Settings.RAWG_BASE_URL">RAWG_BASE_URL (app.core.config.Settings attribute)</a>
@@ -1554,7 +1581,7 @@
           <li><a href="app.schemas.html#app.schemas.game.GameCreate.rawg_id">(app.schemas.game.GameCreate attribute)</a>
 </li>
         </ul></li>
-        <li><a href="app.services.html#app.services.rawg.rawg_service">rawg_service (class in app.services.rawg)</a>
+        <li><a href="app.services.html#app.services.rawg.RawgService">RawgService (class in app.services.rawg)</a>
 </li>
         <li><a href="app.routers.html#app.routers.avaliacao.read_avaliacoes_game">read_avaliacoes_game() (in module app.routers.avaliacao)</a>
 </li>
@@ -1592,6 +1619,8 @@
         </ul></li>
         <li><a href="app.database.html#app.database.base.Base.registry">registry (app.database.base.Base attribute)</a>
 </li>
+        <li><a href="app.html#app.main.root">root() (in module app.main)</a>
+</li>
     </ul></td>
   </tr></table>
 </section>
@@ -1612,9 +1641,7 @@
 </li>
         <li><a href="app.core.html#app.core.config.Settings.SECRET_KEY">SECRET_KEY (app.core.config.Settings attribute)</a>
 </li>
-        <li><a href="app.services.html#app.services.rawg.rawg_service.seed_games_by_amount">seed_games_by_amount() (app.services.rawg.rawg_service static method)</a>
-</li>
-        <li><a href="app.services.html#app.services.notification.send_email">send_email() (in module app.services.notification)</a>
+        <li><a href="app.services.html#app.services.rawg.RawgService.seed_games_by_amount">seed_games_by_amount() (app.services.rawg.RawgService static method)</a>
 </li>
         <li><a href="app.core.html#app.core.config.Settings">Settings (class in app.core.config)</a>
 </li>
@@ -1658,6 +1685,8 @@
   <h2>T</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="app.services.html#app.services.anydeal.AnyDealService.TIMEOUT">TIMEOUT (app.services.anydeal.AnyDealService attribute)</a>
+</li>
         <li><a href="app.schemas.html#app.schemas.auth.TokenResponse.token_type">token_type (app.schemas.auth.TokenResponse attribute)</a>
 </li>
         <li><a href="app.schemas.html#app.schemas.auth.TokenRefreshRequest">TokenRefreshRequest (class in app.schemas.auth)</a>
@@ -1689,6 +1718,8 @@
         <li><a href="app.models.html#app.models.game.Game.updated_at">updated_at (app.models.game.Game attribute)</a>
 
         <ul>
+          <li><a href="app.schemas.html#app.schemas.game.GameExpose.updated_at">(app.schemas.game.GameExpose attribute)</a>
+</li>
           <li><a href="app.schemas.html#app.schemas.game.GameResponse.updated_at">(app.schemas.game.GameResponse attribute)</a>
 </li>
           <li><a href="app.schemas.html#app.schemas.game.TopHypedGamesResponse.updated_at">(app.schemas.game.TopHypedGamesResponse attribute)</a>
@@ -1701,11 +1732,13 @@
 </li>
           <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoBasicResponse.user">(app.schemas.avaliacao.AvaliacaoBasicResponse attribute)</a>
 </li>
-        </ul></li>
-        <li><a href="app.models.html#app.models.user.User">User (class in app.models.user)</a>
+          <li><a href="app.schemas.html#app.schemas.avaliacao.AvaliacaoDetailedResponse.user">(app.schemas.avaliacao.AvaliacaoDetailedResponse attribute)</a>
 </li>
+        </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="app.models.html#app.models.user.User">User (class in app.models.user)</a>
+</li>
         <li><a href="app.models.html#app.models.avaliacao.Avaliacao.user_id">user_id (app.models.avaliacao.Avaliacao attribute)</a>
 
         <ul>

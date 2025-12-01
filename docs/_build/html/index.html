@@ -179,7 +179,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
@@ -210,10 +210,18 @@
 <li class="toctree-l2"><a class="reference internal" href="app.schemas.html">app.schemas package</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="settings.html">Settings</a><input aria-label="Toggle navigation of Settings" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="app.html">app package</a><input aria-label="Toggle navigation of app package" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.core.html">app.core package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.database.html">app.database package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.models.html">app.models package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.routers.html">app.routers package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.schemas.html">app.schemas package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.services.html">app.services package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.utils.html">app.utils package</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 </ul>
 
 </div>
@@ -247,7 +255,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
@@ -258,6 +266,14 @@
 <p>Aqui você encontrará informações sobre a API, modelos, serviços,
 configurações e tutoriais.</p>
 <p>Use o menu abaixo para navegar entre os tópicos.</p>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">¶</a></h2>
+<p>Para começar rapidamente:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="installation.html"><span class="doc">Instale o projeto</span></a></p></li>
+<li><p>Configure o arquivo <code class="docutils literal notranslate"><span class="pre">.env</span></code></p></li>
+<li><p>Rode o servidor: <code class="docutils literal notranslate"><span class="pre">uvicorn</span> <span class="pre">app.main:app</span> <span class="pre">--reload</span></code></p></li>
+</ol>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
 <ul>
@@ -294,8 +310,16 @@ configurações e tutoriais.</p>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#criar-alerta-de-preco">Criar Alerta de Preço</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="app.html">app package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.html#module-app.main">app.main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.html#module-app">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </div>
+</section>
 </section>
 
         </article>
@@ -338,8 +362,27 @@ configurações e tutoriais.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">GamesSavio Documentation</a><ul>
+<li><a class="reference internal" href="#quick-start">Quick Start</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

@@ -381,12 +381,10 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="app.routers.avaliacao.read_avaliacoes_game">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.avaliacao.</span></span><span class="sig-name descname"><span class="pre">read_avaliacoes_game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit=100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/avaliacao.html#read_avaliacoes_game"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.avaliacao.read_avaliacoes_game" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.avaliacao.</span></span><span class="sig-name descname"><span class="pre">read_avaliacoes_game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/avaliacao.html#read_avaliacoes_game"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.avaliacao.read_avaliacoes_game" title="Link to this definition">¶</a></dt>
 <dd><p>Retorna todas as avaliações de um jogo específico.</p>
 <p>Parâmetros:
 - <strong>game_id</strong>: UUID do jogo
-- <strong>skip</strong>: Número de registros a pular (paginação, padrão: 0)
-- <strong>limit</strong>: Número máximo de registros (padrão: 100)
 - <strong>page</strong>: Número da página (via query params)
 - <strong>size</strong>: Tamanho da página (via query params)</p>
 <blockquote>
@@ -493,7 +491,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="app.routers.categoria.get_jogos_categoria">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.categoria.</span></span><span class="sig-name descname"><span class="pre">get_jogos_categoria</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">categoria_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/categoria.html#get_jogos_categoria"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.categoria.get_jogos_categoria" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.categoria.</span></span><span class="sig-name descname"><span class="pre">get_jogos_categoria</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">categoria_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params=Depends(dependency=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/categoria.html#get_jogos_categoria"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.categoria.get_jogos_categoria" title="Link to this definition">¶</a></dt>
 <dd><p>Retorna todos os jogos de uma categoria específica.</p>
 <p>Parâmetros:
 - <strong>categoria_id</strong>: UUID da categoria</p>
@@ -505,6 +503,26 @@
 </section>
 <section id="module-app.routers.game">
 <span id="app-routers-game-module"></span><h2>app.routers.game module<a class="headerlink" href="#module-app.routers.game" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.game.get_all_games">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.game.</span></span><span class="sig-name descname"><span class="pre">get_all_games</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params=Depends(dependency=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/game.html#get_all_games"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.game.get_all_games" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page[GameResponse]</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routers.game.get_game_by_id">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.game.</span></span><span class="sig-name descname"><span class="pre">get_game_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/game.html#get_game_by_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.game.get_game_by_id" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameResponse" title="app.schemas.game.GameResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">GameResponse</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="app.routers.game.get_hyped_games">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.game.</span></span><span class="sig-name descname"><span class="pre">get_hyped_games</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qtd=Query(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params=Depends(dependency=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/game.html#get_hyped_games"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.game.get_hyped_games" title="Link to this definition">¶</a></dt>
@@ -625,13 +643,21 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="app.routers.user.read_users_me">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.user.</span></span><span class="sig-name descname"><span class="pre">read_users_me</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_user=Depends(dependency=&lt;function</span> <span class="pre">get_current_user&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/user.html#read_users_me"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.user.read_users_me" title="Link to this definition">¶</a></dt>
-<dd><p>Retorna os dados do usuário logado.</p>
+<dd><p>Retorna os dados do perfil do usuário autenticado.</p>
 <p>Retorna:
 - <strong>id</strong>: UUID do usuário
-- <strong>nome</strong>: Nome do usuário
-- <strong>email</strong>: Email do usuário
-- <strong>created_at</strong>: Data de criação da conta</p>
+- <strong>nome</strong>: Nome completo
+- <strong>email</strong>: Endereço de email cadastrado
+- <strong>created_at</strong>: Data e hora do cadastro</p>
+<p>Uso:
+- Usado para exibir informações do perfil no frontend
+- Validar se o token atual ainda é válido</p>
 <p>Requer autenticação: Sim (Bearer token)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="app.schemas.html#app.schemas.user.UserResponse" title="app.schemas.user.UserResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserResponse</span></code></a></span></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -640,7 +666,15 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="app.routers.webhook.notification">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.routers.webhook.</span></span><span class="sig-name descname"><span class="pre">notification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routers/webhook.html#notification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.routers.webhook.notification" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Processa notificações de preços via webhook.</p>
+<p>Este endpoint é acionado por um serviço externo (como um cron job ou GitHub Action)
+para verificar se algum jogo monitorado atingiu o preço alvo e enviar emails aos usuários.</p>
+<p>Parâmetros:
+- <strong>payload</strong>: Lista de IDs de jogos que tiveram atualização de preço</p>
+<p>Retorna:
+- Resumo do processamento com quantidade de notificações enviadas</p>
+<p>Requer autenticação: Sim (Privilégios de Admin)</p>
+<dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
@@ -743,6 +777,8 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#module-app.routers.game">app.routers.game module</a><ul>
+<li><a class="reference internal" href="#app.routers.game.get_all_games"><code class="docutils literal notranslate"><span class="pre">get_all_games()</span></code></a></li>
+<li><a class="reference internal" href="#app.routers.game.get_game_by_id"><code class="docutils literal notranslate"><span class="pre">get_game_by_id()</span></code></a></li>
 <li><a class="reference internal" href="#app.routers.game.get_hyped_games"><code class="docutils literal notranslate"><span class="pre">get_hyped_games()</span></code></a></li>
 <li><a class="reference internal" href="#app.routers.game.search_games_by_name"><code class="docutils literal notranslate"><span class="pre">search_games_by_name()</span></code></a></li>
 </ul>

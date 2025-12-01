@@ -257,9 +257,6 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
-<section id="module-app.core.auth">
-<span id="app-core-auth-module"></span><h2>app.core.auth module<a class="headerlink" href="#module-app.core.auth" title="Link to this heading">¶</a></h2>
-</section>
 <section id="module-app.core.config">
 <span id="app-core-config-module"></span><h2>app.core.config module<a class="headerlink" href="#module-app.core.config" title="Link to this heading">¶</a></h2>
 <dl class="py class">
@@ -360,9 +357,19 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="app.core.security.create_access_token">
 <span class="sig-prename descclassname"><span class="pre">app.core.security.</span></span><span class="sig-name descname"><span class="pre">create_access_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expires_delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/core/security.html#create_access_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.core.security.create_access_token" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Cria um token de acesso JWT.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – Dados a serem codificados no token</p></li>
+<li><p><strong>expires_delta</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em>) – Tempo de expiração em minutos</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Token de acesso JWT</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -380,9 +387,19 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="app.core.security.get_current_user">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.core.security.</span></span><span class="sig-name descname"><span class="pre">get_current_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">credentials=Depends(dependency=&lt;fastapi.security.http.HTTPBearer</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=Depends(dependency=&lt;function</span> <span class="pre">get_db&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/core/security.html#get_current_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.core.security.get_current_user" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Obtém o usuário autenticado a partir do token de acesso.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>credentials</strong> (<em>HTTPAuthorizationCredentials</em>) – Credenciais de autenticação</p></li>
+<li><p><strong>db</strong> (<em>AsyncSession</em>) – Sessão assíncrona do banco de dados</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Usuário autenticado</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="app.models.html#app.models.user.User" title="app.models.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a></span></p>
+<dd class="field-odd"><p><a class="reference internal" href="app.models.html#app.models.user.User" title="app.models.user.User">User</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -459,7 +476,6 @@
             <ul>
 <li><a class="reference internal" href="#">app.core package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-app.core.auth">app.core.auth module</a></li>
 <li><a class="reference internal" href="#module-app.core.config">app.core.config module</a><ul>
 <li><a class="reference internal" href="#app.core.config.Settings"><code class="docutils literal notranslate"><span class="pre">Settings</span></code></a><ul>
 <li><a class="reference internal" href="#app.core.config.Settings.ACCESS_TOKEN_EXPIRE_MINUTES"><code class="docutils literal notranslate"><span class="pre">Settings.ACCESS_TOKEN_EXPIRE_MINUTES</span></code></a></li>

@@ -63,15 +63,6 @@ app.services.monitoramento module
 app.services.notification module
 --------------------------------
 
-.. automodule:: app.services.notification
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-app.services.preco module
--------------------------
-
-.. automodule:: app.services.preco
    :members:
    :show-inheritance:
    :undoc-members:
@@ -84,13 +75,6 @@ app.services.rawg module
    :show-inheritance:
    :undoc-members:
 
-app.services.user module
-------------------------
-
-.. automodule:: app.services.user
-   :members:
-   :show-inheritance:
-   :undoc-members:
 
 Module contents
 ---------------

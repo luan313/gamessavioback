@@ -263,10 +263,31 @@
 <dt class="sig sig-object py" id="app.services.anydeal.AnyDealService">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.services.anydeal.</span></span><span class="sig-name descname"><span class="pre">AnyDealService</span></span><a class="reference internal" href="_modules/app/services/anydeal.html#AnyDealService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.anydeal.AnyDealService" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.services.anydeal.AnyDealService.API_SLEEP">
+<span class="sig-name descname"><span class="pre">API_SLEEP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.2</span></em><a class="headerlink" href="#app.services.anydeal.AnyDealService.API_SLEEP" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.services.anydeal.AnyDealService.BATCH_LIMIT">
+<span class="sig-name descname"><span class="pre">BATCH_LIMIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">200</span></em><a class="headerlink" href="#app.services.anydeal.AnyDealService.BATCH_LIMIT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.services.anydeal.AnyDealService.COUNTRY">
+<span class="sig-name descname"><span class="pre">COUNTRY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'BR'</span></em><a class="headerlink" href="#app.services.anydeal.AnyDealService.COUNTRY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.services.anydeal.AnyDealService.TIMEOUT">
+<span class="sig-name descname"><span class="pre">TIMEOUT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10.0</span></em><a class="headerlink" href="#app.services.anydeal.AnyDealService.TIMEOUT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="app.services.anydeal.AnyDealService.close">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/anydeal.html#AnyDealService.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.anydeal.AnyDealService.close" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Fecha a sessão HTTP.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
@@ -274,21 +295,35 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="app.services.anydeal.AnyDealService.get_current_price">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_current_price</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">itad_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/anydeal.html#AnyDealService.get_current_price"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.anydeal.AnyDealService.get_current_price" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="app.services.anydeal.AnyDealService.get_game_id_from_itad">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_game_id_from_itad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/anydeal.html#AnyDealService.get_game_id_from_itad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.anydeal.AnyDealService.get_game_id_from_itad" title="Link to this definition">¶</a></dt>
+<dd><p>Busca o ID ITAD de um jogo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>game_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Nome do jogo.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ID ITAD do jogo ou None se não encontrado.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a> | None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="app.services.anydeal.AnyDealService.get_game_id_from_itad">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_game_id_from_itad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/anydeal.html#AnyDealService.get_game_id_from_itad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.anydeal.AnyDealService.get_game_id_from_itad" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="app.services.anydeal.AnyDealService.get_prices_batch">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_prices_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">itad_ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/anydeal.html#AnyDealService.get_prices_batch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.anydeal.AnyDealService.get_prices_batch" title="Link to this definition">¶</a></dt>
+<dd><p>Consulta os preços de todos os jogos no banco de dados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>itad_ids</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – Lista de IDs ITAD dos jogos.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dicionário com os preços de todos os jogos.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -296,9 +331,16 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="app.services.anydeal.AnyDealService.sync_all_games_prices">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sync_all_games_prices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/anydeal.html#AnyDealService.sync_all_games_prices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.anydeal.AnyDealService.sync_all_games_prices" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Sincroniza os preços de todos os jogos no banco de dados com os preços do ITAD.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>db</strong> (<em>AsyncSession</em>) – Sessão assíncrona do banco de dados.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dicionário com o status do sync.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -332,7 +374,7 @@ retorna os tokens de acesso e refresh.</p>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>HTTPException</strong> – Se o email ou senha estiverem incorretos.</p>
+<dd class="field-even"><p><strong>UnauthorizedException</strong> – Se o email ou senha estiverem incorretos.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -354,7 +396,7 @@ novos tokens de acesso e refresh.</p>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>HTTPException</strong> – Se o refresh token for inválido ou expirado.</p>
+<dd class="field-even"><p><strong>UnauthorizedException</strong> – Se o refresh token for inválido ou expirado.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -379,7 +421,7 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>HTTPException</strong> – Se o email já estiver em uso.</p>
+<dd class="field-even"><p><strong>BadRequestException</strong> – Se o email já estiver em uso.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -392,9 +434,20 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.services.avaliacao.create_avaliacao">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.services.avaliacao.</span></span><span class="sig-name descname"><span class="pre">create_avaliacao</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avaliacao</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/avaliacao.html#create_avaliacao"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.avaliacao.create_avaliacao" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Cria uma nova avaliação no banco de dados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<em>AsyncSession</em>) – Sessão assíncrona do banco de dados.</p></li>
+<li><p><strong>avaliacao</strong> (<a class="reference internal" href="app.schemas.html#app.schemas.avaliacao.AvaliacaoCreate" title="app.schemas.avaliacao.AvaliacaoCreate"><em>AvaliacaoCreate</em></a>) – Dados da avaliação a ser criada.</p></li>
+<li><p><strong>user_id</strong> (<em>UUID</em>) – ID do usuário que está fazendo a avaliação.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A avaliação criada.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="app.models.html#app.models.avaliacao.Avaliacao" title="app.models.avaliacao.Avaliacao"><code class="xref py py-class docutils literal notranslate"><span class="pre">Avaliacao</span></code></a></span></p>
+<dd class="field-odd"><p><a class="reference internal" href="app.models.html#app.models.avaliacao.Avaliacao" title="app.models.avaliacao.Avaliacao">Avaliacao</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -402,9 +455,20 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.services.avaliacao.delete_avaliacao">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.services.avaliacao.</span></span><span class="sig-name descname"><span class="pre">delete_avaliacao</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avaliacao_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/avaliacao.html#delete_avaliacao"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.avaliacao.delete_avaliacao" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Deleta uma avaliação existente no banco de dados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<em>AsyncSession</em>) – Sessão assíncrona do banco de dados.</p></li>
+<li><p><strong>avaliacao_id</strong> (<em>UUID</em>) – ID da avaliação a ser deletada.</p></li>
+<li><p><strong>user_id</strong> (<em>UUID</em>) – ID do usuário que está fazendo a deleção.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True se a avaliação foi deletada com sucesso.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -420,11 +484,13 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="app.services.avaliacao.get_avaliacoes_by_game">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.services.avaliacao.</span></span><span class="sig-name descname"><span class="pre">get_avaliacoes_by_game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">game_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/avaliacao.html#get_avaliacoes_by_game"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.avaliacao.get_avaliacoes_by_game" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="app.services.avaliacao.get_avaliacoes_by_game_id">
+<span class="sig-prename descclassname"><span class="pre">app.services.avaliacao.</span></span><span class="sig-name descname"><span class="pre">get_avaliacoes_by_game_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/avaliacao.html#get_avaliacoes_by_game_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.avaliacao.get_avaliacoes_by_game_id" title="Link to this definition">¶</a></dt>
+<dd><p>Retorna uma query SQLAlchemy para listar avaliações de um jogo.
+Projetado para ser usado com fastapi-pagination.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference internal" href="app.models.html#app.models.avaliacao.Avaliacao" title="app.models.avaliacao.Avaliacao"><code class="xref py py-class docutils literal notranslate"><span class="pre">Avaliacao</span></code></a>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/selectable.html#sqlalchemy.sql.expression.Select" title="(in SQLAlchemy v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Select</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -432,9 +498,16 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.services.avaliacao.get_last_five_avaliacoes">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.services.avaliacao.</span></span><span class="sig-name descname"><span class="pre">get_last_five_avaliacoes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/avaliacao.html#get_last_five_avaliacoes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.avaliacao.get_last_five_avaliacoes" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Retorna as últimas 5 avaliações do banco de dados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>db</strong> (<em>AsyncSession</em>) – Sessão assíncrona do banco de dados.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lista de avaliações.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference internal" href="app.models.html#app.models.avaliacao.Avaliacao" title="app.models.avaliacao.Avaliacao"><code class="xref py py-class docutils literal notranslate"><span class="pre">Avaliacao</span></code></a>]</span></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="app.models.html#app.models.avaliacao.Avaliacao" title="app.models.avaliacao.Avaliacao">Avaliacao</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -442,9 +515,21 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.services.avaliacao.update_avaliacao">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.services.avaliacao.</span></span><span class="sig-name descname"><span class="pre">update_avaliacao</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avaliacao_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avaliacao_update</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/avaliacao.html#update_avaliacao"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.avaliacao.update_avaliacao" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Atualiza uma avaliação existente no banco de dados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<em>AsyncSession</em>) – Sessão assíncrona do banco de dados.</p></li>
+<li><p><strong>avaliacao_id</strong> (<em>UUID</em>) – ID da avaliação a ser atualizada.</p></li>
+<li><p><strong>avaliacao_update</strong> (<a class="reference internal" href="app.schemas.html#app.schemas.avaliacao.AvaliacaoUpdate" title="app.schemas.avaliacao.AvaliacaoUpdate"><em>AvaliacaoUpdate</em></a>) – Dados da avaliação a serem atualizados.</p></li>
+<li><p><strong>user_id</strong> (<em>UUID</em>) – ID do usuário que está fazendo a atualização.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A avaliação atualizada.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="app.models.html#app.models.avaliacao.Avaliacao" title="app.models.avaliacao.Avaliacao"><code class="xref py py-class docutils literal notranslate"><span class="pre">Avaliacao</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-odd"><p><a class="reference internal" href="app.models.html#app.models.avaliacao.Avaliacao" title="app.models.avaliacao.Avaliacao">Avaliacao</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -457,8 +542,8 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.services.backoffice.</span></span><span class="sig-name descname"><span class="pre">BackOfficeService</span></span><a class="reference internal" href="_modules/app/services/backoffice.html#BackOfficeService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.backoffice.BackOfficeService" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="app.services.backoffice.BackOfficeService.get_all_games">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_games</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/backoffice.html#BackOfficeService.get_all_games"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.backoffice.BackOfficeService.get_all_games" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="app.services.backoffice.BackOfficeService.get_all_monitored_game_ids">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_monitored_game_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/backoffice.html#BackOfficeService.get_all_monitored_game_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.backoffice.BackOfficeService.get_all_monitored_game_ids" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/uuid.html#uuid.UUID" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">UUID</span></code></a>]</span></p>
@@ -481,7 +566,7 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <dd><p>Retorna todas as categorias com a quantidade de jogos em cada uma.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference internal" href="app.models.html#app.models.categoria.Categoria" title="app.models.categoria.Categoria"><code class="xref py py-class docutils literal notranslate"><span class="pre">Categoria</span></code></a>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -489,7 +574,8 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="app.services.categoria.CategoriaService.get_jogos_por_categoria">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_jogos_por_categoria</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categoria_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/categoria.html#CategoriaService.get_jogos_por_categoria"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.categoria.CategoriaService.get_jogos_por_categoria" title="Link to this definition">¶</a></dt>
-<dd><p>Retorna todos os jogos de uma categoria específica.</p>
+<dd><p>Retorna uma query SQLAlchemy para listar jogos de uma categoria.
+Projetado para ser usado com fastapi-pagination.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -503,6 +589,9 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Lista de jogos da categoria</p>
 </dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotFoundException</strong> – Se a categoria não existir</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -512,11 +601,36 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <section id="module-app.services.game">
 <span id="app-services-game-module"></span><h2>app.services.game module<a class="headerlink" href="#module-app.services.game" title="Link to this heading">¶</a></h2>
 <dl class="py function">
+<dt class="sig sig-object py" id="app.services.game.get_all_games">
+<span class="sig-prename descclassname"><span class="pre">app.services.game.</span></span><span class="sig-name descname"><span class="pre">get_all_games</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/game.html#get_all_games"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.game.get_all_games" title="Link to this definition">¶</a></dt>
+<dd><p>Retorna uma query SQLAlchemy para listar todos os jogos.
+Projetado para ser usado com fastapi-pagination.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/selectable.html#sqlalchemy.sql.expression.Select" title="(in SQLAlchemy v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Select</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.game.get_game_by_id">
+<span class="sig-prename descclassname"><span class="pre">app.services.game.</span></span><span class="sig-name descname"><span class="pre">get_game_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/game.html#get_game_by_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.game.get_game_by_id" title="Link to this definition">¶</a></dt>
+<dd><p>Retorna uma query SQLAlchemy para buscar um jogo por ID com relacionamentos carregados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/selectable.html#sqlalchemy.sql.expression.Select" title="(in SQLAlchemy v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Select</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="app.services.game.get_top_hyped_games">
 <span class="sig-prename descclassname"><span class="pre">app.services.game.</span></span><span class="sig-name descname"><span class="pre">get_top_hyped_games</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/game.html#get_top_hyped_games"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.game.get_top_hyped_games" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Retorna uma query SQLAlchemy para listar jogos ordenados por hype.
+Projetado para ser usado com fastapi-pagination.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference internal" href="app.models.html#app.models.game.Game" title="app.models.game.Game"><code class="xref py py-class docutils literal notranslate"><span class="pre">Game</span></code></a>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/selectable.html#sqlalchemy.sql.expression.Select" title="(in SQLAlchemy v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Select</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -524,9 +638,11 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.services.game.search_games_by_name">
 <span class="sig-prename descclassname"><span class="pre">app.services.game.</span></span><span class="sig-name descname"><span class="pre">search_games_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/game.html#search_games_by_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.game.search_games_by_name" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Retorna uma query SQLAlchemy para buscar jogos por nome.
+Projetado para ser usado com fastapi-pagination.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference internal" href="app.schemas.html#app.schemas.game.SearchGameResponse" title="app.schemas.game.SearchGameResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">SearchGameResponse</span></code></a>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/selectable.html#sqlalchemy.sql.expression.Select" title="(in SQLAlchemy v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Select</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -541,9 +657,20 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="app.services.monitoramento.MonitoramentoService.create_monitoramento">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_monitoramento</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitoramento</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/monitoramento.html#MonitoramentoService.create_monitoramento"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.monitoramento.MonitoramentoService.create_monitoramento" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Cria um novo monitoramento para um jogo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<em>AsyncSession</em>) – Sessão assíncrona do banco de dados.</p></li>
+<li><p><strong>monitoramento</strong> (<a class="reference internal" href="app.schemas.html#app.schemas.jogos_monitorados.MonitoramentoCreate" title="app.schemas.jogos_monitorados.MonitoramentoCreate"><em>MonitoramentoCreate</em></a>) – Dados do monitoramento a ser criado.</p></li>
+<li><p><strong>user_id</strong> (<em>UUID</em>) – ID do usuário que está criando o monitoramento.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Monitoramento criado.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="app.models.html#app.models.jogos_monitorados.JogosMonitorados" title="app.models.jogos_monitorados.JogosMonitorados"><code class="xref py py-class docutils literal notranslate"><span class="pre">JogosMonitorados</span></code></a></span></p>
+<dd class="field-odd"><p><a class="reference internal" href="app.models.html#app.models.jogos_monitorados.JogosMonitorados" title="app.models.jogos_monitorados.JogosMonitorados">JogosMonitorados</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -551,9 +678,20 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="app.services.monitoramento.MonitoramentoService.delete_monitoramento">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_monitoramento</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitoramento_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/monitoramento.html#MonitoramentoService.delete_monitoramento"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.monitoramento.MonitoramentoService.delete_monitoramento" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Remove um monitoramento existente.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<em>AsyncSession</em>) – Sessão assíncrona do banco de dados.</p></li>
+<li><p><strong>monitoramento_id</strong> (<em>UUID</em>) – ID do monitoramento a ser removido.</p></li>
+<li><p><strong>user_id</strong> (<em>UUID</em>) – ID do usuário que está removendo o monitoramento.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True se o monitoramento foi removido com sucesso.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -561,9 +699,19 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="app.services.monitoramento.MonitoramentoService.get_monitoramento_by_id">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_monitoramento_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitoramento_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/monitoramento.html#MonitoramentoService.get_monitoramento_by_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.monitoramento.MonitoramentoService.get_monitoramento_by_id" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Retorna um monitoramento por ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<em>AsyncSession</em>) – Sessão assíncrona do banco de dados.</p></li>
+<li><p><strong>monitoramento_id</strong> (<em>UUID</em>) – ID do monitoramento.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Monitoramento encontrado ou None se não encontrado.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="app.models.html#app.models.jogos_monitorados.JogosMonitorados" title="app.models.jogos_monitorados.JogosMonitorados"><code class="xref py py-class docutils literal notranslate"><span class="pre">JogosMonitorados</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-odd"><p><a class="reference internal" href="app.models.html#app.models.jogos_monitorados.JogosMonitorados" title="app.models.jogos_monitorados.JogosMonitorados">JogosMonitorados</a> | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -571,9 +719,21 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="app.services.monitoramento.MonitoramentoService.get_monitored_games_for_user">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_monitored_games_for_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/monitoramento.html#MonitoramentoService.get_monitored_games_for_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.monitoramento.MonitoramentoService.get_monitored_games_for_user" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Retorna todos os jogos monitorados por um usuário.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<em>AsyncSession</em>) – Sessão assíncrona do banco de dados.</p></li>
+<li><p><strong>user_id</strong> (<em>UUID</em>) – ID do usuário.</p></li>
+<li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Número de registros a serem pulados.</p></li>
+<li><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Número máximo de registros a serem retornados.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lista de jogos monitorados.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference internal" href="app.models.html#app.models.jogos_monitorados.JogosMonitorados" title="app.models.jogos_monitorados.JogosMonitorados"><code class="xref py py-class docutils literal notranslate"><span class="pre">JogosMonitorados</span></code></a>]</span></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="app.models.html#app.models.jogos_monitorados.JogosMonitorados" title="app.models.jogos_monitorados.JogosMonitorados">JogosMonitorados</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -581,9 +741,21 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="app.services.monitoramento.MonitoramentoService.update_monitoring">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_monitoring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitoramento_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitoramento_update</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/monitoramento.html#MonitoramentoService.update_monitoring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.monitoramento.MonitoramentoService.update_monitoring" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Atualiza um monitoramento existente.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<em>AsyncSession</em>) – Sessão assíncrona do banco de dados.</p></li>
+<li><p><strong>monitoramento_id</strong> (<em>UUID</em>) – ID do monitoramento a ser atualizado.</p></li>
+<li><p><strong>monitoramento_update</strong> (<a class="reference internal" href="app.schemas.html#app.schemas.jogos_monitorados.MonitoramentoUpdate" title="app.schemas.jogos_monitorados.MonitoramentoUpdate"><em>MonitoramentoUpdate</em></a>) – Dados do monitoramento a serem atualizados.</p></li>
+<li><p><strong>user_id</strong> (<em>UUID</em>) – ID do usuário que está atualizando o monitoramento.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Monitoramento atualizado.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="app.models.html#app.models.jogos_monitorados.JogosMonitorados" title="app.models.jogos_monitorados.JogosMonitorados"><code class="xref py py-class docutils literal notranslate"><span class="pre">JogosMonitorados</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-odd"><p><a class="reference internal" href="app.models.html#app.models.jogos_monitorados.JogosMonitorados" title="app.models.jogos_monitorados.JogosMonitorados">JogosMonitorados</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -591,53 +763,82 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 </dd></dl>
 
 </section>
-<section id="module-app.services.notification">
-<span id="app-services-notification-module"></span><h2>app.services.notification module<a class="headerlink" href="#module-app.services.notification" title="Link to this heading">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="app.services.notification.process_price_updates">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.services.notification.</span></span><span class="sig-name descname"><span class="pre">process_price_updates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/notification.html#process_price_updates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.notification.process_price_updates" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span></p>
-</dd>
+<section id="app-services-notification-module">
+<h2>app.services.notification module<a class="headerlink" href="#app-services-notification-module" title="Link to this heading">¶</a></h2>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">members<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">show-inheritance<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
+<dt class="field-odd">undoc-members<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
 </dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.services.notification.send_email">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.services.notification.</span></span><span class="sig-name descname"><span class="pre">send_email</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to_email</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/notification.html#send_email"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.notification.send_email" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-app.services.preco">
-<span id="app-services-preco-module"></span><h2>app.services.preco module<a class="headerlink" href="#module-app.services.preco" title="Link to this heading">¶</a></h2>
+</div></blockquote>
 </section>
 <section id="module-app.services.rawg">
 <span id="app-services-rawg-module"></span><h2>app.services.rawg module<a class="headerlink" href="#module-app.services.rawg" title="Link to this heading">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="app.services.rawg.rawg_service">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.services.rawg.</span></span><span class="sig-name descname"><span class="pre">rawg_service</span></span><a class="reference internal" href="_modules/app/services/rawg.html#rawg_service"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.rawg.rawg_service" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="app.services.rawg.RawgService">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.services.rawg.</span></span><span class="sig-name descname"><span class="pre">RawgService</span></span><a class="reference internal" href="_modules/app/services/rawg.html#RawgService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.rawg.RawgService" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.services.rawg.RawgService.MARKERS">
+<span class="sig-name descname"><span class="pre">MARKERS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Español',</span> <span class="pre">'ESPAÑOL',</span> <span class="pre">'Français',</span> <span class="pre">'Deutsch',</span> <span class="pre">'Italiano',</span> <span class="pre">'Русский',</span> <span class="pre">'中文']</span></em><a class="headerlink" href="#app.services.rawg.RawgService.MARKERS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.services.rawg.RawgService.PAGE_SIZE">
+<span class="sig-name descname"><span class="pre">PAGE_SIZE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">40</span></em><a class="headerlink" href="#app.services.rawg.RawgService.PAGE_SIZE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.services.rawg.RawgService.RATE_LIMIT_WAIT">
+<span class="sig-name descname"><span class="pre">RATE_LIMIT_WAIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#app.services.rawg.RawgService.RATE_LIMIT_WAIT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
-<dt class="sig sig-object py" id="app.services.rawg.rawg_service.seed_games_by_amount">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">seed_games_by_amount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/rawg.html#rawg_service.seed_games_by_amount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.rawg.rawg_service.seed_games_by_amount" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="app.services.rawg.RawgService.get_description_from_rawg">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_description_from_rawg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">http_client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/rawg.html#RawgService.get_description_from_rawg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.rawg.RawgService.get_description_from_rawg" title="Link to this definition">¶</a></dt>
+<dd><p>Busca a descrição do jogo no RAWG.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>game_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – Dados do jogo.</p></li>
+<li><p><strong>http_client</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncClient</span></code></span>) – Cliente HTTP para fazer requisições.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Descrição do jogo.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.services.rawg.RawgService.seed_games_by_amount">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">seed_games_by_amount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">350</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/rawg.html#RawgService.seed_games_by_amount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.rawg.RawgService.seed_games_by_amount" title="Link to this definition">¶</a></dt>
+<dd><p>Carrega jogos do RAWG para o banco de dados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<em>AsyncSession</em>) – Sessão assíncrona do banco de dados.</p></li>
+<li><p><strong>amount</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Quantidade de jogos a serem carregados.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dicionário contendo o total de jogos importados e o total de requisições.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 </dd></dl>
 
-</section>
-<section id="module-app.services.user">
-<span id="app-services-user-module"></span><h2>app.services.user module<a class="headerlink" href="#module-app.services.user" title="Link to this heading">¶</a></h2>
 </section>
 <section id="module-app.services">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app.services" title="Link to this heading">¶</a></h2>
@@ -692,9 +893,13 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-app.services.anydeal">app.services.anydeal module</a><ul>
 <li><a class="reference internal" href="#app.services.anydeal.AnyDealService"><code class="docutils literal notranslate"><span class="pre">AnyDealService</span></code></a><ul>
+<li><a class="reference internal" href="#app.services.anydeal.AnyDealService.API_SLEEP"><code class="docutils literal notranslate"><span class="pre">AnyDealService.API_SLEEP</span></code></a></li>
+<li><a class="reference internal" href="#app.services.anydeal.AnyDealService.BATCH_LIMIT"><code class="docutils literal notranslate"><span class="pre">AnyDealService.BATCH_LIMIT</span></code></a></li>
+<li><a class="reference internal" href="#app.services.anydeal.AnyDealService.COUNTRY"><code class="docutils literal notranslate"><span class="pre">AnyDealService.COUNTRY</span></code></a></li>
+<li><a class="reference internal" href="#app.services.anydeal.AnyDealService.TIMEOUT"><code class="docutils literal notranslate"><span class="pre">AnyDealService.TIMEOUT</span></code></a></li>
 <li><a class="reference internal" href="#app.services.anydeal.AnyDealService.close"><code class="docutils literal notranslate"><span class="pre">AnyDealService.close()</span></code></a></li>
-<li><a class="reference internal" href="#app.services.anydeal.AnyDealService.get_current_price"><code class="docutils literal notranslate"><span class="pre">AnyDealService.get_current_price()</span></code></a></li>
 <li><a class="reference internal" href="#app.services.anydeal.AnyDealService.get_game_id_from_itad"><code class="docutils literal notranslate"><span class="pre">AnyDealService.get_game_id_from_itad()</span></code></a></li>
+<li><a class="reference internal" href="#app.services.anydeal.AnyDealService.get_prices_batch"><code class="docutils literal notranslate"><span class="pre">AnyDealService.get_prices_batch()</span></code></a></li>
 <li><a class="reference internal" href="#app.services.anydeal.AnyDealService.sync_all_games_prices"><code class="docutils literal notranslate"><span class="pre">AnyDealService.sync_all_games_prices()</span></code></a></li>
 </ul>
 </li>
@@ -713,14 +918,14 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 <li><a class="reference internal" href="#app.services.avaliacao.create_avaliacao"><code class="docutils literal notranslate"><span class="pre">create_avaliacao()</span></code></a></li>
 <li><a class="reference internal" href="#app.services.avaliacao.delete_avaliacao"><code class="docutils literal notranslate"><span class="pre">delete_avaliacao()</span></code></a></li>
 <li><a class="reference internal" href="#app.services.avaliacao.get_avaliacao_by_id"><code class="docutils literal notranslate"><span class="pre">get_avaliacao_by_id()</span></code></a></li>
-<li><a class="reference internal" href="#app.services.avaliacao.get_avaliacoes_by_game"><code class="docutils literal notranslate"><span class="pre">get_avaliacoes_by_game()</span></code></a></li>
+<li><a class="reference internal" href="#app.services.avaliacao.get_avaliacoes_by_game_id"><code class="docutils literal notranslate"><span class="pre">get_avaliacoes_by_game_id()</span></code></a></li>
 <li><a class="reference internal" href="#app.services.avaliacao.get_last_five_avaliacoes"><code class="docutils literal notranslate"><span class="pre">get_last_five_avaliacoes()</span></code></a></li>
 <li><a class="reference internal" href="#app.services.avaliacao.update_avaliacao"><code class="docutils literal notranslate"><span class="pre">update_avaliacao()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-app.services.backoffice">app.services.backoffice module</a><ul>
 <li><a class="reference internal" href="#app.services.backoffice.BackOfficeService"><code class="docutils literal notranslate"><span class="pre">BackOfficeService</span></code></a><ul>
-<li><a class="reference internal" href="#app.services.backoffice.BackOfficeService.get_all_games"><code class="docutils literal notranslate"><span class="pre">BackOfficeService.get_all_games()</span></code></a></li>
+<li><a class="reference internal" href="#app.services.backoffice.BackOfficeService.get_all_monitored_game_ids"><code class="docutils literal notranslate"><span class="pre">BackOfficeService.get_all_monitored_game_ids()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -734,6 +939,8 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-app.services.game">app.services.game module</a><ul>
+<li><a class="reference internal" href="#app.services.game.get_all_games"><code class="docutils literal notranslate"><span class="pre">get_all_games()</span></code></a></li>
+<li><a class="reference internal" href="#app.services.game.get_game_by_id"><code class="docutils literal notranslate"><span class="pre">get_game_by_id()</span></code></a></li>
 <li><a class="reference internal" href="#app.services.game.get_top_hyped_games"><code class="docutils literal notranslate"><span class="pre">get_top_hyped_games()</span></code></a></li>
 <li><a class="reference internal" href="#app.services.game.search_games_by_name"><code class="docutils literal notranslate"><span class="pre">search_games_by_name()</span></code></a></li>
 </ul>
@@ -749,20 +956,18 @@ salva no banco de dados e retorna os tokens de acesso e refresh.</p>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-app.services.notification">app.services.notification module</a><ul>
-<li><a class="reference internal" href="#app.services.notification.process_price_updates"><code class="docutils literal notranslate"><span class="pre">process_price_updates()</span></code></a></li>
-<li><a class="reference internal" href="#app.services.notification.send_email"><code class="docutils literal notranslate"><span class="pre">send_email()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-app.services.preco">app.services.preco module</a></li>
+<li><a class="reference internal" href="#app-services-notification-module">app.services.notification module</a></li>
 <li><a class="reference internal" href="#module-app.services.rawg">app.services.rawg module</a><ul>
-<li><a class="reference internal" href="#app.services.rawg.rawg_service"><code class="docutils literal notranslate"><span class="pre">rawg_service</span></code></a><ul>
-<li><a class="reference internal" href="#app.services.rawg.rawg_service.seed_games_by_amount"><code class="docutils literal notranslate"><span class="pre">rawg_service.seed_games_by_amount()</span></code></a></li>
+<li><a class="reference internal" href="#app.services.rawg.RawgService"><code class="docutils literal notranslate"><span class="pre">RawgService</span></code></a><ul>
+<li><a class="reference internal" href="#app.services.rawg.RawgService.MARKERS"><code class="docutils literal notranslate"><span class="pre">RawgService.MARKERS</span></code></a></li>
+<li><a class="reference internal" href="#app.services.rawg.RawgService.PAGE_SIZE"><code class="docutils literal notranslate"><span class="pre">RawgService.PAGE_SIZE</span></code></a></li>
+<li><a class="reference internal" href="#app.services.rawg.RawgService.RATE_LIMIT_WAIT"><code class="docutils literal notranslate"><span class="pre">RawgService.RATE_LIMIT_WAIT</span></code></a></li>
+<li><a class="reference internal" href="#app.services.rawg.RawgService.get_description_from_rawg"><code class="docutils literal notranslate"><span class="pre">RawgService.get_description_from_rawg()</span></code></a></li>
+<li><a class="reference internal" href="#app.services.rawg.RawgService.seed_games_by_amount"><code class="docutils literal notranslate"><span class="pre">RawgService.seed_games_by_amount()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-app.services.user">app.services.user module</a></li>
 <li><a class="reference internal" href="#module-app.services">Module contents</a></li>
 </ul>
 </li>

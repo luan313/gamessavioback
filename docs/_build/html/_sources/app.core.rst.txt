@@ -4,13 +4,6 @@ app.core package
 Submodules
 ----------
 
-app.core.auth module
---------------------
-
-.. automodule:: app.core.auth
-   :members:
-   :show-inheritance:
-   :undoc-members:
 
 app.core.config module
 ----------------------

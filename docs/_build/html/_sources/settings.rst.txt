@@ -3,10 +3,6 @@ Settings
 
 Configurações da aplicação definidas via variáveis de ambiente.
 
-.. toctree::
-   :maxdepth: 2
-
-   app.core.config
 
 Variáveis de Ambiente
 ---------------------

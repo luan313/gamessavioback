@@ -210,10 +210,18 @@
 <li class="toctree-l2"><a class="reference internal" href="app.schemas.html">app.schemas package</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="settings.html">Settings</a><input aria-label="Toggle navigation of Settings" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="app.html">app package</a><input aria-label="Toggle navigation of app package" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.core.html">app.core package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.database.html">app.database package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.models.html">app.models package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.routers.html">app.routers package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.schemas.html">app.schemas package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.services.html">app.services package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.utils.html">app.utils package</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 </ul>
 
 </div>
@@ -288,8 +296,12 @@ venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class
 <section id="configuracao-do-ambiente-env">
 <h2>4. Configuração do Ambiente (.env)<a class="headerlink" href="#configuracao-do-ambiente-env" title="Link to this heading">¶</a></h2>
 <p>Crie um arquivo <code class="docutils literal notranslate"><span class="pre">.env</span></code> na raiz do projeto com as seguintes variáveis:</p>
-<div class="highlight-env notranslate"><div class="highlight"><pre><span></span># Banco de Dados
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Banco de Dados
+# Banco de Dados
 DATABASE_URL=postgresql+asyncpg://usuario:senha@localhost:5432/nome_do_banco
+
+# Nota: Certifique-se de criar o banco de dados &#39;nome_do_banco&#39; no PostgreSQL antes de rodar a aplicação.
+
 
 # Segurança
 SECRET_KEY=sua_chave_secreta_super_segura

@@ -12,13 +12,6 @@ app.utils.deps module
    :show-inheritance:
    :undoc-members:
 
-app.utils.price\_fetcher module
--------------------------------
-
-.. automodule:: app.utils.price_fetcher
-   :members:
-   :show-inheritance:
-   :undoc-members:
 
 Module contents
 ---------------

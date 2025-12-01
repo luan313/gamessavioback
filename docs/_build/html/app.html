@@ -260,7 +260,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="app.core.html">app.core package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="app.core.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="app.core.html#module-app.core.auth">app.core.auth module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="app.core.html#module-app.core.config">app.core.config module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="app.core.html#app.core.config.Settings"><code class="docutils literal notranslate"><span class="pre">Settings</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="app.core.html#app.core.config.Settings.ACCESS_TOKEN_EXPIRE_MINUTES"><code class="docutils literal notranslate"><span class="pre">Settings.ACCESS_TOKEN_EXPIRE_MINUTES</span></code></a></li>
@@ -333,6 +332,7 @@
 <li class="toctree-l3"><a class="reference internal" href="app.models.html#app.models.categoria.Categoria"><code class="docutils literal notranslate"><span class="pre">Categoria</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="app.models.html#app.models.categoria.Categoria.games"><code class="docutils literal notranslate"><span class="pre">Categoria.games</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.models.html#app.models.categoria.Categoria.id"><code class="docutils literal notranslate"><span class="pre">Categoria.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.models.html#app.models.categoria.Categoria.imagem"><code class="docutils literal notranslate"><span class="pre">Categoria.imagem</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.models.html#app.models.categoria.Categoria.nome"><code class="docutils literal notranslate"><span class="pre">Categoria.nome</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.models.html#app.models.categoria.Categoria.slug"><code class="docutils literal notranslate"><span class="pre">Categoria.slug</span></code></a></li>
 </ul>
@@ -464,6 +464,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="app.routers.html#module-app.routers.game">app.routers.game module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.routers.html#app.routers.game.get_all_games"><code class="docutils literal notranslate"><span class="pre">get_all_games()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.routers.html#app.routers.game.get_game_by_id"><code class="docutils literal notranslate"><span class="pre">get_game_by_id()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="app.routers.html#app.routers.game.get_hyped_games"><code class="docutils literal notranslate"><span class="pre">get_hyped_games()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="app.routers.html#app.routers.game.search_games_by_name"><code class="docutils literal notranslate"><span class="pre">search_games_by_name()</span></code></a></li>
 </ul>
@@ -524,6 +526,14 @@
 <li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.avaliacao.AvaliacaoCreate.model_config"><code class="docutils literal notranslate"><span class="pre">AvaliacaoCreate.model_config</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="app.schemas.html#app.schemas.avaliacao.AvaliacaoDetailedResponse"><code class="docutils literal notranslate"><span class="pre">AvaliacaoDetailedResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.avaliacao.AvaliacaoDetailedResponse.Config"><code class="docutils literal notranslate"><span class="pre">AvaliacaoDetailedResponse.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.avaliacao.AvaliacaoDetailedResponse.created_at"><code class="docutils literal notranslate"><span class="pre">AvaliacaoDetailedResponse.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.avaliacao.AvaliacaoDetailedResponse.id"><code class="docutils literal notranslate"><span class="pre">AvaliacaoDetailedResponse.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.avaliacao.AvaliacaoDetailedResponse.model_config"><code class="docutils literal notranslate"><span class="pre">AvaliacaoDetailedResponse.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.avaliacao.AvaliacaoDetailedResponse.user"><code class="docutils literal notranslate"><span class="pre">AvaliacaoDetailedResponse.user</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="app.schemas.html#app.schemas.avaliacao.AvaliacaoResponse"><code class="docutils literal notranslate"><span class="pre">AvaliacaoResponse</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.avaliacao.AvaliacaoResponse.Config"><code class="docutils literal notranslate"><span class="pre">AvaliacaoResponse.Config</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.avaliacao.AvaliacaoResponse.created_at"><code class="docutils literal notranslate"><span class="pre">AvaliacaoResponse.created_at</span></code></a></li>
@@ -550,6 +560,7 @@
 <li class="toctree-l3"><a class="reference internal" href="app.schemas.html#app.schemas.categoria.CategoriaComJogos"><code class="docutils literal notranslate"><span class="pre">CategoriaComJogos</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.categoria.CategoriaComJogos.Config"><code class="docutils literal notranslate"><span class="pre">CategoriaComJogos.Config</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.categoria.CategoriaComJogos.id"><code class="docutils literal notranslate"><span class="pre">CategoriaComJogos.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.categoria.CategoriaComJogos.imagem"><code class="docutils literal notranslate"><span class="pre">CategoriaComJogos.imagem</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.categoria.CategoriaComJogos.model_config"><code class="docutils literal notranslate"><span class="pre">CategoriaComJogos.model_config</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.categoria.CategoriaComJogos.nome"><code class="docutils literal notranslate"><span class="pre">CategoriaComJogos.nome</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.categoria.CategoriaComJogos.quantidade_jogos"><code class="docutils literal notranslate"><span class="pre">CategoriaComJogos.quantidade_jogos</span></code></a></li>
@@ -579,8 +590,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameBasic"><code class="docutils literal notranslate"><span class="pre">GameBasic</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameBasic.Config"><code class="docutils literal notranslate"><span class="pre">GameBasic.Config</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameBasic.id"><code class="docutils literal notranslate"><span class="pre">GameBasic.id</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameBasic.imagem_capa"><code class="docutils literal notranslate"><span class="pre">GameBasic.imagem_capa</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameBasic.model_config"><code class="docutils literal notranslate"><span class="pre">GameBasic.model_config</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameBasic.nome"><code class="docutils literal notranslate"><span class="pre">GameBasic.nome</span></code></a></li>
 </ul>
@@ -596,6 +607,19 @@
 <li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameCreate.model_config"><code class="docutils literal notranslate"><span class="pre">GameCreate.model_config</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameCreate.plataformas_ids"><code class="docutils literal notranslate"><span class="pre">GameCreate.plataformas_ids</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameCreate.rawg_id"><code class="docutils literal notranslate"><span class="pre">GameCreate.rawg_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameExpose"><code class="docutils literal notranslate"><span class="pre">GameExpose</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameExpose.Config"><code class="docutils literal notranslate"><span class="pre">GameExpose.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameExpose.categorias"><code class="docutils literal notranslate"><span class="pre">GameExpose.categorias</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameExpose.hype"><code class="docutils literal notranslate"><span class="pre">GameExpose.hype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameExpose.id"><code class="docutils literal notranslate"><span class="pre">GameExpose.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameExpose.imagem_capa"><code class="docutils literal notranslate"><span class="pre">GameExpose.imagem_capa</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameExpose.last_price"><code class="docutils literal notranslate"><span class="pre">GameExpose.last_price</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameExpose.model_config"><code class="docutils literal notranslate"><span class="pre">GameExpose.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameExpose.nome"><code class="docutils literal notranslate"><span class="pre">GameExpose.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameExpose.nota_media"><code class="docutils literal notranslate"><span class="pre">GameExpose.nota_media</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameExpose.updated_at"><code class="docutils literal notranslate"><span class="pre">GameExpose.updated_at</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="app.schemas.html#app.schemas.game.GameForMonitoramento"><code class="docutils literal notranslate"><span class="pre">GameForMonitoramento</span></code></a><ul>
@@ -786,9 +810,13 @@
 <li class="toctree-l2"><a class="reference internal" href="app.services.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="app.services.html#module-app.services.anydeal">app.services.anydeal module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.anydeal.AnyDealService"><code class="docutils literal notranslate"><span class="pre">AnyDealService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.anydeal.AnyDealService.API_SLEEP"><code class="docutils literal notranslate"><span class="pre">AnyDealService.API_SLEEP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.anydeal.AnyDealService.BATCH_LIMIT"><code class="docutils literal notranslate"><span class="pre">AnyDealService.BATCH_LIMIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.anydeal.AnyDealService.COUNTRY"><code class="docutils literal notranslate"><span class="pre">AnyDealService.COUNTRY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.anydeal.AnyDealService.TIMEOUT"><code class="docutils literal notranslate"><span class="pre">AnyDealService.TIMEOUT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.anydeal.AnyDealService.close"><code class="docutils literal notranslate"><span class="pre">AnyDealService.close()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.anydeal.AnyDealService.get_current_price"><code class="docutils literal notranslate"><span class="pre">AnyDealService.get_current_price()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.anydeal.AnyDealService.get_game_id_from_itad"><code class="docutils literal notranslate"><span class="pre">AnyDealService.get_game_id_from_itad()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.anydeal.AnyDealService.get_prices_batch"><code class="docutils literal notranslate"><span class="pre">AnyDealService.get_prices_batch()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.anydeal.AnyDealService.sync_all_games_prices"><code class="docutils literal notranslate"><span class="pre">AnyDealService.sync_all_games_prices()</span></code></a></li>
 </ul>
 </li>
@@ -807,14 +835,14 @@
 <li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.avaliacao.create_avaliacao"><code class="docutils literal notranslate"><span class="pre">create_avaliacao()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.avaliacao.delete_avaliacao"><code class="docutils literal notranslate"><span class="pre">delete_avaliacao()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.avaliacao.get_avaliacao_by_id"><code class="docutils literal notranslate"><span class="pre">get_avaliacao_by_id()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.avaliacao.get_avaliacoes_by_game"><code class="docutils literal notranslate"><span class="pre">get_avaliacoes_by_game()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.avaliacao.get_avaliacoes_by_game_id"><code class="docutils literal notranslate"><span class="pre">get_avaliacoes_by_game_id()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.avaliacao.get_last_five_avaliacoes"><code class="docutils literal notranslate"><span class="pre">get_last_five_avaliacoes()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.avaliacao.update_avaliacao"><code class="docutils literal notranslate"><span class="pre">update_avaliacao()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="app.services.html#module-app.services.backoffice">app.services.backoffice module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.backoffice.BackOfficeService"><code class="docutils literal notranslate"><span class="pre">BackOfficeService</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.backoffice.BackOfficeService.get_all_games"><code class="docutils literal notranslate"><span class="pre">BackOfficeService.get_all_games()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.backoffice.BackOfficeService.get_all_monitored_game_ids"><code class="docutils literal notranslate"><span class="pre">BackOfficeService.get_all_monitored_game_ids()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -828,6 +856,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="app.services.html#module-app.services.game">app.services.game module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.game.get_all_games"><code class="docutils literal notranslate"><span class="pre">get_all_games()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.game.get_game_by_id"><code class="docutils literal notranslate"><span class="pre">get_game_by_id()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.game.get_top_hyped_games"><code class="docutils literal notranslate"><span class="pre">get_top_hyped_games()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.game.search_games_by_name"><code class="docutils literal notranslate"><span class="pre">search_games_by_name()</span></code></a></li>
 </ul>
@@ -843,20 +873,18 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="app.services.html#module-app.services.notification">app.services.notification module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.notification.process_price_updates"><code class="docutils literal notranslate"><span class="pre">process_price_updates()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.notification.send_email"><code class="docutils literal notranslate"><span class="pre">send_email()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="app.services.html#module-app.services.preco">app.services.preco module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.services.html#app-services-notification-module">app.services.notification module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="app.services.html#module-app.services.rawg">app.services.rawg module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.rawg.rawg_service"><code class="docutils literal notranslate"><span class="pre">rawg_service</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.rawg.rawg_service.seed_games_by_amount"><code class="docutils literal notranslate"><span class="pre">rawg_service.seed_games_by_amount()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.rawg.RawgService"><code class="docutils literal notranslate"><span class="pre">RawgService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.rawg.RawgService.MARKERS"><code class="docutils literal notranslate"><span class="pre">RawgService.MARKERS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.rawg.RawgService.PAGE_SIZE"><code class="docutils literal notranslate"><span class="pre">RawgService.PAGE_SIZE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.rawg.RawgService.RATE_LIMIT_WAIT"><code class="docutils literal notranslate"><span class="pre">RawgService.RATE_LIMIT_WAIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.rawg.RawgService.get_description_from_rawg"><code class="docutils literal notranslate"><span class="pre">RawgService.get_description_from_rawg()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.rawg.RawgService.seed_games_by_amount"><code class="docutils literal notranslate"><span class="pre">RawgService.seed_games_by_amount()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="app.services.html#module-app.services.user">app.services.user module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="app.services.html#module-app.services">Module contents</a></li>
 </ul>
 </li>
@@ -866,7 +894,6 @@
 <li class="toctree-l3"><a class="reference internal" href="app.utils.html#app.utils.deps.verify_admin_access"><code class="docutils literal notranslate"><span class="pre">verify_admin_access()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="app.utils.html#module-app.utils.price_fetcher">app.utils.price_fetcher module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="app.utils.html#module-app.utils">Module contents</a></li>
 </ul>
 </li>
@@ -881,6 +908,11 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="app.main.lifespan">
 <span class="sig-prename descclassname"><span class="pre">app.main.</span></span><span class="sig-name descname"><span class="pre">lifespan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/main.html#lifespan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.main.lifespan" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.main.root">
+<span class="sig-prename descclassname"><span class="pre">app.main.</span></span><span class="sig-name descname"><span class="pre">root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/main.html#root"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.main.root" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </section>
@@ -938,6 +970,7 @@
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-app.main">app.main module</a><ul>
 <li><a class="reference internal" href="#app.main.lifespan"><code class="docutils literal notranslate"><span class="pre">lifespan()</span></code></a></li>
+<li><a class="reference internal" href="#app.main.root"><code class="docutils literal notranslate"><span class="pre">root()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-app">Module contents</a></li>

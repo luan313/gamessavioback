@@ -39,10 +39,14 @@ Pré-requisitos
 
 Crie um arquivo ``.env`` na raiz do projeto com as seguintes variáveis:
 
-.. code-block:: env
+.. code-block:: text
 
     # Banco de Dados
+    # Banco de Dados
     DATABASE_URL=postgresql+asyncpg://usuario:senha@localhost:5432/nome_do_banco
+
+    # Nota: Certifique-se de criar o banco de dados 'nome_do_banco' no PostgreSQL antes de rodar a aplicação.
+
 
     # Segurança
     SECRET_KEY=sua_chave_secreta_super_segura
