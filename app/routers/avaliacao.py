@@ -9,6 +9,7 @@ from app.core.security import get_current_user
 from app.schemas.avaliacao import AvaliacaoCreate, AvaliacaoUpdate, AvaliacaoResponse, AvaliacaoBasicResponse, AvaliacaoDetailedResponse
 from app.services import avaliacao as crud_avaliacao
 from fastapi_pagination.ext.sqlalchemy import paginate
+from fastapi_cache.decorator import cache
 
 router = APIRouter(prefix="/avaliacoes")
 
@@ -111,6 +112,7 @@ async def create_new_avaliacao(
         }
     }
 )
+@cache(expire=600)
 async def read_last_five_avaliacoes(db: AsyncSession = Depends(get_db), _ = Depends(RateLimiter(times=60, seconds=60))) -> list[AvaliacaoBasicResponse]:
     return await crud_avaliacao.get_last_five_avaliacoes(db)
 
@@ -154,6 +156,7 @@ async def read_last_five_avaliacoes(db: AsyncSession = Depends(get_db), _ = Depe
         }
     }
 )
+@cache(expire=600)
 async def read_avaliacoes_game(
     game_id: UUID,
     db: AsyncSession = Depends(get_db),
