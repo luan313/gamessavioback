@@ -9,7 +9,7 @@ from app.core.exceptions import NotFoundException
 
 class CategoriaService:
     @staticmethod
-    async def get_categorias_com_quantidade_jogos(db: AsyncSession) -> list[Categoria]:
+    async def get_categorias_com_quantidade_jogos(db: AsyncSession) -> list[dict]:
         """
         Retorna todas as categorias com a quantidade de jogos em cada uma.
         """
@@ -26,8 +26,17 @@ class CategoriaService:
         )
         
         result = await db.execute(query)
-        return result.all()
+        rows = result.all()
 
+        return [
+            {
+                "id": r.id,
+                "nome": r.nome,
+                "imagem": r.imagem,
+                "quantidade_jogos": r.quantidade_jogos,
+            }
+            for r in rows
+        ]
 
     @staticmethod
     async def get_jogos_por_categoria(db: AsyncSession, categoria_id: UUID) -> list[Game]:

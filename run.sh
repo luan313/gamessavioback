@@ -6,6 +6,8 @@ OS="$(uname -s)"
 
 echo "➡ Sistema detectado: $OS"
 
+source venv/bin/activate 2>/dev/null || source venv/Scripts/activate 2>/dev/null
+
 echo "📦 Instalando dependências do requirements.txt..."
 
 if [[ "$OS" == "Linux" || "$OS" == "Darwin" ]]; then
