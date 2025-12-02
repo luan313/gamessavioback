@@ -14,7 +14,7 @@ class EmailNotificationProvider(NotificationProvider):
 
     def _get_html_template(self, user_name: str, game_name: str, current_price: float, target_price: float, deal_url: str, image_url: str | None) -> str:
         """
-        Gera um template HTML para notificação de preço baixado.
+            Gera um template HTML para notificação de preço baixado.
         """
         primary_color = "#7c3aed" 
         bg_color = "#0f172a"
@@ -118,6 +118,18 @@ class EmailNotificationProvider(NotificationProvider):
         """
 
     async def send(self, recipient: str, subject: str, content: str, **kwargs) -> bool:
+        """
+            Envia uma notificação via email.
+            
+            Args:
+                recipient (str): Destinatário da notificação
+                subject (str): Assunto da notificação
+                content (str): Conteúdo da notificação
+                **kwargs: Argumentos adicionais específicos do provedor
+                
+            Returns:
+                bool: True se enviado com sucesso, False caso contrário
+        """
         if not settings.EMAIL_USER or not settings.EMAIL_PASSWORD:
             self.logger.warning("Email credentials not set. Skipping email sending.")
             self.logger.info(f"Would send email to {recipient}: {subject}")
