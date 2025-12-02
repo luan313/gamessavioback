@@ -24,6 +24,11 @@ async def create_avaliacao(db: AsyncSession, avaliacao: AvaliacaoCreate, user_id
         user_id=user_id 
     )
     db.add(db_avaliacao)
+
+    db_game = await get_game_by_id(db, avaliacao.game_id)
+    db_game.nota_media = (db_game.nota_media + avaliacao.nota) / 2
+    db.add(db_game)
+
     await db.commit()
     await db.refresh(db_avaliacao)
     return db_avaliacao
