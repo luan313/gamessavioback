@@ -35,7 +35,7 @@ router = APIRouter(prefix="/users", tags=["Users"])
         }
     }
 )
-async def read_users_me(current_user: User = Depends(get_current_user), _ = Depends(RateLimiter(times=10, seconds=60))) -> UserResponse:
+async def read_users_me(current_user: User = Depends(get_current_user), _ = Depends(RateLimiter(times=30, seconds=60))) -> UserResponse:
     """
         Retorna os dados do perfil do usuário autenticado.
         
