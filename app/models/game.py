@@ -16,7 +16,7 @@ class Game(Base):
     
     
     imagem_capa = Column(String(500))        
-    nota_media = Column(Numeric(3, 2))        
+    nota_media = Column(Numeric(4, 2))        
     metacritic = Column(Integer)              
     data_lancamento = Column(Date)
     

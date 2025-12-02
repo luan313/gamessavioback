@@ -1,9 +1,10 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from sqlalchemy.sql.expression import Select
+from sqlalchemy.sql.expression import Select, func
 from uuid import UUID
 from app.models.avaliacao import Avaliacao 
 from app.schemas.avaliacao import AvaliacaoCreate, AvaliacaoUpdate
+from app.models.game import Game
 from sqlalchemy.orm import selectinload
 from app.core.exceptions import ForbiddenException, NotFoundException
 
@@ -19,14 +20,27 @@ async def create_avaliacao(db: AsyncSession, avaliacao: AvaliacaoCreate, user_id
         Returns:
             Avaliacao: A avaliação criada.
     """
+    result = await db.execute(
+        select(Game).where(Game.id == avaliacao.game_id)
+    )
+    db_game = result.scalar_one_or_none()
+    
+    if not db_game:
+        raise NotFoundException(message="Jogo não encontrado")
+
     db_avaliacao = Avaliacao(
         **avaliacao.model_dump(), 
         user_id=user_id 
     )
     db.add(db_avaliacao)
+    await db.flush()
 
-    db_game = await get_game_by_id(db, avaliacao.game_id)
-    db_game.nota_media = (db_game.nota_media + avaliacao.nota) / 2
+    query_media = select(func.avg(Avaliacao.nota)).where(Avaliacao.game_id == avaliacao.game_id)
+    resultado_media = await db.execute(query_media)
+    nova_media = resultado_media.scalar()
+    
+    db_game.nota_media = float(nova_media) if nova_media is not None else 0.0
+    
     db.add(db_game)
 
     await db.commit()
