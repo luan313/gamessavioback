@@ -6,7 +6,7 @@ sys.path.append(str(Path(__file__).resolve().parent))
 from sqlalchemy import select
 from app.database.session import AsyncSessionLocal, engine
 from app.models.jogos_monitorados import JogosMonitorados
-from app.services.notification import process_price_updates 
+from app.services.notification.service import process_price_updates 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
