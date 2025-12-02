@@ -6,7 +6,7 @@ from app.models.jogos_monitorados import JogosMonitorados
 from app.models.game import Game
 from app.models.user import User
 import logging
-from .email_provider import EmailNotificationProvider
+from app.services.notification.email_provider import EmailNotificationProvider
 
 async def process_price_updates(game_ids: List[UUID], db: AsyncSession, logger = None) -> int:
     """

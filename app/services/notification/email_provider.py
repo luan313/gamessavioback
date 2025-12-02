@@ -2,7 +2,7 @@ import smtplib
 from email.message import EmailMessage
 from app.core.config import settings
 import logging
-from .interfaces import NotificationProvider
+from app.services.notification.interfaces import NotificationProvider
 
 class EmailNotificationProvider(NotificationProvider):
     """
