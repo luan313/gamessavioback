@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     EMAIL_USER: str | None = None
     EMAIL_PASSWORD: str | None = None
     REDIS_URL: str
+    GOOGLE_CLIENT_ID: str
+    GOOGLE_CLIENT_SECRET: str
 
     model_config = SettingsConfigDict(
         env_file=".env",
