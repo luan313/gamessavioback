@@ -60,6 +60,7 @@ add_pagination(app)
 app.add_middleware(
     SessionMiddleware,
     secret_key=settings.SECRET_KEY,
+    ## essas configs devem sair ao subir o codigo para produção
     https_only=False,
     same_site="lax"
 )
