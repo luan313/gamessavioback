@@ -8,7 +8,7 @@ from app.schemas.user import (
     UserCreate,
     UserLogin
 )
-from app.services.auth import AuthService
+from app.services.autentication.Default import AuthService
 from app.database.session import get_db
 
 router = APIRouter(prefix="/auth", tags=["Auth"])

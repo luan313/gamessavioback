@@ -24,5 +24,13 @@ class UserResponse(UserBase):
     class Config:
         from_attributes = True
 
-class UserBasic(BaseModel):
+class UserBasic(UserBase):
+    id: UUID
+    nome: str
+    model_config = {"from_attributes": True}
+
+class UserGoogleCreate(UserBase):
+    google_id: str
+    email: EmailStr
+    avatar_url: str
     nome: str
