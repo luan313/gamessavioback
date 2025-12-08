@@ -60,4 +60,5 @@ def search_games_under_price(price: float) -> Select:
     return (
         select(Game)
         .where(Game.last_price <= price)
+        .where(Game.last_price > 0)
     )
