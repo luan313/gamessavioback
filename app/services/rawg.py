@@ -181,6 +181,7 @@ class RawgService:
             game = Game(
                 nome=game_data.get("name"), 
                 slug=game_data.get("slug"),
+                hype=0,
                 rawg_id=rawg_id,
                 metacritic=game_data.get("metacritic"),
                 imagem_capa=game_data.get("background_image"),
@@ -233,7 +234,7 @@ class RawgService:
                   
         
     @staticmethod                 
-    async def seed_games_by_amount(db: AsyncSession, amount=350) -> dict:
+    async def seed_games_by_amount(db: AsyncSession, amount=4000) -> dict:
         """
             Carrega jogos do RAWG para o banco de dados.
             
