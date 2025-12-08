@@ -183,6 +183,58 @@ async def get_all_games(
         params
     )
     
+
+@router.get(
+    "/under-price",
+    response_model=Page[GameExpose],
+    summary="Buscar jogos abaixo de um preço",
+    description="Retorna uma lista paginada de jogos que estão abaixo de um preço.",
+    responses={
+        200: {
+            "description": "Lista de jogos retornada com sucesso",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "items": [
+                            {
+                                "id": "550e8400-e29b-41d4-a716-446655440000",
+                                "nome": "Elden Ring",
+                                "slug": "elden-ring",
+                                "descricao": "Um RPG de ação em mundo aberto...",
+                                "imagem_capa": "https://media.rawg.io/media/...",
+                                "data_lancamento": "2022-02-25",
+                                "metacritic": 96,
+                                "nota_media": 4.8,
+                                "last_price": 59.99,
+                                "deal_url": "https://isthereanydeal.com/...",
+                                "store_name": "Steam",
+                                "hype": 15000,
+                                "updated_at": "2024-11-24T18:00:00"
+                            }
+                        ],
+                        "total": 100,
+                        "page": 1,
+                        "size": 20
+                    }
+                }
+            }
+        }
+    }
+)
+@cache(expire=3600)
+async def search_games_under_price(
+    price: float = Query(10, description="Preço máximo para busca"),
+    params: Params = Depends(lambda: Params(page=1, size=10)),
+    db: AsyncSession = Depends(get_db),
+    _ = Depends(RateLimiter(times=60, seconds=60))
+) -> Page[GameExpose]:
+    query = game_service.search_games_under_price(price)
+    return await paginate_async(
+        db, 
+        query, 
+        params
+    )
+
 @router.get(
     "/{id}",
     response_model=GameResponse,
@@ -235,5 +287,4 @@ async def get_game_by_id(
         raise NotFoundException(f"Game with ID {id} not found")
         
     return game
-
 

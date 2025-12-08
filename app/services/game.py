@@ -51,3 +51,13 @@ def get_all_games() -> Select:
         Projetado para ser usado com fastapi-pagination.
     """
     return select(Game)
+
+def search_games_under_price(price: float) -> Select:
+    """
+        Retorna uma query SQLAlchemy para buscar jogos abaixo de um preço.
+        Projetado para ser usado com fastapi-pagination.
+    """
+    return (
+        select(Game)
+        .where(Game.last_price <= price)
+    )
