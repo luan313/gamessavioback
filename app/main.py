@@ -10,7 +10,7 @@ from app.routers import (
     categoria,
     webhook,
     user,
-    oauth_login
+    GoogleOauth
 )
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_pagination import add_pagination
@@ -59,7 +59,9 @@ add_pagination(app)
 
 app.add_middleware(
     SessionMiddleware,
-    secret_key=settings.SECRET_KEY
+    secret_key=settings.SECRET_KEY,
+    https_only=False,
+    same_site="lax"
 )
 
 oauth.register(
@@ -89,7 +91,7 @@ app.include_router(game.router, tags=["game"])
 app.include_router(categoria.router, tags=["categoria"])
 app.include_router(webhook.router, tags=["webhook"])
 app.include_router(user.router, tags=["user"])
-app.include_router(oauth_login.router, tags=["oauth"])
+app.include_router(GoogleOauth.router, tags=["oauth"])
 
 
 docs_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "docs", "_build", "html")
