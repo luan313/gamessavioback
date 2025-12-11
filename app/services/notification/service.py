@@ -7,6 +7,7 @@ from app.models.game import Game
 from app.models.user import User
 import logging
 from app.services.notification.email_provider import EmailNotificationProvider
+from app.services.notification.EmailTemplates import email_templates
 
 async def process_price_updates(game_ids: List[UUID], db: AsyncSession, logger = None) -> int:
     """
@@ -44,7 +45,7 @@ async def process_price_updates(game_ids: List[UUID], db: AsyncSession, logger =
             logger.info(f"Enviando notificação para {user.email} - Game: {game.nome}")
             subject = f"🔥 Preço Baixou: {game.nome} por R$ {game.last_price:.2f}!"
             
-            html_content = notification_provider.prepare_content(
+            html_content = email_templates.prepare_content_games_notification(
                 user_name=user.nome,
                 game_name=game.nome,
                 current_price=float(game.last_price),
@@ -63,3 +64,4 @@ async def process_price_updates(game_ids: List[UUID], db: AsyncSession, logger =
                 notifications_sent += 1
             
     return notifications_sent
+
