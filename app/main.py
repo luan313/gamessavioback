@@ -9,7 +9,8 @@ from app.routers import (
     game,
     categoria,
     webhook,
-    user
+    user,
+    GoogleOauth
 )
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_pagination import add_pagination
@@ -23,6 +24,8 @@ from app.core.exceptions import AppException
 from app.core.handlers import app_exception_handler, global_exception_handler
 from fastapi_limiter import FastAPILimiter
 from fastapi_limiter.depends import RateLimiter
+from starlette.middleware.sessions import SessionMiddleware
+from app.core.auth_config import oauth
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -42,16 +45,35 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-app.add_exception_handler(AppException, app_exception_handler)
-app.add_exception_handler(Exception, global_exception_handler)
-
 origins = [
     "http://localhost:3000",        
     "http://127.0.0.1:3000",
     "https://gamessaviofront.vercel.app",
     "http://localhost:5173",        
 ]
+
+app.add_exception_handler(AppException, app_exception_handler)
+app.add_exception_handler(Exception, global_exception_handler)
+
 add_pagination(app)
+
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=settings.SECRET_KEY,
+    ## essas configs devem sair ao subir o codigo para produção
+    https_only=False,
+    same_site="lax"
+)
+
+oauth.register(
+    name='google',
+    client_id=settings.GOOGLE_CLIENT_ID,
+    client_secret=settings.GOOGLE_CLIENT_SECRET,
+    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
+    client_kwargs={
+        'scope': 'openid email profile' 
+    }
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -70,6 +92,7 @@ app.include_router(game.router, tags=["game"])
 app.include_router(categoria.router, tags=["categoria"])
 app.include_router(webhook.router, tags=["webhook"])
 app.include_router(user.router, tags=["user"])
+app.include_router(GoogleOauth.router, tags=["oauth"])
 
 
 docs_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "docs", "_build", "html")

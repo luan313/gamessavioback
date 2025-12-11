@@ -11,6 +11,7 @@ if db_url:
     if "sslmode=require" in db_url:
         db_url = db_url.replace("?sslmode=require", "")
 
+    if "&sslmode=require" in db_url:
         db_url = db_url.replace("&sslmode=require", "")
 
 engine = create_async_engine(
